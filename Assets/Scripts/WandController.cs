@@ -9,11 +9,16 @@ public class WandController : MonoBehaviour
     [SerializeField]
     private Spell chaosSpell = null;
 
-    public void ProcessHarmonySpell(bool process, SpellType spellType)
+    public void ProcessSpell(bool primarySpell, bool secondarySpell)
+	{
+        if (primarySpell)
+            ProcessSpellCast(SpellType.Harmony);
+        else if (secondarySpell)
+            ProcessSpellCast(SpellType.Chaos);
+    }
+
+    public void ProcessSpellCast(SpellType spellType)
     {
-        if (!process)
-            return;
-        
         if(spellType == SpellType.Harmony)
         {
             // Do something
