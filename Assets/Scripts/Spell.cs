@@ -37,7 +37,7 @@ public class Spell : MonoBehaviour
     [SerializeField]
     private float resourceCost = 10f;
     [SerializeField]
-    private float numberOfBounces = 0f;
+    private int numberOfBounces = 0;
     [SerializeField]
     private float range = 10f;
     [SerializeField]
@@ -51,7 +51,7 @@ public class Spell : MonoBehaviour
     public float SpellSpeed { get => spellSpeed; set => spellSpeed = value; }
     public float Damage { get => damage; set => damage = value; }
     public float ResourceCost { get => resourceCost; set => resourceCost = value; }
-    public float NumberOfBounces { get => numberOfBounces; set => numberOfBounces = value; }
+    public int NumberOfBounces { get => numberOfBounces; set => numberOfBounces = value; }
     public float Range { get => range; set => range = value; }
     public float BulletSize { get => bulletSize; set => bulletSize = value; }
 
@@ -95,7 +95,7 @@ public class Spell : MonoBehaviour
                 direction.Normalize();
 
                 var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
-                bulletShot.Initialize(characterStats, damage, MissileHitCharacter, MissileHitAnything);
+                bulletShot.Initialize(characterStats, damage, 1, MissileHitCharacter, MissileHitAnything);
                 bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
 
             }
