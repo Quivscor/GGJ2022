@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 public class HudController : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField]
     private Image resourceBar;
-
     [SerializeField]
     private Image healthBar;
 

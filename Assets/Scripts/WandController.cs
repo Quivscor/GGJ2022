@@ -2,13 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class WandController : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField]
     private Spell harmonySpell = null;
     [SerializeField]
     private Spell chaosSpell = null;
 
+    private void Update()
+    {
+        // TEST
+        if(Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            ProcessSpell(true, false);
+        }
+    }
     public void ProcessSpell(bool primarySpell, bool secondarySpell)
 	{
         if (primarySpell)
@@ -20,14 +30,13 @@ public class WandController : MonoBehaviour
     public void ProcessSpellCast(SpellType spellType)
     {
         if(spellType == SpellType.Harmony)
-        {
-            // Do something
+        {   
+            harmonySpell.CastSpell();
         }
 
         if (spellType == SpellType.Chaos)
         {
-
-            // Do something
+            chaosSpell.CastSpell();
         }
 
     }

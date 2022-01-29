@@ -9,12 +9,19 @@ public class ResourceChanged : UnityEvent <float> { }
 
 public class CharacterStats : MonoBehaviour
 {
+    [Header("Debug options")]
+    [SerializeField]
+    private bool infiniteResources = false;
+
+    [Header("Stats")]
     [SerializeField]
     private float health;
     [SerializeField]
     private float maxHealth = 100;
     [SerializeField]
     private float maxResource = 100;
+
+    [Header("Event actions")]
     [SerializeField]
     private ResourceChanged resourceChanged;
     private ResourceChanged healthChanged;
@@ -73,13 +80,16 @@ public class CharacterStats : MonoBehaviour
 
     public void SpendResource(float value, SpellType spellType)
     {
-        if (spellType == SpellType.Harmony)
+        if(!infiniteResources)
         {
-            primaryResource -= value;
-        }
-        else
-        {
-            primaryResource += value;
+            if (spellType == SpellType.Harmony)
+            {
+                primaryResource -= value;
+            }
+            else
+            {
+                primaryResource += value;
+            }
         }
 
         resourceChanged?.Invoke(primaryResource / maxResource);

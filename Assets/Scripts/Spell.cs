@@ -2,8 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterStats))]
 public class Spell : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField]
+    private GameObject bullet;
+
+    [Header("Stats")]
+    [SerializeField]
+    private SpellType spellType;
     [SerializeField]
     private int numberOfBullets = 1;
     [SerializeField]
@@ -23,6 +31,8 @@ public class Spell : MonoBehaviour
     [SerializeField]
     private float bulletSize = 1f;
 
+    private CharacterStats characterStats;
+
     public int NumberOfBullets { get => numberOfBullets; set => numberOfBullets = value; }
     public float Accuracy { get => accuracy; set => accuracy = value; }
     public float FireRate { get => fireRate; set => fireRate = value; }
@@ -33,8 +43,20 @@ public class Spell : MonoBehaviour
     public float Range { get => range; set => range = value; }
     public float BulletSize { get => bulletSize; set => bulletSize = value; }
 
+    private void Awake()
+    {
+        characterStats = GetComponent<CharacterStats>();
+    }
+
     public void CastSpell()
     {
-        // Spawn bullet
+        if (characterStats.HaveEnoughResource(ResourceCost, spellType))
+        {
+            characterStats.SpendResource(ResourceCost, spellType);
+
+            var bulletShot = Instantiate(bullet, this.transform);
+            bulletShot.GetComponent<Rigidbody>().velocity = new Vector3(1 * spellSpeed, 0f, 1 * spellSpeed);
+        }
+
     }
 }
