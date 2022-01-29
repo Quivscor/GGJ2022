@@ -49,7 +49,10 @@ public class TargetingAI : MonoBehaviour
     {
         Target target = enemyTargets.Find((x) => x.transform == t);
         if (target == null)
+        {
             target = new Target(t, initThreatValue);
+            AddEnemy(target);
+        }
         return target;
     }
 
@@ -95,7 +98,11 @@ public class TargetingAI : MonoBehaviour
 
     private void AddEnemy(Target enemy)
     {
-        movement.enemyTargets.Add(enemy.transform);
+        if(!enemyTargets.Contains(enemy))
+            enemyTargets.Add(enemy);
+
+        if(!movement.enemyTargets.Contains(enemy.transform))
+            movement.enemyTargets.Add(enemy.transform);
     }
 }
 
