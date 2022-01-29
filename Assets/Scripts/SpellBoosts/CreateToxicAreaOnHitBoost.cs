@@ -17,7 +17,11 @@ public class CreateToxicAreaOnHitBoost : SpellBoost
 
 	public override void ProcessSpellBoost(Spell spell)
 	{
+		costModifier = 0.1f;
+		spellType = SpellType.Chaos;
+
 		spell.MissileHitAnything += CreateToxicAreaInRange;
+		spell.ChangeCostModifier(costModifier);
 	}
 
 	private void CreateToxicAreaInRange(Transform missilePosition, CharacterStats owner)

@@ -6,5 +6,6 @@ using UnityEngine;
 public enum SpellType
 {
     Harmony,
-    Chaos
+    Chaos,
+    Any
 }

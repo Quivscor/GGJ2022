@@ -34,6 +34,8 @@ public class Spell : MonoBehaviour
     [SerializeField]
     private float resourceCost = 10f;
     [SerializeField]
+    private float costModifier = 1f;
+    [SerializeField]
     private int numberOfBounces = 0;
     [SerializeField]
     private float range = 10f;
@@ -76,9 +78,9 @@ public class Spell : MonoBehaviour
         if (isOnCooldown)
             return;
 
-        if (characterStats.HaveEnoughResource(ResourceCost, spellType))
+        if (characterStats.HaveEnoughResource(ResourceCost * costModifier, spellType))
         {
-            characterStats.SpendResource(ResourceCost, spellType);
+            characterStats.SpendResource(ResourceCost * costModifier, spellType);
 
             for (int i = 0; i < numberOfBullets; i++)
             {
@@ -118,5 +120,15 @@ public class Spell : MonoBehaviour
         isOnCooldown = true;
         yield return new WaitForSeconds(currentFireRate);
         isOnCooldown = false;
+    }
+
+    public void ChangeCostModifier(float value)
+    {
+        costModifier += value;
+
+        if (costModifier < 0.25)
+        {
+            costModifier = 0.25f;
+        }
     }
 }
