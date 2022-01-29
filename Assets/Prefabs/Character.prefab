@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1614273485
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1614273486}
+  m_Layer: 0
+  m_Name: MissilesSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1614273486
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614273485}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.506, z: 0.426}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5814778225220602634}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &117952706037436080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,6 +1542,7 @@ GameObject:
   - component: {fileID: 6284918973859766864}
   - component: {fileID: 6284918973859766865}
   - component: {fileID: 6284918973859766866}
+  - component: {fileID: 2218230062144567392}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -1533,6 +1565,7 @@ Transform:
   - {fileID: 6089103870707020516}
   - {fileID: 8449282036723894309}
   - {fileID: 2081348231261662110}
+  - {fileID: 1614273486}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1613,7 +1646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614a92126eae5ef42b650a867f90c32f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
+  movementSpeed: 5
 --- !u!114 &6284918973859766879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1639,11 +1672,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a5746f8e81c5914381bd7e68a46544a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 3855462858374811988, guid: 7441c3af128305d4f9d18104e1dc5f83, type: 3}
+  bullet: {fileID: 1881288736024043230, guid: 7441c3af128305d4f9d18104e1dc5f83, type: 3}
   spellType: 0
   numberOfBullets: 1
   accuracy: 100
-  fireRate: 1
+  fireRate: 5
   spellSpeed: 10
   damage: 10
   resourceCost: 10
@@ -1682,7 +1715,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   harmonySpell: {fileID: 6284918973859766864}
-  chaosSpell: {fileID: 0}
+  chaosSpell: {fileID: 2218230062144567392}
+  missilesSpawnPoint: {fileID: 1614273486}
+--- !u!114 &2218230062144567392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6627589256573555120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5746f8e81c5914381bd7e68a46544a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 1881288736024043230, guid: 7441c3af128305d4f9d18104e1dc5f83, type: 3}
+  spellType: 1
+  numberOfBullets: 1
+  accuracy: 100
+  fireRate: 1
+  spellSpeed: 10
+  damage: 10
+  resourceCost: 10
+  numberOfBounces: 0
+  range: 10
+  bulletSize: 1
 --- !u!1 &6925990424605939709
 GameObject:
   m_ObjectHideFlags: 0
