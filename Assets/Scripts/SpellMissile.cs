@@ -1,16 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellMissile : MonoBehaviour
 {
-	private GameObject parent = null;
+	private CharacterStats parent = null;
 	private float damageToApply = 0.0f;
 
-	public void Initialize(GameObject parent, float damageToApply)
+	public event Action<CharacterStats, CharacterStats, float> HitCharacter = null;
+
+	public void Initialize(CharacterStats parent, float damageToApply, Action<CharacterStats, CharacterStats, float> missileHitCharacter)
 	{
 		this.parent = parent;
 		this.damageToApply = damageToApply;
+		HitCharacter = missileHitCharacter;
 	}
 
 	public Transform GetParentTransform()
@@ -20,14 +24,16 @@ public class SpellMissile : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.transform.root.gameObject == parent)
-			return;
 		if (other.transform.root.CompareTag("Bullet"))
 			return; 
 
-		if (other.transform.root.TryGetComponent(out CharacterStats characterStats))
+		if (other.transform.root.TryGetComponent(out CharacterStats targetCharacterStats))
 		{
-			characterStats.DealDamge(damageToApply);
+			if (targetCharacterStats == parent)
+				return;
+
+			targetCharacterStats.DealDamge(damageToApply);
+			HitCharacter?.Invoke(parent, targetCharacterStats, damageToApply);
 		}
 
 		Destroy(this.gameObject);

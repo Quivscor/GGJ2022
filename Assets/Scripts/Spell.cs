@@ -23,6 +23,9 @@ public class Spell : MonoBehaviour
     internal void Initialize(Transform missilesSpawnPoint)
 	{
         this.missilesSpawnPoint = missilesSpawnPoint;
+
+        HealOnHitEnemyBoost healOnHitEnemyBoost = new HealOnHitEnemyBoost();
+        healOnHitEnemyBoost.ProcessSpellBoost(this);
     }
 
 	[SerializeField]
@@ -57,7 +60,10 @@ public class Spell : MonoBehaviour
 
     private bool isOnCooldown = false;
     private float angleBetweenShots = 8f;
-	private void Awake()
+
+    public event Action<CharacterStats, CharacterStats, float> MissileHitCharacter = null;
+
+    private void Awake()
     {
         characterStats = GetComponent<CharacterStats>();
 
@@ -88,7 +94,7 @@ public class Spell : MonoBehaviour
                 direction.Normalize();
 
                 var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
-                bulletShot.Initialize(this.gameObject, damage);
+                bulletShot.Initialize(characterStats, damage, MissileHitCharacter);
                 bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
 
             }
