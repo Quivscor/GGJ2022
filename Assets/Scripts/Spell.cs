@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class Spell : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
-    private GameObject bullet;
+    private SpellMissile bullet;
 
     [Header("Stats")]
     [SerializeField]
@@ -16,7 +17,15 @@ public class Spell : MonoBehaviour
     private int numberOfBullets = 1;
     [SerializeField]
     private float accuracy = 100f; // 0 to 100 %?
-    [SerializeField]
+
+    private Transform missilesSpawnPoint = null;
+
+    internal void Initialize(Transform missilesSpawnPoint)
+	{
+        this.missilesSpawnPoint = missilesSpawnPoint;
+    }
+
+	[SerializeField]
     private float fireRate = 1f; // How many attacks per 1 second
     [SerializeField]
     private float spellSpeed = 10f; // Abstract number, to adjust
@@ -43,20 +52,41 @@ public class Spell : MonoBehaviour
     public float Range { get => range; set => range = value; }
     public float BulletSize { get => bulletSize; set => bulletSize = value; }
 
-    private void Awake()
+    private float currentFireRate = 0.0f;
+
+    private bool isOnCooldown = false;
+
+	private void Awake()
     {
         characterStats = GetComponent<CharacterStats>();
+
+        currentFireRate = 1.0f / fireRate;
     }
 
     public void CastSpell()
     {
+        if (isOnCooldown)
+            return;
+
         if (characterStats.HaveEnoughResource(ResourceCost, spellType))
         {
             characterStats.SpendResource(ResourceCost, spellType);
 
-            var bulletShot = Instantiate(bullet, this.transform);
-            bulletShot.GetComponent<Rigidbody>().velocity = new Vector3(1 * spellSpeed, 0f, 1 * spellSpeed);
+            Vector3 direction = this.transform.forward;
+
+            var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
+            bulletShot.Initialize(this.gameObject);
+            bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
+
+            StartCoroutine(EnableCooldown());
         }
+    }
+
+    private IEnumerator EnableCooldown()
+	{
+        isOnCooldown = true;
+        yield return new WaitForSeconds(currentFireRate);
+        isOnCooldown = false;
 
     }
 }

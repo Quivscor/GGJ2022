@@ -51,8 +51,6 @@ public class CharacterMovement : MonoBehaviour
 		if (quarterIndex * 90 + 45 < this.transform.rotation.eulerAngles.y)
 			quarterIndex++;
 
-		Debug.Log(horizontal + " " + vertical);
-
 		quarterIndex = quarterIndex % 4;
 
 		if (quarterIndex == 0 || quarterIndex == 2)

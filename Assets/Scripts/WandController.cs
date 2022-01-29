@@ -10,8 +10,16 @@ public class WandController : MonoBehaviour
     private Spell harmonySpell = null;
     [SerializeField]
     private Spell chaosSpell = null;
+    [Space(10)]
+    [SerializeField] private Transform missilesSpawnPoint = null;
 
-    public void ProcessSpell(bool primarySpell, bool secondarySpell)
+	private void Awake()
+	{
+        harmonySpell.Initialize(missilesSpawnPoint);
+        chaosSpell.Initialize(missilesSpawnPoint);
+    }
+
+	public void ProcessSpell(bool primarySpell, bool secondarySpell)
 	{
         if (primarySpell)
             ProcessSpellCast(SpellType.Harmony);
