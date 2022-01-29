@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class CreateToxicAreaOnHitBoost : SpellBoost
 {
-	private float toxicAreaLifetime = 0.5f;
-	private float chanceToSlowEnemyPerHit = 0.20f; //20%
+	private float toxicAreaLifetime = 5f;
+	private float chanceToSlowEnemyPerHit = 0.05f; //5%
 
 	private ToxicArea toxicAreaPrefab = null;
 

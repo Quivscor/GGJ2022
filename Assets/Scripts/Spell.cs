@@ -70,7 +70,7 @@ public class Spell : MonoBehaviour
         currentFireRate = 1.0f / fireRate;
         currentRecoil = recoil;
 
-        HealOnHitEnemyBoost a = new HealOnHitEnemyBoost();
+        CreateToxicAreaOnHitBoost a = new CreateToxicAreaOnHitBoost();
         a.ProcessSpellBoost(this);
     }
 
@@ -97,7 +97,7 @@ public class Spell : MonoBehaviour
                 direction.Normalize();
 
                 var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
-                bulletShot.Initialize(characterStats, damage, 1, MissileHitCharacter, MissileHitAnything);
+                bulletShot.Initialize(characterStats, damage, numberOfBounces, MissileHitCharacter, MissileHitAnything);
                 bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
 
             }

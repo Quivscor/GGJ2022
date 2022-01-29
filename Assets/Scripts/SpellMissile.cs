@@ -40,20 +40,21 @@ public class SpellMissile : MonoBehaviour
     {
         if (collision.transform.root.CompareTag("Bullet"))
         {
+			HitAnything?.Invoke(this.transform, parent);
 			CreateHitImpact();
 			Destroy(collision.transform.root.gameObject);
 			Destroy(this.gameObject);
         }
 
+		HitAnything?.Invoke(this.transform, parent);
 
-        if (collision.transform.root.TryGetComponent(out CharacterStats targetCharacterStats))
+		if (collision.transform.root.TryGetComponent(out CharacterStats targetCharacterStats))
         {
             if (targetCharacterStats == parent)
                 return;
 
             targetCharacterStats.DealDamge(damageToApply);
             HitCharacter?.Invoke(parent, targetCharacterStats, damageToApply);
-            HitAnything?.Invoke(this.transform, parent);
 
 			if (collision.transform.root.TryGetComponent(out TargetingAI targeting))
             {
