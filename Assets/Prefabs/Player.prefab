@@ -161,9 +161,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
-  dashSpeed: 10
+  dashSpeed: 30
   dashCooldown: 2
-  dashDuration: 0.5
+  dashDuration: 0.1
   animator: {fileID: 5270645498693263950}
   character: {fileID: 2289294205679466548}
   slowEffectTime: 2
@@ -222,6 +222,21 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: ResourceView, Assembly-CSharp
         m_MethodName: UpdateResourceView
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  healthChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 621315109}
+        m_TargetAssemblyTypeName: CameraShake, Assembly-CSharp
+        m_MethodName: StartShake
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -404,6 +419,7 @@ GameObject:
   - component: {fileID: 8577436307614975812}
   - component: {fileID: 4141540123842980706}
   - component: {fileID: 9142432282781376199}
+  - component: {fileID: 621315109}
   m_Layer: 0
   m_Name: Main Camera (1)
   m_TagString: MainCamera
@@ -478,6 +494,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2209082008128581817}
   m_Enabled: 1
+--- !u!114 &621315109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2209082008128581817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e21ed451c6919f4e9b7814100b28105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakePower: 0.4
+  shakeDuration: 0.15
 --- !u!1 &2351575108436236228
 GameObject:
   m_ObjectHideFlags: 0
