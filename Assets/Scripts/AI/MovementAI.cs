@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class MovementAI : MonoBehaviour
 {
@@ -9,27 +11,40 @@ public class MovementAI : MonoBehaviour
     public Transform activeTarget;
 
     [SerializeField, Range(0, 5f)] float enemyBias;
+    [SerializeField] float prefEnemyDistance;
     [SerializeField, Range(0, 5f)] float targetBias;
 
     public List<Transform> allyTargets;
 
     [SerializeField, Range(0, 5f)] float allyBias;
 
-    public Vector3 moveDir;
+    public Vector3 MoveDir { get; private set; }
+
     [SerializeField, Range(0,5f)] float oldMoveBias;
 
+    [SerializeField] Vector2 biasRange;
+
     private NavMeshAgent agent;
+    private CharacterMovement charMovement;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        charMovement = GetComponent<CharacterMovement>();
+    }
+
+    private void Update()
+    {
+        MoveDir = GetMoveDir();
+
+        charMovement.ProcessMovement(MoveDir.z, MoveDir.x);
     }
 
     public Vector3 GetMoveDir()
     {
         Vector3 result = Vector3.zero;
         //init with some randomness
-        result = Random.insideUnitCircle;
+        //result = Random.insideUnitCircle;
         //serialize movement weights
         Vector3[] weightVectors = GetSteeringBehaviorWeights();
         float[] weights = new float[8];
@@ -43,18 +58,46 @@ public class MovementAI : MonoBehaviour
         //keep old move direction rule
         GetOldMoveRuleMovement(weightVectors, ref weights);
 
-        return moveDir = result;
+        for(int i = 0; i < weights.Length; i++)
+        {
+            if(Mathf.Abs(weights[i]) > biasRange.x && Mathf.Abs(weights[i]) < biasRange.y)
+            {
+                result += weightVectors[i] * weights[i];
+            }
+
+            try
+            {
+                Gizmos.color = Color.magenta;
+                Gizmos.DrawRay(this.transform.position, weightVectors[i] * weights[i]);
+            }
+            //i only use this so i can use this function in OnDrawGizmos
+            catch(Exception e) {}
+        }
+
+        Debug.Log(result.normalized);
+        return result.normalized;
     }
 
     private void GetOpponentsRuleMovement(Vector3[] vectors, ref float[] weights)
     {
         foreach(Transform t in enemyTargets)
         {
-            Vector3 unitDistance = Vector3.Normalize(t.position - this.transform.position);
-            for(int i = 0; i < weights.Length; i++)
+            //vector towards target
+            Vector3 unitDistance = t.position - this.transform.position;
+            for (int i = 0; i < weights.Length; i++)
             {
-                weights[i] = Vector2.Dot(VectorCast.CastVector3ToVector2(vectors[i]),
-                    VectorCast.CastVector3ToVector2(unitDistance)) * enemyBias;
+                float weightDelta = Vector2.Dot(VectorCast.CastVector3ToVector2(vectors[i]),
+                        VectorCast.CastVector3ToVector2(unitDistance)) * enemyBias;
+                //if enemy too far from target, walk up to it
+                if (unitDistance.magnitude > prefEnemyDistance)
+                {
+                    weights[i] += weightDelta;
+                }
+                //if not, move away from them
+                else
+                {
+                    weights[i] -= weightDelta;
+                }
             }
         }
     }
@@ -77,9 +120,10 @@ public class MovementAI : MonoBehaviour
 
         foreach(RaycastHit hit in hits)
         {
-            Vector3 unitDistance = Vector3.Normalize(hit.point - this.transform.position);
+            Vector3 unitDistance = Vector3.Normalize(this.transform.position - hit.point);
             for (int i = 0; i < weights.Length; i++)
             {
+                //wants to move away from walls
                 weights[i] += Vector2.Dot(VectorCast.CastVector3ToVector2(vectors[i]),
                     VectorCast.CastVector3ToVector2(unitDistance)) * wallBias;
             }
@@ -111,7 +155,7 @@ public class MovementAI : MonoBehaviour
         for(int i = 0; i < weights.Length; i++)
         {
             weights[i] += Vector2.Dot(VectorCast.CastVector3ToVector2(vectors[i]),
-                    VectorCast.CastVector3ToVector2(moveDir)) * oldMoveBias;
+                    VectorCast.CastVector3ToVector2(MoveDir.normalized)) * oldMoveBias;
         }
     }
 
@@ -122,5 +166,23 @@ public class MovementAI : MonoBehaviour
             Vector3.back, Vector3.RotateTowards(Vector3.back, Vector3.left, 45.0f * Mathf.Deg2Rad, 0),
             Vector3.left, Vector3.RotateTowards(Vector3.left, Vector3.forward, 45.0f * Mathf.Deg2Rad, 0)};
         return weightVectors;
+    }
+
+    [SerializeField] bool debugDrawRange = true;
+    private void OnDrawGizmos()
+    {
+        GetMoveDir();
+
+        if(debugDrawRange)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(this.transform.position, prefEnemyDistance);
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(this.transform.position, wallRaycastDistance);
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(this.transform.position, bulletDetectionRange);
+        }
     }
 }
