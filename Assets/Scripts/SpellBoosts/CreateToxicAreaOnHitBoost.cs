@@ -22,8 +22,6 @@ public class CreateToxicAreaOnHitBoost : SpellBoost
 
 	private void CreateToxicAreaInRange(Transform missilePosition, CharacterStats owner)
 	{
-		Debug.Log("Opie");
-
 		if (UnityEngine.Random.Range(0.0f, 1.0f) < chanceToSlowEnemyPerHit)
 		{
 			if (toxicAreaPrefab == null)
@@ -31,8 +29,6 @@ public class CreateToxicAreaOnHitBoost : SpellBoost
 				Debug.LogError("Toxic area prefab reference is null!");
 				return;
 			}
-
-			Debug.Log("Przecie¿ wbi³em");
 
 			Vector3 spawnPosition = missilePosition.position;
 			spawnPosition.y = 0.0f;
