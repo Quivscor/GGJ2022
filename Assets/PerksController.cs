@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PerksController : MonoBehaviour
 {
+    public List<SpellBoost> spellBoosts = new List<SpellBoost>();
     SlowOnHitEnemyBoost slowOnHit = new SlowOnHitEnemyBoost();
     CreateToxicAreaOnHitBoost toxicArea = new CreateToxicAreaOnHitBoost();
     NumberOfBulletsBoost numberOfBulletsBoost = new NumberOfBulletsBoost();
@@ -21,7 +22,15 @@ public class PerksController : MonoBehaviour
             return instance;
         }
     }
-    
+
+    private void Awake()
+    {
+        spellBoosts.Add(slowOnHit);
+        spellBoosts.Add(toxicArea);
+        spellBoosts.Add(numberOfBulletsBoost);
+        spellBoosts.Add(fireRateBoost);
+        spellBoosts.Add(lowerResourceModifierBoost);
+    }
     public void AddBoostToxicArea(Spell spell)
     {
         toxicArea.ProcessSpellBoost(spell);

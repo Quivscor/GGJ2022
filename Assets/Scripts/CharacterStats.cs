@@ -14,7 +14,7 @@ public class CharacterStats : MonoBehaviour
     [SerializeField]
     private bool infiniteResources = false;
 
-    [Header("Stats")]
+    [Header("References")]
     [SerializeField]
     private Image healthBarFill;
 
@@ -25,6 +25,10 @@ public class CharacterStats : MonoBehaviour
     private float maxHealth = 100;
     [SerializeField]
     private float maxResource = 100;
+    [SerializeField]
+    private int harmonyLevel = 0;
+    [SerializeField]
+    private int chaosLevel = 0;
 
     [Header("Event actions")]
     [SerializeField]
@@ -107,5 +111,13 @@ public class CharacterStats : MonoBehaviour
         }
 
         resourceChanged?.Invoke(primaryResource / maxResource);
+    }
+
+    public void AddLevel(SpellType spellType)
+    {
+        if (spellType == SpellType.Harmony)
+            harmonyLevel++;
+        else
+            chaosLevel++;
     }
 }
