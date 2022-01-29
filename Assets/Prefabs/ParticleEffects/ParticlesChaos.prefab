@@ -14502,7 +14502,7 @@ GameObject:
   - component: {fileID: 7108686386617747579}
   - component: {fileID: 4189484866685479796}
   m_Layer: 0
-  m_Name: HarmonyParticlesChaos
+  m_Name: ParticlesChaos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
