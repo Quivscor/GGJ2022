@@ -31,6 +31,7 @@ public class CharacterStats : MonoBehaviour
     private ResourceChanged resourceChanged;
     private ResourceChanged healthChanged;
     public Action<CharacterStats> died;
+    public bool isDead { get; private set; }
 
     private float primaryResource;
     public float Health { get => health;}
@@ -41,6 +42,7 @@ public class CharacterStats : MonoBehaviour
         Heal(MaxHealth);
         primaryResource = maxResource / 2f;
         resourceChanged?.Invoke(primaryResource / maxResource);
+        isDead = false;
     }
 
     public void Heal(float value)
@@ -57,10 +59,11 @@ public class CharacterStats : MonoBehaviour
     public void DealDamge(float value)
     {
         health -= value;
-        if (health <= 0)
+        if (health <= 0 && !isDead)
         {
             Debug.LogError(this.name + " DIED");
             died?.Invoke(this);
+            isDead = true;
         }
             
         if (healthBarFill != null)

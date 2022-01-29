@@ -11,6 +11,7 @@ public class TargetingAI : MonoBehaviour
     private CombatAI combat;
 
     private CharacterHolder characterHolder;
+    private CharacterStats stats;
 
     [SerializeField] float aiUpdateFrequency;
     float aiCurrentTime;
@@ -31,11 +32,12 @@ public class TargetingAI : MonoBehaviour
         combat = GetComponent<CombatAI>();
 
         characterHolder = FindObjectOfType<CharacterHolder>();
+        stats = GetComponent<CharacterStats>();
     }
 
     private void Update()
     {
-        if (MatchController.Instance.State != MatchState.ACTIVE)
+        if (MatchController.Instance.State != MatchState.ACTIVE || stats.isDead)
             return;
 
         if (aiCurrentTime <= 0)

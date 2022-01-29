@@ -2727,7 +2727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aiUpdateFrequency: 0.2
   areaScanFrequency: 0
-  threatDecayOverTime: 0.5
+  threatDecayOverTime: 1.5
   threatIncreasePerDmg: 10
   initThreatValue: 100
   areaScanRadius: 15

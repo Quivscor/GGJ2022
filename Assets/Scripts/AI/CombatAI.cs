@@ -28,7 +28,7 @@ public class CombatAI : MonoBehaviour
 
     private void Update()
     {
-        if (MatchController.Instance.State != MatchState.ACTIVE)
+        if (MatchController.Instance.State != MatchState.ACTIVE || stats.isDead)
             return;
 
         if (activeTarget == null)

@@ -6,6 +6,12 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
 	[SerializeField] private float movementSpeed = 2.0f;
+	[SerializeField] private float dashSpeed = 10f;
+	[SerializeField] private float dashCooldown = 2f;
+	[SerializeField] private float dashDuration = .5f;
+	private float dashCooldownCurrentTime = 0;
+	private float dashDurationCurrentTime = 0;
+	private bool isDashing = false;
 	
 	[Header("References:")]
 	[SerializeField] private Animator animator = null;
@@ -31,8 +37,22 @@ public class CharacterMovement : MonoBehaviour
 		rigidbody = GetComponent<Rigidbody>();
 	}
 
-	public void ProcessMovement(float vertical, float horizontal)
+    private void Update()
+    {
+		if(dashCooldownCurrentTime > 0)
+			dashCooldownCurrentTime -= Time.deltaTime;
+		if (dashDurationCurrentTime > 0)
+			dashDurationCurrentTime -= Time.deltaTime;
+		else if (isDashing)
+			isDashing = false;
+
+			
+    }
+
+    public void ProcessMovement(float vertical, float horizontal)
 	{
+		if (isDashing)
+			return;
 		Vector3 velocityToApply = new Vector3(horizontal, 0, vertical).normalized * movementSpeed;
 
 		if (isSlowed)
@@ -40,6 +60,24 @@ public class CharacterMovement : MonoBehaviour
 
 		rigidbody.velocity = velocityToApply;
 
+		ProcessAnimator(vertical, horizontal);
+	}
+
+	public void ProcessDash(float vertical, float horizontal)
+    {
+		if (dashCooldownCurrentTime > 0)
+			return;
+
+		isDashing = true;
+		dashDurationCurrentTime = dashDuration;
+
+		Vector3 velocityToApply = new Vector3(horizontal, 0, vertical).normalized * dashSpeed;
+
+		if (isSlowed)
+			velocityToApply *= slowedMovementSpeedFactor;
+
+		rigidbody.velocity = velocityToApply;
+		dashCooldownCurrentTime = dashCooldown;
 		ProcessAnimator(vertical, horizontal);
 	}
 

@@ -32,13 +32,13 @@ public class MovementAI : MonoBehaviour
 
     [SerializeField] Vector2 biasRange;
 
-    private NavMeshAgent agent;
+    private CharacterStats stats;
     private CharacterMovement charMovement;
     private float colliderRadius;
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        stats = GetComponent<CharacterStats>();
         charMovement = GetComponent<CharacterMovement>();
         colliderRadius = GetComponent<CapsuleCollider>().radius + 0.01f;
     }
@@ -48,7 +48,7 @@ public class MovementAI : MonoBehaviour
 
     private void Update()
     {
-        if (MatchController.Instance.State != MatchState.ACTIVE)
+        if (MatchController.Instance.State != MatchState.ACTIVE || stats.isDead)
             return;
 
         if (updateTimer <= 0)
