@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[System.Serializable] public class MatchStarted : UnityEvent { }
-[System.Serializable] public class MatchFinished : UnityEvent { }
+[System.Serializable] public class MatchStateChanged : UnityEvent { }
 
 public class MatchController : MonoBehaviour
 {
     public static MatchController Instance;
     private CharacterHolder combatantsHolder;
+
+    public MatchStateChanged onMatchPrestarted;
+    public MatchStateChanged onMatchStarted;
+    public MatchStateChanged onMatchFinished;
+
     public MatchState State { get; private set; }
+    [SerializeField] MatchState initialStartState = MatchState.DEFAULT;
 
     private void Awake()
     {
@@ -19,7 +24,33 @@ public class MatchController : MonoBehaviour
         else
             Destroy(this.gameObject);
 
-        State = MatchState.DEFAULT;
+        State = initialStartState;
+    }
+
+    public void ChangeMatchState(MatchState state)
+    {
+        State = state;
+
+        switch(State)
+        {
+            case MatchState.PRESTART:
+                onMatchPrestarted?.Invoke();
+                break;
+            case MatchState.ACTIVE:
+                onMatchStarted?.Invoke();
+                break;
+            case MatchState.FINISHED:
+                onMatchFinished?.Invoke();
+                break;
+            default:
+                Debug.Log("unknown");
+                break;
+        }
+    }
+
+    private void Update()
+    {
+        
     }
 }
 

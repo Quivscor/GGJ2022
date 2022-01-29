@@ -30,6 +30,7 @@ public class CharacterStats : MonoBehaviour
     [SerializeField]
     private ResourceChanged resourceChanged;
     private ResourceChanged healthChanged;
+    public Action<CharacterStats> died;
 
     private float primaryResource;
     public float Health { get => health;}
@@ -57,7 +58,11 @@ public class CharacterStats : MonoBehaviour
     {
         health -= value;
         if (health <= 0)
+        {
             Debug.LogError(this.name + " DIED");
+            died?.Invoke(this);
+        }
+            
         if (healthBarFill != null)
             healthBarFill.fillAmount = health / maxHealth;
         //healthChanged?.Invoke(health / maxHealth);

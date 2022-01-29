@@ -48,6 +48,9 @@ public class MovementAI : MonoBehaviour
 
     private void Update()
     {
+        if (MatchController.Instance.State != MatchState.ACTIVE)
+            return;
+
         if (updateTimer <= 0)
         {
             MoveDir = GetMoveDir();

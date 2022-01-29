@@ -35,6 +35,9 @@ public class TargetingAI : MonoBehaviour
 
     private void Update()
     {
+        if (MatchController.Instance.State != MatchState.ACTIVE)
+            return;
+
         if (aiCurrentTime <= 0)
         {
             SelectPrimaryTarget(EvaluateTargets());
