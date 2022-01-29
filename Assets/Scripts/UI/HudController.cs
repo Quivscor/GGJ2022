@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class HudController : MonoBehaviour
 {
     [Header("References")]
@@ -9,27 +10,36 @@ public class HudController : MonoBehaviour
     private Image resourceBar;
     [SerializeField]
     private Image healthBar;
+    [SerializeField]
+    [Header("Perk Info")]
+    private TextMeshProUGUI perkNameTMP;
+    [SerializeField]
+    private TextMeshProUGUI perkDescTMP;
+    [SerializeField]
+    private Animator perkAnimator;
+    [SerializeField]
+    private Image perkFrame;
 
+    private bool perkInfoVisible = false;
 
-    public static HudController instance;
-    public static HudController Instance
+    public static HudController Instance;
+
+    private void Awake()
     {
-        get
-        {
-            if (instance == null)
-                instance = new HudController();
-
-            return instance;
-        }
+        if (Instance == null)
+            Instance = this;
     }
 
-    public void UpdateResourceBar(float fillAmount)
+    
+    public void ShowPerkInfo(string perkName, string perkDesc)
     {
-        resourceBar.fillAmount = fillAmount;
+        perkNameTMP.text = perkName;
+        perkDescTMP.text = perkDesc;
+        perkAnimator.SetTrigger("Show");
     }
 
-    public void UpdateHealthBar(float fillAmount)
+    public void HidePerkInfo()
     {
-        healthBar.fillAmount = fillAmount;
+        perkAnimator.SetTrigger("Hide");
     }
 }
