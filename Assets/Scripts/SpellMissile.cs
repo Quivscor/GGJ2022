@@ -11,6 +11,11 @@ public class SpellMissile : MonoBehaviour
 		this.parent = parent;
 	}
 
+	public Transform GetParentTransform()
+    {
+		return parent.transform;
+    }
+
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.transform.root.gameObject == parent)

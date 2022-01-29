@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class MovementAI : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class MovementAI : MonoBehaviour
     public Vector3 MoveDir { get; private set; }
 
     [SerializeField, Range(0,1f)] float oldMoveBias;
+    [SerializeField] bool randomMove;
+    [SerializeField] float randomMoveBias;
 
     [SerializeField] Vector2 biasRange;
 
@@ -87,6 +90,10 @@ public class MovementAI : MonoBehaviour
             }
             //i only use this so i can use this function in OnDrawGizmos
             catch(Exception e) {}
+        }
+        if(randomMove)
+        {
+            result += Random.insideUnitSphere * randomMoveBias;
         }
 
         Debug.Log(result.normalized);
@@ -181,6 +188,13 @@ public class MovementAI : MonoBehaviour
         {
             if(col.CompareTag(bulletTag))
             {
+                SpellMissile bullet;
+                if(col.TryGetComponent(out bullet))
+                {
+                    if (bullet.GetParentTransform() == this.transform)
+                        continue;
+                }
+
                 Vector3 unitDistance = Vector3.Normalize(col.transform.position - this.transform.position);
 
                 for (int i = 0; i < weights.Length; i++)
