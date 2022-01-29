@@ -662,6 +662,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4794161559356311390, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: dashCooldown
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4794161559356311390, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: movementSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7594468609969001206, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
@@ -681,6 +689,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1db07d94b1795e049ae61b67c8e628c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &855037491 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4582836995370146038, guid: 48086fbbeaf07854b9a9827084dfe1d8, type: 3}
+  m_PrefabInstance: {fileID: 1602346530}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61247e2ad3200d48a7028b22505f6b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &940924787
@@ -967,7 +986,19 @@ MonoBehaviour:
       m_Calls: []
   onMatchFinished:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 855037491}
+        m_TargetAssemblyTypeName: LevelUp, Assembly-CSharp
+        m_MethodName: ToggleChoosingPhaze
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   initialStartState: 1
 --- !u!1 &963194225
 GameObject:
@@ -1229,6 +1260,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: infiniteResources
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: resourceChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1540,7 +1575,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6709925738585922833, guid: 48086fbbeaf07854b9a9827084dfe1d8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.36
       objectReference: {fileID: 0}
     - target: {fileID: 6709925738585922833, guid: 48086fbbeaf07854b9a9827084dfe1d8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1548,7 +1583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6709925738585922833, guid: 48086fbbeaf07854b9a9827084dfe1d8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 6709925738585922833, guid: 48086fbbeaf07854b9a9827084dfe1d8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1942,6 +1977,14 @@ PrefabInstance:
     - target: {fileID: 59735033571689389, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4794161559356311390, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: dashCooldown
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4794161559356311390, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: movementSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7594468609969001206, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_Name
