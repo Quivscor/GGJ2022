@@ -30,6 +30,7 @@ public class MatchController : MonoBehaviour
     public void ChangeMatchState(MatchState state)
     {
         State = state;
+        Debug.Log("MatchState: " + State.ToString());
 
         switch(State)
         {
