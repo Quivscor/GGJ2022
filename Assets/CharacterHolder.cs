@@ -46,7 +46,7 @@ public class CharacterHolder : MonoBehaviour
         //check if all but player are dead
         if(_deadCharacters.Count == _characters.Count - 1)
         {
-            MatchController.Instance.ChangeMatchState(MatchState.ACTIVE);
+            MatchController.Instance.ChangeMatchState(MatchState.FINISHED);
         }
     }
 
