@@ -1567,9 +1567,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiUpdateFrequency: 0.2
+  areaScanFrequency: 0
   threatDecayOverTime: 0.5
   threatIncreasePerDmg: 10
   initThreatValue: 100
+  areaScanRadius: 15
+  threatDistanceMod: 5
 --- !u!1 &5891509691784821301
 GameObject:
   m_ObjectHideFlags: 0

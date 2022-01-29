@@ -13,11 +13,15 @@ public class TargetingAI : MonoBehaviour
     private CharacterHolder characterHolder;
 
     [SerializeField] float aiUpdateFrequency;
-    float currentTime;
+    float aiCurrentTime;
+    [SerializeField] float areaScanFrequency;
+    float areaScanCurrentTime;
 
     [SerializeField] float threatDecayOverTime;
     [SerializeField] float threatIncreasePerDmg;
     [SerializeField] float initThreatValue;
+    [SerializeField] float areaScanRadius;
+    [SerializeField] float threatDistanceMod;
 
     private void Awake()
     {
@@ -31,17 +35,42 @@ public class TargetingAI : MonoBehaviour
 
     private void Update()
     {
-        if (currentTime <= 0)
+        if (aiCurrentTime <= 0)
         {
             SelectPrimaryTarget(EvaluateTargets());
-            currentTime = aiUpdateFrequency;
+            aiCurrentTime = aiUpdateFrequency;
         }
         else
-            currentTime -= Time.deltaTime;
+            aiCurrentTime -= Time.deltaTime;
+
+        if (areaScanCurrentTime <= 0)
+        {
+            CheckEnemiesInArea();
+            areaScanCurrentTime = areaScanFrequency;
+        }
+        else
+            areaScanCurrentTime -= Time.deltaTime;
 
         foreach(Target t in enemyTargets)
         {
             UpdateThreat(t);
+        }
+    }
+
+    public void CheckEnemiesInArea()
+    {
+        Collider[] colliders = Physics.OverlapSphere(this.transform.position, areaScanRadius);
+        foreach(Collider col in colliders)
+        {
+            if(col.TryGetComponent(out CharacterStats stats))
+            {
+                //you're not your own enemy
+                if (col.transform.root == this.transform)
+                    continue;
+
+                Target t = GetTargetFromTransform(col.transform);
+                t.threatGauge += areaScanRadius / Vector3.Distance(this.transform.position, t.transform.position) * threatDistanceMod;
+            }
         }
     }
 
