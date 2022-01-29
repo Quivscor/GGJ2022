@@ -2613,6 +2613,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
+  dashSpeed: 10
+  dashCooldown: 2
+  dashDuration: 0.5
   animator: {fileID: 6743739885428278653}
   character: {fileID: 5127046540579684243}
   slowEffectTime: 2
@@ -2657,6 +2660,7 @@ MonoBehaviour:
   spellSpeed: 10
   damage: 10
   resourceCost: 10
+  costModifier: 1
   numberOfBounces: 0
   range: 10
   bulletSize: 1
@@ -2680,6 +2684,7 @@ MonoBehaviour:
   spellSpeed: 10
   damage: 10
   resourceCost: 10
+  costModifier: 1
   numberOfBounces: 0
   range: 10
   bulletSize: 1
@@ -2727,11 +2732,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aiUpdateFrequency: 0.2
   areaScanFrequency: 0
-  threatDecayOverTime: 1.5
+  threatDecayOverTime: 8
   threatIncreasePerDmg: 10
   initThreatValue: 100
   areaScanRadius: 15
-  threatDistanceMod: 1.5
+  threatDistanceMod: 0.8
 --- !u!114 &8331289469713145579
 MonoBehaviour:
   m_ObjectHideFlags: 0
