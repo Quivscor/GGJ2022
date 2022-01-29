@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,11 @@ public class WandController : MonoBehaviour
     [Space(10)]
     [SerializeField] private Transform missilesSpawnPoint = null;
 
-	private void Awake()
+    public event Action<SpellType> SpellTypeChanged = null;
+    private SpellType lastSpellType = SpellType.Harmony;
+
+
+    private void Awake()
 	{
         harmonySpell.Initialize(missilesSpawnPoint);
         chaosSpell.Initialize(missilesSpawnPoint);
@@ -56,11 +61,16 @@ public class WandController : MonoBehaviour
         {   
             harmonySpell.CastSpell();
         }
-
-        if (spellType == SpellType.Chaos)
+        else if (spellType == SpellType.Chaos)
         {
             chaosSpell.CastSpell();
         }
 
+
+        if (lastSpellType != spellType)
+		{
+            lastSpellType = spellType;
+            SpellTypeChanged?.Invoke(lastSpellType);
+        }
     }
 }
