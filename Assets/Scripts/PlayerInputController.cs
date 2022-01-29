@@ -6,11 +6,18 @@ using UnityEngine;
 public class PlayerInputController : MonoBehaviour
 {
 	[SerializeField] private CharacterMovement characterMovement = null;
+	[SerializeField] private CharacterRotator characterRotator = null;
 
 	private void Update()
 	{
+		ProcessRotation();
 		ProcessMovement();
 		ProcessMouseInputs();
+	}
+
+	private void ProcessRotation()
+	{
+		characterRotator.LookAt(MouseTracker.Instance.WorldPosition);
 	}
 
 	private void ProcessMouseInputs()

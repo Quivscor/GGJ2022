@@ -21,7 +21,47 @@ public class CharacterMovement : MonoBehaviour
 		Vector3 velocityToApply = new Vector3(horizontal, 0, vertical).normalized * movementSpeed;
 		rigidbody.velocity = velocityToApply;
 
-		animator?.SetFloat("verticalMovement", vertical);
-		animator?.SetFloat("horizontalMovement", horizontal);
+		ProcessAnimator(vertical, horizontal);
+	}
+
+	private void ProcessAnimator(float vertical, float horizontal)
+	{
+		//	bool swap = false;
+
+		//	if (Mathf.Abs(this.transform.forward.x) > 0.5f)
+		//	{
+		//		float tmp = horizontal;
+		//		horizontal = vertical;
+		//		vertical = tmp;
+		//		swap = true;
+		//	}
+
+		//	if (this.transform.forward.z < 0)
+		//		if (!swap)
+		//			vertical *= -1;
+
+
+		//	animator.SetFloat("verticalMovement", vertical);
+		//	animator.SetFloat("horizontalMovement", horizontal);
+		//}
+
+
+		int quarterIndex = (int)(this.transform.rotation.eulerAngles.y / 90);
+
+		if (quarterIndex * 90 + 45 < this.transform.rotation.eulerAngles.y)
+			quarterIndex++;
+
+		quarterIndex = quarterIndex % 4;
+
+		if (quarterIndex == 0 || quarterIndex == 2)
+		{
+			animator.SetFloat("verticalMovement", vertical * (quarterIndex == 2 ? -1.0f : 1.0f));
+			animator.SetFloat("horizontalMovement", horizontal * (quarterIndex == 2 ? -1.0f : 1.0f));
+		}
+		else
+		{
+			animator.SetFloat("verticalMovement", vertical * (quarterIndex == 3 ? -1.0f : 1.0f));
+			animator.SetFloat("horizontalMovement", horizontal * (quarterIndex == 3 ? 1.0f : -1.0f));
+		}
 	}
 }
