@@ -56,7 +56,7 @@ public class Spell : MonoBehaviour
     private float currentRecoil = 0.0f;
 
     private bool isOnCooldown = false;
-
+    private float angleBetweenShots = 8f;
 	private void Awake()
     {
         characterStats = GetComponent<CharacterStats>();
@@ -66,7 +66,7 @@ public class Spell : MonoBehaviour
     }
 
     public Vector3 CalculatedRecoil() => new Vector3(UnityEngine.Random.Range(-currentRecoil, currentRecoil), 0.0f, UnityEngine.Random.Range(-currentRecoil, currentRecoil));
-
+    public Vector3 CalculatedAngleBetweenShots(float angle) => new Vector3(angle, 0f, angle);
     public void CastSpell()
     {
         if (isOnCooldown)
@@ -76,13 +76,36 @@ public class Spell : MonoBehaviour
         {
             characterStats.SpendResource(ResourceCost, spellType);
 
-            Vector3 direction = missilesSpawnPoint.transform.forward + CalculatedRecoil();
+            for (int i = 0; i < numberOfBullets; i++)
+            {
+                Vector3 direction = missilesSpawnPoint.transform.forward + CalculatedRecoil();
 
-            var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
-			bulletShot.Initialize(this.gameObject);
-			bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
+                if (i != 0)
+                {
+                    direction = CalculateBulletAngle(i);
+                }
+               
+                direction.Normalize();
 
-			StartCoroutine(EnableCooldown());
+                var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
+                bulletShot.Initialize(this.gameObject);
+                bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
+
+            }
+            StartCoroutine(EnableCooldown());
+        }
+    }
+
+    private Vector3 CalculateBulletAngle(int index)
+    {
+        float angle = angleBetweenShots + ((index - 1)/2 * angleBetweenShots);
+        if (index % 2 != 0)
+        {
+            return Vector3.RotateTowards(missilesSpawnPoint.transform.forward, missilesSpawnPoint.transform.right, Mathf.Deg2Rad * angle, 0f);
+        }
+        else
+        {
+            return Vector3.RotateTowards(missilesSpawnPoint.transform.forward, -missilesSpawnPoint.transform.right, Mathf.Deg2Rad * angle, 0f);
         }
     }
 
