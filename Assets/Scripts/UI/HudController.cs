@@ -20,10 +20,16 @@ public class HudController : MonoBehaviour
     [SerializeField]
     private Image perkFrame;
 
+    [Header("Press E Info")]
+    [SerializeField]
+    private TextMeshProUGUI pressEInfoTMP;
+    [SerializeField]
+    private GameObject pressEInfo;
+
     private bool perkInfoVisible = false;
 
     public static HudController Instance;
-
+    
     private void Awake()
     {
         if (Instance == null)
@@ -36,8 +42,14 @@ public class HudController : MonoBehaviour
         perkNameTMP.text = perkName;
         perkDescTMP.text = perkDesc;
         perkAnimator.SetTrigger("Show");
+
     }
 
+    public void TogglePressEInfo(bool toggle, string text = "Press E")
+    {
+        pressEInfoTMP.text = text;
+        pressEInfo.SetActive(toggle);
+    }
     public void HidePerkInfo()
     {
         perkAnimator.SetTrigger("Hide");
