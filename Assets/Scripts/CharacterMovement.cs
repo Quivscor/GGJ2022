@@ -10,8 +10,18 @@ public class CharacterMovement : MonoBehaviour
 	[Header("References:")]
 	[SerializeField] private Animator animator = null;
 	[SerializeField] private Transform character = null;
+
+	#region Slow Effect
+	[Header("Slow Effect Options:")]
+	[SerializeField] private float slowEffectTime = 2.0f;
+	[SerializeField] private float slowedMovementSpeedFactor = 0.5f;
 	
+	private bool isSlowed = false;
+	private Coroutine slowedEffectCoroutine = null;
+	#endregion
+
 	private new Rigidbody rigidbody = null;
+
 
 	private void Awake()
 	{
@@ -24,6 +34,10 @@ public class CharacterMovement : MonoBehaviour
 	public void ProcessMovement(float vertical, float horizontal)
 	{
 		Vector3 velocityToApply = new Vector3(horizontal, 0, vertical).normalized * movementSpeed;
+
+		if (isSlowed)
+			velocityToApply *= slowedMovementSpeedFactor;
+
 		rigidbody.velocity = velocityToApply;
 
 		ProcessAnimator(vertical, horizontal);
@@ -68,5 +82,20 @@ public class CharacterMovement : MonoBehaviour
 			animator?.SetFloat("verticalMovement", horizontal * (quarterIndex == 3 ? -1.0f : 1.0f));
 			animator?.SetFloat("horizontalMovement", vertical * (quarterIndex == 3 ? 1.0f : -1.0f));
 		}
+	}
+
+	public void AddSlowEffect()
+	{
+		if (slowedEffectCoroutine != null)
+			StopCoroutine(slowedEffectCoroutine);
+
+		slowedEffectCoroutine = StartCoroutine(SlowEffectTimer());
+	}
+
+	private IEnumerator SlowEffectTimer()
+	{
+		isSlowed = true;
+		yield return new WaitForSeconds(slowEffectTime);
+		isSlowed = false;
 	}
 }

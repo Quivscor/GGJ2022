@@ -24,8 +24,8 @@ public class Spell : MonoBehaviour
 	{
         this.missilesSpawnPoint = missilesSpawnPoint;
 
-        HealOnHitEnemyBoost healOnHitEnemyBoost = new HealOnHitEnemyBoost();
-        healOnHitEnemyBoost.ProcessSpellBoost(this);
+        SlowOnHitEnemyBoost spellBoostTest = new SlowOnHitEnemyBoost();
+        spellBoostTest.ProcessSpellBoost(this);
     }
 
 	[SerializeField]

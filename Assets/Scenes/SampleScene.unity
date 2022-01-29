@@ -185,8 +185,10 @@ GameObject:
   - component: {fileID: 236830362}
   - component: {fileID: 236830361}
   - component: {fileID: 236830365}
+  - component: {fileID: 236830367}
+  - component: {fileID: 236830366}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: TestEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -289,6 +291,39 @@ MonoBehaviour:
   resourceChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &236830366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236830360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 614a92126eae5ef42b650a867f90c32f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 2
+  animator: {fileID: 0}
+  character: {fileID: 0}
+  slowEffectTime: 2
+  slowedMovementSpeedFactor: 0.5
+--- !u!54 &236830367
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236830360}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &299630065
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,6 +443,8 @@ MonoBehaviour:
   movementSpeed: 5
   animator: {fileID: 366576557}
   character: {fileID: 366576558}
+  slowEffectTime: 2
+  slowedMovementSpeedFactor: 0.5
 --- !u!114 &299630072
 MonoBehaviour:
   m_ObjectHideFlags: 0
