@@ -56,8 +56,14 @@ public class TargetingAI : MonoBehaviour
         else
             areaScanCurrentTime -= Time.deltaTime;
 
-        foreach(Target t in enemyTargets)
+        foreach(Target t in new List<Target>(enemyTargets))
         {
+            if (t.stats.isDead)
+            {
+                RemoveEnemy(t);
+                enemyTargets.Remove(t);
+            }
+                
             UpdateThreat(t);
         }
     }
@@ -69,10 +75,14 @@ public class TargetingAI : MonoBehaviour
         {
             if(col.TryGetComponent(out CharacterStats stats))
             {
+                if (stats.isDead)
+                    continue;
+
                 //you're not your own enemy
                 if (col.transform.root == this.transform)
                     continue;
 
+                
                 Target t = GetTargetFromTransform(col.transform);
                 t.threatGauge += areaScanRadius / Vector3.Distance(this.transform.position, t.transform.position) * threatDistanceMod;
             }
@@ -144,6 +154,7 @@ public class TargetingAI : MonoBehaviour
 public class Target
 {
     public Transform transform;
+    public CharacterStats stats;
     public float threatGauge;
 
     public Target()
@@ -155,6 +166,7 @@ public class Target
     public Target(Transform transform, float threat)
     {
         this.transform = transform;
+        stats = transform.GetComponent<CharacterStats>();
         threatGauge = threat;
     }
 }

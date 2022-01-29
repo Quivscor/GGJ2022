@@ -18,6 +18,8 @@ public class WandController : MonoBehaviour
     public event Action<SpellType> SpellTypeChanged = null;
     private SpellType lastSpellType = SpellType.Harmony;
 
+    public Spell HarmonySpell { get => harmonySpell; }
+    public Spell ChaosSpell { get => chaosSpell; }
 
     private void Awake()
 	{

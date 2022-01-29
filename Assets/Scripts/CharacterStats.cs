@@ -14,7 +14,7 @@ public class CharacterStats : MonoBehaviour
     [SerializeField]
     private bool infiniteResources = false;
 
-    [Header("Stats")]
+    [Header("References")]
     [SerializeField]
     private Image healthBarFill;
 
@@ -25,6 +25,10 @@ public class CharacterStats : MonoBehaviour
     private float maxHealth = 100;
     [SerializeField]
     private float maxResource = 100;
+    [SerializeField]
+    private int harmonyLevel = 0;
+    [SerializeField]
+    private int chaosLevel = 0;
 
     [Header("Event actions")]
     [SerializeField]
@@ -36,6 +40,8 @@ public class CharacterStats : MonoBehaviour
     private float primaryResource;
     public float Health { get => health;}
     public float MaxHealth { get => maxHealth; }
+    public int HarmonyLevel { get => harmonyLevel; }
+    public int ChaosLevel { get => chaosLevel; }
 
     void Start()
     {
@@ -44,6 +50,7 @@ public class CharacterStats : MonoBehaviour
         resourceChanged?.Invoke(primaryResource / maxResource);
         isDead = false;
     }
+
 
     public void Heal(float value)
     {
@@ -54,6 +61,14 @@ public class CharacterStats : MonoBehaviour
         //healthChanged?.Invoke(health/maxHealth);
         if(healthBarFill != null)
             healthBarFill.fillAmount = health / maxHealth;
+    }
+
+    public void Resurect()
+    {
+        health = maxHealth;
+        if (healthBarFill != null)
+            healthBarFill.fillAmount = health / maxHealth;
+        isDead = false;
     }
 
     public void DealDamge(float value)
@@ -107,5 +122,13 @@ public class CharacterStats : MonoBehaviour
         }
 
         resourceChanged?.Invoke(primaryResource / maxResource);
+    }
+
+    public void AddLevel(SpellType spellType)
+    {
+        if (spellType == SpellType.Harmony)
+            harmonyLevel++;
+        else
+            chaosLevel++;
     }
 }

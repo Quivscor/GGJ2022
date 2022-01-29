@@ -233,7 +233,7 @@ public class MovementAI : MonoBehaviour
     [SerializeField] bool debugDrawRange = true;
     private void OnDrawGizmos()
     {
-        GetMoveDir();
+        //GetMoveDir();
 
         if(debugDrawRange)
         {

@@ -69,9 +69,6 @@ public class Spell : MonoBehaviour
 
         currentFireRate = 1.0f / fireRate;
         currentRecoil = recoil;
-
-        CreateToxicAreaOnHitBoost a = new CreateToxicAreaOnHitBoost();
-        a.ProcessSpellBoost(this);
     }
 
     public Vector3 CalculatedRecoil() => new Vector3(UnityEngine.Random.Range(-currentRecoil, currentRecoil), 0.0f, UnityEngine.Random.Range(-currentRecoil, currentRecoil));
