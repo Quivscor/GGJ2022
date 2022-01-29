@@ -11,14 +11,6 @@ public class WandController : MonoBehaviour
     [SerializeField]
     private Spell chaosSpell = null;
 
-    private void Update()
-    {
-        // TEST
-        if(Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            ProcessSpell(true, false);
-        }
-    }
     public void ProcessSpell(bool primarySpell, bool secondarySpell)
 	{
         if (primarySpell)
