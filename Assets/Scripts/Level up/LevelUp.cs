@@ -40,10 +40,21 @@ public class ResourceUpgrade : MonoBehaviour
 
     public void AddRandomLevelForBot(CharacterStats characterStats, WandController wandController)
     {
+        SpellType randomSpellType;
+
         if (Random.Range(0, 2) == 0)
-            characterStats.AddLevel(SpellType.Harmony);
+            randomSpellType = SpellType.Harmony;
         else
-            characterStats.AddLevel(SpellType.Chaos);
+            randomSpellType = SpellType.Chaos;
+
+            characterStats.AddLevel(randomSpellType);
+
+        SpellBoost randomSpellBost = GetRandomSpellBoost(randomSpellType);
+
+        if(randomSpellType == SpellType.Harmony)
+            randomSpellBost.ProcessSpellBoost(wandController.HarmonySpell);
+        else
+            randomSpellBost.ProcessSpellBoost(wandController.ChaosSpell);
 
     }
 
