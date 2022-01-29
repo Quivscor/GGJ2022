@@ -13,6 +13,8 @@ public class HealOnHitEnemyBoost : SpellBoost
     public HealOnHitEnemyBoost()
     {
 		costModifier = 0.1f;
+		spellType = SpellType.Any;
+		spellName = "Hit & Heal";
 		description = "Every attack heals you by +25% of damage dealt";
 
 		healingEffectParticles = Resources.Load<GameObject>("HealingParticles");

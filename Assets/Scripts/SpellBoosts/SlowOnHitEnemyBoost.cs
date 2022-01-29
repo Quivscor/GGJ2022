@@ -10,6 +10,7 @@ public class SlowOnHitEnemyBoost : SpellBoost
     {
 		spellType = SpellType.Harmony;
 		costModifier = 0.2f;
+		spellName = "Slow them!";
 		description = "Has 20% chance for slowing enemy on impact";
 	}
 	public override void ProcessSpellBoost(Spell spell)
