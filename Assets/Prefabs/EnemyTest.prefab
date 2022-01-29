@@ -1283,6 +1283,11 @@ GameObject:
   - component: {fileID: 5044775070242900676}
   - component: {fileID: 5044775070242900667}
   - component: {fileID: 5044775070242900666}
+  - component: {fileID: 8449016937190644562}
+  - component: {fileID: 8668944370891035750}
+  - component: {fileID: 4620119440663906231}
+  - component: {fileID: 5375127830986571086}
+  - component: {fileID: 543450652347983446}
   m_Layer: 0
   m_Name: EnemyTest
   m_TagString: Untagged
@@ -1305,6 +1310,7 @@ Transform:
   - {fileID: 5024599940822701243}
   - {fileID: 7240593633653124730}
   - {fileID: 997634743482715585}
+  - {fileID: 5979434273685517851}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1372,8 +1378,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyTargets:
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   activeTarget: {fileID: 0}
-  enemyBias: 0.5
+  enemyBias: 0.3
   enemyDistanceFactor: 8
   prefEnemyDistance: {x: 11, y: 15}
   targetBias: 0
@@ -1392,7 +1400,7 @@ MonoBehaviour:
   bulletDetectionRange: 15
   bulletBias: 0.4
   bulletTag: Bullet
-  debugDrawRange: 1
+  debugDrawRange: 0
 --- !u!114 &5044775070242900666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1406,6 +1414,91 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
+--- !u!114 &8449016937190644562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5387375955542947823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba1baf23161a3f46aa780c781bc33c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 1
+--- !u!114 &8668944370891035750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5387375955542947823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db07d94b1795e049ae61b67c8e628c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infiniteResources: 0
+  health: 0
+  maxHealth: 100
+  maxResource: 100
+  resourceChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &4620119440663906231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5387375955542947823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff87283558411f94a98723b95e5956c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  harmonySpell: {fileID: 5375127830986571086}
+  chaosSpell: {fileID: 0}
+  missilesSpawnPoint: {fileID: 5979434273685517851}
+--- !u!114 &5375127830986571086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5387375955542947823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5746f8e81c5914381bd7e68a46544a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 1881288736024043230, guid: 7441c3af128305d4f9d18104e1dc5f83, type: 3}
+  spellType: 0
+  numberOfBullets: 1
+  accuracy: 100
+  fireRate: 1
+  spellSpeed: 10
+  damage: 10
+  resourceCost: 10
+  numberOfBounces: 0
+  range: 10
+  bulletSize: 1
+--- !u!114 &543450652347983446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5387375955542947823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b46d12784257d49a10121bd8e7d450, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyTargets:
+  - {fileID: 0}
+  enemyThreatGauge: []
 --- !u!1 &5891509691784821301
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,6 +1690,37 @@ Transform:
   - {fileID: 5578670223072701079}
   m_Father: {fileID: 2162443135036282290}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6791480714075929969
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5979434273685517851}
+  m_Layer: 0
+  m_Name: spellOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5979434273685517851
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6791480714075929969}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4722056437913513301}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6907390444132911313
 GameObject:
