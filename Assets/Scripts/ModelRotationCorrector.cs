@@ -15,7 +15,7 @@ public class ModelRotationCorrector : MonoBehaviour
 		if (isAttacking)
 		{
 			boneToRotationFix.LookAt(spellSpawner.position);
-			boneToRotationFix.rotation = Quaternion.Euler(boneToRotationFix.eulerAngles + new Vector3(30, 0, 0));
+			boneToRotationFix.rotation = Quaternion.Euler(boneToRotationFix.eulerAngles + new Vector3(30, 90, 30));
 		}
 	}
 }
