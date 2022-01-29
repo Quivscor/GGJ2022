@@ -10,13 +10,20 @@ public class CombatAI : MonoBehaviour
     private CharacterRotator rotator;
     private CharacterStats stats;
 
+    private bool isPrimaryStronger;
+
     [SerializeField] SpenderType aiType;
 
     private void Awake()
     {
         wand = GetComponent<WandController>();
-        rotator = GetComponent<CharacterRotator>();
+        rotator = GetComponentInChildren<CharacterRotator>();
         stats = GetComponent<CharacterStats>();
+    }
+
+    private void Start()
+    {
+        //isPrimaryStronger = true/false kiedy bedzie wiadomo ktory lepszy
     }
 
     private void Update()
@@ -29,10 +36,20 @@ public class CombatAI : MonoBehaviour
         if (aiType == SpenderType.CONSERVER)
         {
             //define stronger spell
-
-            //if able, use stronger spell
-
-            //else use weaker
+            if(isPrimaryStronger)
+            {
+                if (stats.HaveEnoughResource(wand.GetSpellCost(true, false), SpellType.Harmony))
+                    wand.ProcessSpell(true, false);
+                else
+                    wand.ProcessSpell(false, true);
+            }
+            else
+            {
+                if (stats.HaveEnoughResource(wand.GetSpellCost(false, true), SpellType.Chaos))
+                    wand.ProcessSpell(false, true);
+                else
+                    wand.ProcessSpell(true, false);
+            }
         }
         else if(aiType == SpenderType.SPAMMER)
         {
