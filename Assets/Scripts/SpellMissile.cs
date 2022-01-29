@@ -51,6 +51,8 @@ public class SpellMissile : MonoBehaviour
             if (targetCharacterStats == parent && !bounced)
                 return;
 
+			if (!collision.transform.CompareTag("Player"))
+				damageToApply *= 0.5f;
             targetCharacterStats.DealDamge(damageToApply);
             HitCharacter?.Invoke(parent, targetCharacterStats, damageToApply);
             HitAnything?.Invoke(this.transform, parent);

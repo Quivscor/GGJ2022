@@ -5,11 +5,11 @@ using UnityEngine;
 public class PerksController : MonoBehaviour
 {
     public List<SpellBoost> spellBoosts = new List<SpellBoost>();
-    SlowOnHitEnemyBoost slowOnHit = new SlowOnHitEnemyBoost();
-    //CreateToxicAreaOnHitBoost toxicArea = new CreateToxicAreaOnHitBoost();
-    NumberOfBulletsBoost numberOfBulletsBoost = new NumberOfBulletsBoost();
-    FireRateBoost fireRateBoost = new FireRateBoost();
-    LowerResourceModifierBoost lowerResourceModifierBoost = new LowerResourceModifierBoost();
+    SlowOnHitEnemyBoost slowOnHit;
+    CreateToxicAreaOnHitBoost toxicArea;
+    NumberOfBulletsBoost numberOfBulletsBoost;
+    FireRateBoost fireRateBoost;
+    LowerResourceModifierBoost lowerResourceModifierBoost;
 
     public static PerksController Instance;
 
@@ -18,17 +18,22 @@ public class PerksController : MonoBehaviour
         if (Instance == null)
             Instance = this;
 
+        slowOnHit = new SlowOnHitEnemyBoost();
+        toxicArea = new CreateToxicAreaOnHitBoost();
+        numberOfBulletsBoost = new NumberOfBulletsBoost();
+        fireRateBoost = new FireRateBoost();
+        lowerResourceModifierBoost = new LowerResourceModifierBoost();
 
         spellBoosts.Add(slowOnHit);
-        //spellBoosts.Add(toxicArea);
+        spellBoosts.Add(toxicArea);
         spellBoosts.Add(numberOfBulletsBoost);
         spellBoosts.Add(fireRateBoost);
         spellBoosts.Add(lowerResourceModifierBoost);
     }
-    //public void AddBoostToxicArea(Spell spell)
-    //{
-    //    toxicArea.ProcessSpellBoost(spell);
-    //}
+    public void AddBoostToxicArea(Spell spell)
+    {
+        toxicArea.ProcessSpellBoost(spell);
+    }
 
     public void AddBoostSlowOnHit(Spell spell)
     {

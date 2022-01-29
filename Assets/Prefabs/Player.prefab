@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1751774421265251437}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,6 +161,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
+  dashSpeed: 10
+  dashCooldown: 2
+  dashDuration: 0.5
   animator: {fileID: 5270645498693263950}
   character: {fileID: 2289294205679466548}
   slowEffectTime: 2
@@ -193,11 +196,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db07d94b1795e049ae61b67c8e628c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infiniteResources: 1
+  infiniteResources: 0
   healthBarFill: {fileID: 1138002257782982429}
   health: 0
   maxHealth: 100
   maxResource: 100
+  harmonyLevel: 0
+  chaosLevel: 0
   resourceChanged:
     m_PersistentCalls:
       m_Calls:
@@ -244,7 +249,8 @@ MonoBehaviour:
   fireRate: 5
   spellSpeed: 10
   damage: 10
-  resourceCost: 10
+  resourceCost: 2.5
+  costModifier: 1
   numberOfBounces: 0
   range: 10
   bulletSize: 1
@@ -260,14 +266,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a5746f8e81c5914381bd7e68a46544a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1881288736024043230, guid: 7441c3af128305d4f9d18104e1dc5f83, type: 3}
+  bullet: {fileID: 1881288736024043230, guid: 10c6e3577033655449321bd7780723df, type: 3}
   spellType: 1
   numberOfBullets: 1
   recoil: 0.05
   fireRate: 1
   spellSpeed: 10
-  damage: 10
-  resourceCost: 10
+  damage: 20
+  resourceCost: 5
+  costModifier: 1
   numberOfBounces: 0
   range: 10
   bulletSize: 1
