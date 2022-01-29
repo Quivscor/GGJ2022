@@ -40,6 +40,8 @@ public class CharacterStats : MonoBehaviour
     private float primaryResource;
     public float Health { get => health;}
     public float MaxHealth { get => maxHealth; }
+    public int HarmonyLevel { get => harmonyLevel; }
+    public int ChaosLevel { get => chaosLevel; }
 
     void Start()
     {
@@ -48,6 +50,7 @@ public class CharacterStats : MonoBehaviour
         resourceChanged?.Invoke(primaryResource / maxResource);
         isDead = false;
     }
+
 
     public void Heal(float value)
     {
@@ -65,6 +68,7 @@ public class CharacterStats : MonoBehaviour
         health = maxHealth;
         if (healthBarFill != null)
             healthBarFill.fillAmount = health / maxHealth;
+        isDead = false;
     }
 
     public void DealDamge(float value)

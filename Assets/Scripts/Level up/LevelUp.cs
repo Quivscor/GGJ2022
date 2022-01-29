@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceUpgrade : MonoBehaviour
+public class LevelUp : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
@@ -10,20 +10,13 @@ public class ResourceUpgrade : MonoBehaviour
     [SerializeField]
     private GameObject perksVisualisation;
     private GameObject playerReference;
-    public static ResourceUpgrade instance;
-    public static ResourceUpgrade Instance
-    {
-        get
-        {
-            if (instance == null)
-                instance = new ResourceUpgrade();
-
-            return instance;
-        }
-    }
+    public static LevelUp Instance;
 
     private void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+
         playerReference = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -55,7 +48,7 @@ public class ResourceUpgrade : MonoBehaviour
             randomSpellBost.ProcessSpellBoost(wandController.HarmonySpell);
         else
             randomSpellBost.ProcessSpellBoost(wandController.ChaosSpell);
-
+        Debug.Log("Bot leveled up: " + randomSpellBost.description);
     }
 
     public void PrepareBoostsList(SpellType spellType, int numberOfBoosts)

@@ -23,7 +23,7 @@ public class CombatAI : MonoBehaviour
 
     private void Start()
     {
-        //isPrimaryStronger = true/false kiedy bedzie wiadomo ktory lepszy
+        isPrimaryStronger = stats.HarmonyLevel > stats.ChaosLevel ? true : false;
     }
 
     private void Update()

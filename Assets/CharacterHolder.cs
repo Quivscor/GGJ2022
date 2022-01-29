@@ -6,11 +6,11 @@ public class CharacterHolder : MonoBehaviour
 {
     public static CharacterHolder Instance;
 
-    [SerializeField] Transform _player;
-    public Transform Player => _player;
-    [SerializeField] List<Transform> _characters;
-    List<Transform> _deadCharacters;
-    public List<Transform> Characters => _characters;
+    [SerializeField] CharacterStats _player;
+    public CharacterStats Player => _player;
+    [SerializeField] List<CharacterStats> _characters;
+    List<CharacterStats> _deadCharacters;
+    public List<CharacterStats> Characters => _characters;
 
     private void Awake()
     {
@@ -19,41 +19,47 @@ public class CharacterHolder : MonoBehaviour
         else
             Destroy(this.gameObject);
 
-        _deadCharacters = new List<Transform>();
+        _deadCharacters = new List<CharacterStats>();
 
-        foreach (Transform t in Characters)
+        foreach (CharacterStats t in Characters)
         {
             if (t != _player)
             {
-                if (t.TryGetComponent(out CharacterStats stats))
-                {
-                    stats.died += OnCharacterDeath;
-                }
+                t.died += OnCharacterDeath;
             }
             else
             {
-                if (t.TryGetComponent(out CharacterStats stats))
-                {
-                    stats.died += OnPlayerDeath;
-                }
+                t.died += OnPlayerDeath;
             }
         }
     }
 
     public void OnCharacterDeath(CharacterStats stats)
     {
-        if(!_deadCharacters.Contains(stats.transform))
-            _deadCharacters.Add(stats.transform);
+        if(!_deadCharacters.Contains(stats))
+            _deadCharacters.Add(stats);
 
         //check if all but player are dead
         if(_deadCharacters.Count == _characters.Count - 1)
         {
-            MatchController.Instance.ChangeMatchState(MatchState.FINISHED);
+            MatchController.Instance.ChangeMatchState(MatchState.ACTIVE);
         }
     }
 
     public void OnPlayerDeath(CharacterStats stats)
     {
         Debug.LogError("Kurwa nie ten projekt");
+    }
+
+    public void ResetEveryone()
+    {
+        foreach(CharacterStats t in Characters)
+        {
+            if(t != _player)
+            {
+                t.Resurect();
+                LevelUp.Instance.AddRandomLevelForBot(t, t.GetComponent<WandController>());
+            }
+        }
     }
 }

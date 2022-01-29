@@ -6,35 +6,29 @@ public class PerksController : MonoBehaviour
 {
     public List<SpellBoost> spellBoosts = new List<SpellBoost>();
     SlowOnHitEnemyBoost slowOnHit = new SlowOnHitEnemyBoost();
-    CreateToxicAreaOnHitBoost toxicArea = new CreateToxicAreaOnHitBoost();
+    //CreateToxicAreaOnHitBoost toxicArea = new CreateToxicAreaOnHitBoost();
     NumberOfBulletsBoost numberOfBulletsBoost = new NumberOfBulletsBoost();
     FireRateBoost fireRateBoost = new FireRateBoost();
     LowerResourceModifierBoost lowerResourceModifierBoost = new LowerResourceModifierBoost();
 
-    public static PerksController instance;
-    public static PerksController Instance
-    {
-        get
-        {
-            if (instance == null)
-                instance = new PerksController();
-
-            return instance;
-        }
-    }
+    public static PerksController Instance;
 
     private void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+
+
         spellBoosts.Add(slowOnHit);
-        spellBoosts.Add(toxicArea);
+        //spellBoosts.Add(toxicArea);
         spellBoosts.Add(numberOfBulletsBoost);
         spellBoosts.Add(fireRateBoost);
         spellBoosts.Add(lowerResourceModifierBoost);
     }
-    public void AddBoostToxicArea(Spell spell)
-    {
-        toxicArea.ProcessSpellBoost(spell);
-    }
+    //public void AddBoostToxicArea(Spell spell)
+    //{
+    //    toxicArea.ProcessSpellBoost(spell);
+    //}
 
     public void AddBoostSlowOnHit(Spell spell)
     {
