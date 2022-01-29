@@ -44,12 +44,14 @@ public class CharacterMovement : MonoBehaviour
 		//	animator.SetFloat("verticalMovement", vertical);
 		//	animator.SetFloat("horizontalMovement", horizontal);
 		//}
-
+		animator.SetBool("isMoving", new Vector3(horizontal, 0.0f, vertical) != Vector3.zero);
 
 		int quarterIndex = (int)(this.transform.rotation.eulerAngles.y / 90);
 
 		if (quarterIndex * 90 + 45 < this.transform.rotation.eulerAngles.y)
 			quarterIndex++;
+
+		Debug.Log(horizontal + " " + vertical);
 
 		quarterIndex = quarterIndex % 4;
 
