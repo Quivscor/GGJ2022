@@ -1321,6 +1321,7 @@ GameObject:
   - component: {fileID: 5375127830986571086}
   - component: {fileID: 543450652347983446}
   - component: {fileID: 7257596774631119853}
+  - component: {fileID: 2764894930417610203}
   m_Layer: 0
   m_Name: EnemyTest
   m_TagString: Untagged
@@ -1553,6 +1554,22 @@ MonoBehaviour:
   animator: {fileID: 1686652603486943023}
   boneToRotationFix: {fileID: 6245659424610314938}
   spellSpawner: {fileID: 3959572792894678322}
+--- !u!114 &2764894930417610203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5387375955542947823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 574c9d54cfd96f1459808eb3789864c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiUpdateFrequency: 0.2
+  threatDecayOverTime: 0.5
+  threatIncreasePerDmg: 10
+  initThreatValue: 100
 --- !u!1 &5891509691784821301
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,7 +47,12 @@ public class SpellMissile : MonoBehaviour
             HitCharacter?.Invoke(parent, targetCharacterStats, damageToApply);
             HitAnything?.Invoke(this.transform, parent);
 
-			Destroy(this.gameObject);
+			if (collision.transform.root.TryGetComponent(out TargetingAI targeting))
+            {
+                targeting.UpdateThreat(targeting.GetTargetFromTransform(parent.transform), damageToApply);
+            }
+
+            Destroy(this.gameObject);
 		}
 
 		if (bouncesLeft > 0)
