@@ -24,7 +24,7 @@ public class Spell : MonoBehaviour
 	{
         this.missilesSpawnPoint = missilesSpawnPoint;
 
-        SlowOnHitEnemyBoost spellBoostTest = new SlowOnHitEnemyBoost();
+        CreateToxicAreaOnHitBoost spellBoostTest = new CreateToxicAreaOnHitBoost();
         spellBoostTest.ProcessSpellBoost(this);
     }
 
@@ -62,6 +62,7 @@ public class Spell : MonoBehaviour
     private float angleBetweenShots = 8f;
 
     public event Action<CharacterStats, CharacterStats, float> MissileHitCharacter = null;
+    public event Action<Transform, CharacterStats> MissileHitAnything = null;
 
     private void Awake()
     {
@@ -94,7 +95,7 @@ public class Spell : MonoBehaviour
                 direction.Normalize();
 
                 var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
-                bulletShot.Initialize(characterStats, damage, MissileHitCharacter);
+                bulletShot.Initialize(characterStats, damage, MissileHitCharacter, MissileHitAnything);
                 bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
 
             }
