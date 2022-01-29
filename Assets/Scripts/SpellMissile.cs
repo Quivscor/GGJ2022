@@ -13,10 +13,17 @@ public class SpellMissile : MonoBehaviour
 		this.damageToApply = damageToApply;
 	}
 
+	public Transform GetParentTransform()
+    {
+		return parent.transform;
+    }
+
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.transform.root.gameObject == parent)
 			return;
+		if (other.transform.root.CompareTag("Bullet"))
+			return; 
 
 		if (other.transform.root.TryGetComponent(out CharacterStats characterStats))
 		{

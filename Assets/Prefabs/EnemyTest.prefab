@@ -1388,6 +1388,8 @@ MonoBehaviour:
   allyTargets: []
   allyBias: 0
   oldMoveBias: 0.8
+  randomMove: 1
+  randomMoveBias: 2
   biasRange: {x: 0, y: Infinity}
   aiUpdateFrequency: 0.2
   wallRaycastDistance: 5
@@ -1397,7 +1399,7 @@ MonoBehaviour:
   wallWeightBonus: 3
   wallBias: 0.4
   wallDistanceFactor: 10
-  bulletDetectionRange: 15
+  bulletDetectionRange: 7
   bulletBias: 0.4
   bulletTag: Bullet
   debugDrawRange: 0
@@ -1414,6 +1416,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 3
+  animator: {fileID: 1686652603486943023}
+  character: {fileID: 997634743482715585}
 --- !u!114 &8449016937190644562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1426,7 +1430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba1baf23161a3f46aa780c781bc33c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 1
+  rotationSpeed: 100
 --- !u!114 &8668944370891035750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1439,7 +1443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db07d94b1795e049ae61b67c8e628c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infiniteResources: 0
+  infiniteResources: 1
   health: 0
   maxHealth: 100
   maxResource: 100
