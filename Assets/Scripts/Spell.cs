@@ -16,7 +16,7 @@ public class Spell : MonoBehaviour
     [SerializeField]
     private int numberOfBullets = 1;
     [SerializeField]
-    private float accuracy = 100f; // 0 to 100 %?
+    private float recoil = 0.05f;
 
     private Transform missilesSpawnPoint = null;
 
@@ -43,7 +43,7 @@ public class Spell : MonoBehaviour
     private CharacterStats characterStats;
 
     public int NumberOfBullets { get => numberOfBullets; set => numberOfBullets = value; }
-    public float Accuracy { get => accuracy; set => accuracy = value; }
+    public float Recoil { get => recoil; set => recoil = value; }
     public float FireRate { get => fireRate; set => fireRate = value; }
     public float SpellSpeed { get => spellSpeed; set => spellSpeed = value; }
     public float Damage { get => damage; set => damage = value; }
@@ -53,16 +53,20 @@ public class Spell : MonoBehaviour
     public float BulletSize { get => bulletSize; set => bulletSize = value; }
 
     private float currentFireRate = 0.0f;
+    private float currentRecoil = 0.0f;
 
     private bool isOnCooldown = false;
-
+    private float angleBetweenShots = 8f;
 	private void Awake()
     {
         characterStats = GetComponent<CharacterStats>();
 
         currentFireRate = 1.0f / fireRate;
+        currentRecoil = recoil;
     }
 
+    public Vector3 CalculatedRecoil() => new Vector3(UnityEngine.Random.Range(-currentRecoil, currentRecoil), 0.0f, UnityEngine.Random.Range(-currentRecoil, currentRecoil));
+    public Vector3 CalculatedAngleBetweenShots(float angle) => new Vector3(angle, 0f, angle);
     public void CastSpell()
     {
         if (isOnCooldown)
@@ -72,13 +76,36 @@ public class Spell : MonoBehaviour
         {
             characterStats.SpendResource(ResourceCost, spellType);
 
-            Vector3 direction = missilesSpawnPoint.transform.forward;
+            for (int i = 0; i < numberOfBullets; i++)
+            {
+                Vector3 direction = missilesSpawnPoint.transform.forward + CalculatedRecoil();
 
-            var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
-			bulletShot.Initialize(this.gameObject);
-			bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
+                if (i != 0)
+                {
+                    direction = CalculateBulletAngle(i);
+                }
+               
+                direction.Normalize();
 
-			StartCoroutine(EnableCooldown());
+                var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
+                bulletShot.Initialize(this.gameObject);
+                bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
+
+            }
+            StartCoroutine(EnableCooldown());
+        }
+    }
+
+    private Vector3 CalculateBulletAngle(int index)
+    {
+        float angle = angleBetweenShots + ((index - 1)/2 * angleBetweenShots);
+        if (index % 2 != 0)
+        {
+            return Vector3.RotateTowards(missilesSpawnPoint.transform.forward, missilesSpawnPoint.transform.right, Mathf.Deg2Rad * angle, 0f);
+        }
+        else
+        {
+            return Vector3.RotateTowards(missilesSpawnPoint.transform.forward, -missilesSpawnPoint.transform.right, Mathf.Deg2Rad * angle, 0f);
         }
     }
 
@@ -87,6 +114,5 @@ public class Spell : MonoBehaviour
         isOnCooldown = true;
         yield return new WaitForSeconds(currentFireRate);
         isOnCooldown = false;
-
     }
 }

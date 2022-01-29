@@ -20,6 +20,8 @@ public class SpellMissile : MonoBehaviour
 	{
 		if (other.transform.root.gameObject == parent)
 			return;
+		if (other.transform.root.CompareTag("Bullet"))
+			return; 
 
 		Destroy(this.gameObject);
 	}
