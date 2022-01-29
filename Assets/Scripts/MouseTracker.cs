@@ -6,6 +6,8 @@ public class MouseTracker : MonoBehaviour
 {
 	public static MouseTracker Instance = null;
 
+	[SerializeField] private LayerMask layerMasks;
+
 	private void Awake()
 	{
 		if (MouseTracker.Instance == null)
@@ -22,7 +24,7 @@ public class MouseTracker : MonoBehaviour
 
 		RaycastHit hit;
 
-		if (Physics.Raycast(inputRay, out hit, Mathf.Infinity))
+		if (Physics.Raycast(inputRay, out hit, Mathf.Infinity, layerMasks))
 		{
 			Vector3 newPosition = hit.point;
 			newPosition.y = 0.0f;
