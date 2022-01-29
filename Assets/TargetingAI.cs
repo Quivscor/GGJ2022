@@ -82,7 +82,14 @@ public class TargetingAI : MonoBehaviour
                 if (col.transform.root == this.transform)
                     continue;
 
-                
+                //skip if not in line of sight
+                RaycastHit hitinfo;
+                if (Physics.Linecast(this.transform.position + Vector3.up, col.transform.position + Vector3.up, out hitinfo))
+                {
+                    if (hitinfo.transform != col.transform)
+                        continue;
+                }
+
                 Target t = GetTargetFromTransform(col.transform);
                 t.threatGauge += areaScanRadius / Vector3.Distance(this.transform.position, t.transform.position) * threatDistanceMod;
             }

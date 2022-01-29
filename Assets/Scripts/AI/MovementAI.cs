@@ -36,6 +36,9 @@ public class MovementAI : MonoBehaviour
     private CharacterMovement charMovement;
     private float colliderRadius;
 
+    [SerializeField] float dashThreshold = 30;
+    private bool willTryDash = false;
+
     private void Awake()
     {
         stats = GetComponent<CharacterStats>();
@@ -62,7 +65,13 @@ public class MovementAI : MonoBehaviour
         else
             updateTimer -= Time.deltaTime;
 
-        charMovement.ProcessMovement(MoveDir.z, MoveDir.x);
+        if (willTryDash)
+        {
+            charMovement.ProcessDash(MoveDir.z, MoveDir.x);
+            willTryDash = false;
+        }
+        else
+            charMovement.ProcessMovement(MoveDir.z, MoveDir.x);
     }
 
     public Vector3 GetMoveDir()
@@ -102,6 +111,8 @@ public class MovementAI : MonoBehaviour
         {
             result += Random.insideUnitSphere * randomMoveBias;
         }
+        if (result.magnitude > dashThreshold)
+            willTryDash = true;
 
         return result.normalized;
     }
