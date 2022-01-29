@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class SpellMissile : MonoBehaviour
 {
+	[SerializeField] private GameObject hitImpactParticles = null;
+	[SerializeField] private float hitImpactParticlesLifetime = 1.0f;
+
 	private CharacterStats parent = null;
 	private float damageToApply = 0.0f;
 	private int bouncesLeft = 1;
@@ -37,6 +40,7 @@ public class SpellMissile : MonoBehaviour
     {
         if (collision.transform.root.CompareTag("Bullet"))
         {
+			CreateHitImpact();
 			Destroy(collision.transform.root.gameObject);
 			Destroy(this.gameObject);
         }
@@ -56,7 +60,8 @@ public class SpellMissile : MonoBehaviour
                 targeting.UpdateThreat(targeting.GetTargetFromTransform(parent.transform), damageToApply);
             }
 
-            Destroy(this.gameObject);
+			CreateHitImpact();
+			Destroy(this.gameObject);
 		}
 
 		if (bouncesLeft > 0)
@@ -67,11 +72,22 @@ public class SpellMissile : MonoBehaviour
 			bouncesLeft--;
 		}
 		else
+		{
+			CreateHitImpact();
 			Destroy(this.gameObject);
-
+		}
     }
 
- //   private void OnTriggerEnter(Collider other)
+	private void CreateHitImpact()
+	{
+		if (hitImpactParticles != null)
+		{
+			GameObject createdImpact = Instantiate(hitImpactParticles, this.transform.position, Quaternion.identity);
+			Destroy(createdImpact, hitImpactParticlesLifetime);
+		}
+	}
+
+	//   private void OnTriggerEnter(Collider other)
 	//{
 	//	if (other.transform.root.CompareTag("Bullet"))
 	//		return;
@@ -88,9 +104,9 @@ public class SpellMissile : MonoBehaviour
 	//			HitAnything?.Invoke(this.transform, parent);
 
 	//			if(other.transform.root.TryGetComponent(out TargetingAI targeting))
- //               {
+	//               {
 	//				targeting.UpdateThreat(targeting.GetTargetFromTransform(parent.transform), damageToApply);
- //               }
+	//               }
 	//		}
 
 	//		Destroy(this.gameObject);

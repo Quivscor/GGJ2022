@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15693a7df193cd4abb3234f872c7793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wandController: {fileID: 0}
+  animator: {fileID: 7509084705536328438}
 --- !u!1 &4443855207419624366
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,6 +58,7 @@ GameObject:
   - component: {fileID: 4443855207419624365}
   - component: {fileID: 4443855207419624363}
   - component: {fileID: 4443855207419624364}
+  - component: {fileID: 7509084705536328438}
   m_Layer: 8
   m_Name: Pointer
   m_TagString: Untagged
@@ -123,6 +126,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &7509084705536328438
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4443855207419624366}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1853b07999e992643b6daa3202b67d16, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4443855207618231687
 GameObject:
   m_ObjectHideFlags: 0

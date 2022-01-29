@@ -23,9 +23,6 @@ public class Spell : MonoBehaviour
     internal void Initialize(Transform missilesSpawnPoint)
 	{
         this.missilesSpawnPoint = missilesSpawnPoint;
-
-        CreateToxicAreaOnHitBoost spellBoostTest = new CreateToxicAreaOnHitBoost();
-        spellBoostTest.ProcessSpellBoost(this);
     }
 
 	[SerializeField]

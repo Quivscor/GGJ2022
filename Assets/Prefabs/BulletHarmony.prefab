@@ -108,6 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9145cfd30275daf418808fc0dd561e3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitImpactParticles: {fileID: 5573970946837640395, guid: 2a9731fbe042e184b9777c78d1014b3c, type: 3}
+  hitImpactParticlesLifetime: 1
 --- !u!1001 &6545523844973242658
 PrefabInstance:
   m_ObjectHideFlags: 0
