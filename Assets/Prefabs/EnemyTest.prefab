@@ -1342,7 +1342,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!136 &5044775070242900676
 CapsuleCollider:
@@ -1372,23 +1372,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyTargets:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   activeTarget: {fileID: 0}
   enemyBias: 0.5
-  prefEnemyDistance: 0
+  enemyDistanceFactor: 8
+  prefEnemyDistance: {x: 11, y: 15}
   targetBias: 0
   allyTargets: []
   allyBias: 0
-  oldMoveBias: 0.6
-  biasRange: {x: 0.2, y: Infinity}
-  wallRaycastDistance: 10
+  oldMoveBias: 0.8
+  biasRange: {x: 0, y: Infinity}
+  aiUpdateFrequency: 0.2
+  wallRaycastDistance: 5
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  wallBias: 0.8
+  wallWeightBonus: 3
+  wallBias: 0.4
+  wallDistanceFactor: 10
   bulletDetectionRange: 15
   bulletBias: 0.4
+  bulletTag: Bullet
   debugDrawRange: 1
 --- !u!114 &5044775070242900666
 MonoBehaviour:
@@ -1402,7 +1405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614a92126eae5ef42b650a867f90c32f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
+  movementSpeed: 3
 --- !u!1 &5891509691784821301
 GameObject:
   m_ObjectHideFlags: 0
