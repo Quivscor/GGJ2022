@@ -36,7 +36,11 @@ public class SpellMissile : MonoBehaviour
 	private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.root.CompareTag("Bullet"))
-            return;
+        {
+			Destroy(collision.transform.root.gameObject);
+			Destroy(this.gameObject);
+        }
+
 
         if (collision.transform.root.TryGetComponent(out CharacterStats targetCharacterStats))
         {
