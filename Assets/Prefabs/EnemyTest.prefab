@@ -191,6 +191,38 @@ Transform:
   m_Father: {fileID: 3788283675743632726}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &722619828616582836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8644639785272705830}
+  m_Layer: 0
+  m_Name: MissilesSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8644639785272705830
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722619828616582836}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.177, z: 0.585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3959572792894678322}
+  m_Father: {fileID: 4722056437913513301}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &810763836911908440
 GameObject:
   m_ObjectHideFlags: 0
@@ -1288,6 +1320,7 @@ GameObject:
   - component: {fileID: 4620119440663906231}
   - component: {fileID: 5375127830986571086}
   - component: {fileID: 543450652347983446}
+  - component: {fileID: 7257596774631119853}
   m_Layer: 0
   m_Name: EnemyTest
   m_TagString: Untagged
@@ -1311,6 +1344,7 @@ Transform:
   - {fileID: 7240593633653124730}
   - {fileID: 997634743482715585}
   - {fileID: 5979434273685517851}
+  - {fileID: 8644639785272705830}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1418,6 +1452,8 @@ MonoBehaviour:
   movementSpeed: 3
   animator: {fileID: 1686652603486943023}
   character: {fileID: 997634743482715585}
+  slowEffectTime: 2
+  slowedMovementSpeedFactor: 0.5
 --- !u!114 &8449016937190644562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1464,6 +1500,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   harmonySpell: {fileID: 5375127830986571086}
   chaosSpell: {fileID: 0}
+  animator: {fileID: 1686652603486943023}
   missilesSpawnPoint: {fileID: 5979434273685517851}
 --- !u!114 &5375127830986571086
 MonoBehaviour:
@@ -1480,7 +1517,7 @@ MonoBehaviour:
   bullet: {fileID: 1881288736024043230, guid: 7441c3af128305d4f9d18104e1dc5f83, type: 3}
   spellType: 0
   numberOfBullets: 1
-  accuracy: 100
+  recoil: 0.05
   fireRate: 1
   spellSpeed: 10
   damage: 10
@@ -1500,9 +1537,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b46d12784257d49a10121bd8e7d450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTargets:
-  - {fileID: 0}
-  enemyThreatGauge: []
+  activeTarget: {fileID: 0}
+--- !u!114 &7257596774631119853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5387375955542947823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c46867d185f97c47bd3a026b0d8abf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1686652603486943023}
+  boneToRotationFix: {fileID: 6245659424610314938}
+  spellSpawner: {fileID: 3959572792894678322}
 --- !u!1 &5891509691784821301
 GameObject:
   m_ObjectHideFlags: 0
@@ -2014,6 +2064,37 @@ Transform:
   m_Children:
   - {fileID: 7393280629591069839}
   m_Father: {fileID: 7315759886230828221}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7837356506671277293
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3959572792894678322}
+  m_Layer: 0
+  m_Name: SpineCorrector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3959572792894678322
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7837356506671277293}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.124, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8644639785272705830}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7892456976452616339

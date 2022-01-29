@@ -55,7 +55,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1751774421265251438
 MonoBehaviour:
@@ -87,6 +87,8 @@ MonoBehaviour:
   movementSpeed: 5
   animator: {fileID: 5270645498693263950}
   character: {fileID: 2289294205679466548}
+  slowEffectTime: 2
+  slowedMovementSpeedFactor: 0.5
 --- !u!114 &1751774421265251427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   harmonySpell: {fileID: 1751774421265251429}
   chaosSpell: {fileID: 1751774421265251428}
+  animator: {fileID: 5270645498693263950}
   missilesSpawnPoint: {fileID: 5726055415182452976}
 --- !u!114 &1751774421265251426
 MonoBehaviour:
@@ -136,7 +139,7 @@ MonoBehaviour:
   bullet: {fileID: 1881288736024043230, guid: 7441c3af128305d4f9d18104e1dc5f83, type: 3}
   spellType: 0
   numberOfBullets: 1
-  accuracy: 100
+  recoil: 0.05
   fireRate: 5
   spellSpeed: 10
   damage: 10
@@ -159,7 +162,7 @@ MonoBehaviour:
   bullet: {fileID: 1881288736024043230, guid: 7441c3af128305d4f9d18104e1dc5f83, type: 3}
   spellType: 1
   numberOfBullets: 1
-  accuracy: 100
+  recoil: 0.05
   fireRate: 1
   spellSpeed: 10
   damage: 10

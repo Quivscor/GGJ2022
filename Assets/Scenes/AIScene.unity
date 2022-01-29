@@ -1115,10 +1115,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1751774421265251439, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
 --- !u!4 &1484477470 stripped
@@ -1652,6 +1648,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aiUpdateFrequency: 0
+  threatDecayOverTime: 0
+  threatIncreasePerDmg: 0
+  initThreatValue: 0
 --- !u!1001 &5044775071039195909
 PrefabInstance:
   m_ObjectHideFlags: 0
