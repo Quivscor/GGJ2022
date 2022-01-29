@@ -48,7 +48,7 @@ public class SpellMissile : MonoBehaviour
 
         if (collision.transform.root.TryGetComponent(out CharacterStats targetCharacterStats))
         {
-            if (targetCharacterStats == parent)
+            if (targetCharacterStats == parent && !bounced)
                 return;
 
             targetCharacterStats.DealDamge(damageToApply);
