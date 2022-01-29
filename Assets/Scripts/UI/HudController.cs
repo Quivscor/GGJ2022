@@ -10,6 +10,7 @@ public class HudController : MonoBehaviour
     [SerializeField]
     private Image healthBar;
 
+
     public static HudController instance;
     public static HudController Instance
     {

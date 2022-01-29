@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 
 [System.Serializable]
@@ -12,6 +13,10 @@ public class CharacterStats : MonoBehaviour
     [Header("Debug options")]
     [SerializeField]
     private bool infiniteResources = false;
+
+    [Header("Stats")]
+    [SerializeField]
+    private Image healthBarFill;
 
     [Header("Stats")]
     [SerializeField]
@@ -35,7 +40,6 @@ public class CharacterStats : MonoBehaviour
         Heal(MaxHealth);
         primaryResource = maxResource / 2f;
         resourceChanged?.Invoke(primaryResource / maxResource);
-
     }
 
     public void Heal(float value)
@@ -44,7 +48,9 @@ public class CharacterStats : MonoBehaviour
         if (health > MaxHealth)
             health = MaxHealth;
 
-        healthChanged?.Invoke(health/maxHealth);
+        //healthChanged?.Invoke(health/maxHealth);
+        if(healthBarFill != null)
+            healthBarFill.fillAmount = health / maxHealth;
     }
 
     public void DealDamge(float value)
@@ -52,9 +58,9 @@ public class CharacterStats : MonoBehaviour
         health -= value;
         if (health <= 0)
             Debug.LogError(this.name + " DIED");
-
-        healthChanged?.Invoke(health / maxHealth);
-
+        if (healthBarFill != null)
+            healthBarFill.fillAmount = health / maxHealth;
+        //healthChanged?.Invoke(health / maxHealth);
     }
 
     public void CastTestSpell(int spellType)
