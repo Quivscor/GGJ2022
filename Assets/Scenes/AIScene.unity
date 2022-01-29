@@ -2168,10 +2168,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2764894930417610203, guid: 4d6840aab19ab6b4a86f64886acdd4b3, type: 3}
-      propertyPath: threatDistanceMod
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4722056437913513301, guid: 4d6840aab19ab6b4a86f64886acdd4b3, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -2215,30 +2211,6 @@ PrefabInstance:
     - target: {fileID: 4722056437913513301, guid: 4d6840aab19ab6b4a86f64886acdd4b3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5044775070242900667, guid: 4d6840aab19ab6b4a86f64886acdd4b3, type: 3}
-      propertyPath: bulletBias
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5044775070242900667, guid: 4d6840aab19ab6b4a86f64886acdd4b3, type: 3}
-      propertyPath: enemyTargets.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5044775070242900667, guid: 4d6840aab19ab6b4a86f64886acdd4b3, type: 3}
-      propertyPath: enemyTargets.Array.data[0]
-      value: 
-      objectReference: {fileID: 1484477470}
-    - target: {fileID: 5044775070242900667, guid: 4d6840aab19ab6b4a86f64886acdd4b3, type: 3}
-      propertyPath: enemyTargets.Array.data[1]
-      value: 
-      objectReference: {fileID: 662629371}
-    - target: {fileID: 5044775070242900667, guid: 4d6840aab19ab6b4a86f64886acdd4b3, type: 3}
-      propertyPath: enemyTargets.Array.data[2]
-      value: 
-      objectReference: {fileID: 2057305195}
-    - target: {fileID: 5044775070242900679, guid: 4d6840aab19ab6b4a86f64886acdd4b3, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 5387375955542947823, guid: 4d6840aab19ab6b4a86f64886acdd4b3, type: 3}
       propertyPath: m_Name

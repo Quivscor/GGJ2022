@@ -20,6 +20,16 @@ public class WandController : MonoBehaviour
         chaosSpell.Initialize(missilesSpawnPoint);
     }
 
+    public float GetSpellCost(bool primarySpell, bool secondarySpell)
+    {
+        if (primarySpell)
+            return harmonySpell.ResourceCost;
+        else if (secondarySpell)
+            return chaosSpell.ResourceCost;
+        else
+            return Mathf.NegativeInfinity;
+    }
+
 	public void ProcessSpell(bool primarySpell, bool secondarySpell)
 	{
         if (primarySpell)

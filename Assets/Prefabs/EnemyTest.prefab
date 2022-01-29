@@ -1383,7 +1383,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &5044775070242900676
 CapsuleCollider:
@@ -1411,10 +1411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6dc7fc9d39673428dce5baba37f1e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTargets:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  enemyTargets: []
   activeTarget: {fileID: 0}
   enemyBias: 0.3
   enemyDistanceFactor: 8
@@ -1435,7 +1432,7 @@ MonoBehaviour:
   wallBias: 0.4
   wallDistanceFactor: 10
   bulletDetectionRange: 7
-  bulletBias: 0.4
+  bulletBias: 0.8
   bulletTag: Bullet
   debugDrawRange: 0
 --- !u!114 &5044775070242900666
@@ -1500,7 +1497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   harmonySpell: {fileID: 5375127830986571086}
-  chaosSpell: {fileID: 0}
+  chaosSpell: {fileID: 5375127830986571086}
   animator: {fileID: 1686652603486943023}
   missilesSpawnPoint: {fileID: 5979434273685517851}
 --- !u!114 &5375127830986571086
@@ -1539,6 +1536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeTarget: {fileID: 0}
+  aiType: 0
 --- !u!114 &7257596774631119853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1572,7 +1570,7 @@ MonoBehaviour:
   threatIncreasePerDmg: 10
   initThreatValue: 100
   areaScanRadius: 15
-  threatDistanceMod: 5
+  threatDistanceMod: 1.5
 --- !u!1 &5891509691784821301
 GameObject:
   m_ObjectHideFlags: 0
