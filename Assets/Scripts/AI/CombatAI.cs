@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class CombatAI : MonoBehaviour
 {
-    public List<Transform> enemyTargets;
-    public List<float> enemyThreatGauge;
+    public Transform activeTarget;
 
     private WandController wand;
     private CharacterRotator rotator;
@@ -18,7 +17,10 @@ public class CombatAI : MonoBehaviour
 
     private void Update()
     {
+        if (activeTarget == null)
+            return;
+
         wand.ProcessSpell(true, false);
-        rotator.LookAt(enemyTargets[0].position);
+        rotator.LookAt(activeTarget.position);
     }
 }
