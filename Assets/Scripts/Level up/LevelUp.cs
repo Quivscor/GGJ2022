@@ -38,6 +38,15 @@ public class ResourceUpgrade : MonoBehaviour
         ToggleChoosingPhaze(false);
     }
 
+    public void AddRandomLevelForBot(CharacterStats characterStats, WandController wandController)
+    {
+        if (Random.Range(0, 2) == 0)
+            characterStats.AddLevel(SpellType.Harmony);
+        else
+            characterStats.AddLevel(SpellType.Chaos);
+
+    }
+
     public void PrepareBoostsList(SpellType spellType, int numberOfBoosts)
     {
         List<SpellBoost> preparedBoosts = new List<SpellBoost>();

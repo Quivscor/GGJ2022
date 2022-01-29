@@ -60,6 +60,13 @@ public class CharacterStats : MonoBehaviour
             healthBarFill.fillAmount = health / maxHealth;
     }
 
+    public void Resurect()
+    {
+        health = maxHealth;
+        if (healthBarFill != null)
+            healthBarFill.fillAmount = health / maxHealth;
+    }
+
     public void DealDamge(float value)
     {
         health -= value;
