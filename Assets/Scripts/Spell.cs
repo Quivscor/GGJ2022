@@ -72,13 +72,13 @@ public class Spell : MonoBehaviour
         {
             characterStats.SpendResource(ResourceCost, spellType);
 
-            Vector3 direction = this.transform.forward;
+            Vector3 direction = missilesSpawnPoint.transform.forward;
 
             var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
-            bulletShot.Initialize(this.gameObject);
-            bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
+			bulletShot.Initialize(this.gameObject);
+			bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
 
-            StartCoroutine(EnableCooldown());
+			StartCoroutine(EnableCooldown());
         }
     }
 

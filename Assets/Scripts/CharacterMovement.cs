@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator), typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody))]
 public class CharacterMovement : MonoBehaviour
 {
 	[SerializeField] private float movementSpeed = 2.0f;
-
-	private Animator animator = null;
+	
+	[Header("References:")]
+	[SerializeField] private Animator animator = null;
+	[SerializeField] private Transform character = null;
+	
 	private new Rigidbody rigidbody = null;
 
 	private void Awake()
 	{
-		animator = GetComponent<Animator>();
+		if (animator == null)
+			animator = GetComponentInChildren<Animator>();
+
 		rigidbody = GetComponent<Rigidbody>();
 	}
 
@@ -44,24 +49,24 @@ public class CharacterMovement : MonoBehaviour
 		//	animator.SetFloat("verticalMovement", vertical);
 		//	animator.SetFloat("horizontalMovement", horizontal);
 		//}
-		animator.SetBool("isMoving", new Vector3(horizontal, 0.0f, vertical) != Vector3.zero);
+		animator?.SetBool("isMoving", new Vector3(horizontal, 0.0f, vertical) != Vector3.zero);
 
-		int quarterIndex = (int)(this.transform.rotation.eulerAngles.y / 90);
+		int quarterIndex = (int)(character.localRotation.eulerAngles.y / 90);
 
-		if (quarterIndex * 90 + 45 < this.transform.rotation.eulerAngles.y)
+		if (quarterIndex * 90 + 45 < character.localRotation.eulerAngles.y)
 			quarterIndex++;
 
 		quarterIndex = quarterIndex % 4;
 
 		if (quarterIndex == 0 || quarterIndex == 2)
 		{
-			animator.SetFloat("verticalMovement", vertical * (quarterIndex == 2 ? -1.0f : 1.0f));
-			animator.SetFloat("horizontalMovement", horizontal * (quarterIndex == 2 ? -1.0f : 1.0f));
+			animator?.SetFloat("verticalMovement", vertical * (quarterIndex == 2 ? -1.0f : 1.0f));
+			animator?.SetFloat("horizontalMovement", horizontal * (quarterIndex == 2 ? -1.0f : 1.0f));
 		}
 		else
 		{
-			animator.SetFloat("verticalMovement", vertical * (quarterIndex == 3 ? -1.0f : 1.0f));
-			animator.SetFloat("horizontalMovement", horizontal * (quarterIndex == 3 ? 1.0f : -1.0f));
+			animator?.SetFloat("verticalMovement", horizontal * (quarterIndex == 3 ? -1.0f : 1.0f));
+			animator?.SetFloat("horizontalMovement", vertical * (quarterIndex == 3 ? 1.0f : -1.0f));
 		}
 	}
 }
