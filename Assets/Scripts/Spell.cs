@@ -88,7 +88,7 @@ public class Spell : MonoBehaviour
                 direction.Normalize();
 
                 var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
-                bulletShot.Initialize(this.gameObject);
+                bulletShot.Initialize(this.gameObject, damage);
                 bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
 
             }
