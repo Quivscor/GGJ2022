@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
+using System.Linq;
 
 public class MovementAI : MonoBehaviour
 {
@@ -89,14 +90,13 @@ public class MovementAI : MonoBehaviour
                 Gizmos.DrawRay(this.transform.position, weightVectors[i] * weights[i]);
             }
             //i only use this so i can use this function in OnDrawGizmos
-            catch(Exception e) {}
+            catch (Exception) {}
         }
         if(randomMove)
         {
             result += Random.insideUnitSphere * randomMoveBias;
         }
 
-        Debug.Log(result.normalized);
         return result.normalized;
     }
 
@@ -106,15 +106,15 @@ public class MovementAI : MonoBehaviour
         {
             //vector towards target
             Vector3 unitDistance = t.position - this.transform.position;
-            //RaycastHit hit;
-            //if(Physics.Raycast(this.transform.position + Vector3.up - (unitDistance * colliderRadius), t.position + Vector3.up, out hit))
-            //{
-            //    if(hit.transform != t)
-            //    {
-            //        //enemy is not in line of sight so ignore them
-            //        continue;
-            //    }
-            //}
+
+            //if something is between objects
+            RaycastHit hitinfo;
+            if (Physics.Linecast(this.transform.position + Vector3.up, t.position + Vector3.up, out hitinfo))
+            {
+                if (hitinfo.transform != t)
+                    continue;
+            }
+
             for (int i = 0; i < weights.Length; i++)
             {
                 float weightDelta = Vector2.Dot(VectorCast.CastVector3ToVector2(vectors[i]),
