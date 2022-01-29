@@ -10,6 +10,7 @@ public class WandController : MonoBehaviour
     private Spell harmonySpell = null;
     [SerializeField]
     private Spell chaosSpell = null;
+    [SerializeField] private Animator animator = null;
     [Space(10)]
     [SerializeField] private Transform missilesSpawnPoint = null;
 
@@ -25,6 +26,18 @@ public class WandController : MonoBehaviour
             ProcessSpellCast(SpellType.Harmony);
         else if (secondarySpell)
             ProcessSpellCast(SpellType.Chaos);
+
+        ProcessAnimator(primarySpell, secondarySpell);
+    }
+
+    private void ProcessAnimator(bool primarySpell, bool secondarySpell)
+	{
+        if (primarySpell || secondarySpell)
+            animator.SetLayerWeight(1, 1);
+        else
+            animator.SetLayerWeight(1, 0);
+
+        animator?.SetBool("isAttacking", primarySpell || secondarySpell);
     }
 
     public void ProcessSpellCast(SpellType spellType)
