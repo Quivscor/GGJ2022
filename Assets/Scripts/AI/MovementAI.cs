@@ -49,7 +49,10 @@ public class MovementAI : MonoBehaviour
     private void Update()
     {
         if (MatchController.Instance.State != MatchState.ACTIVE || stats.isDead)
+        {
+            charMovement.ProcessMovement(0, 0);
             return;
+        }
 
         if (updateTimer <= 0)
         {
