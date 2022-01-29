@@ -2612,10 +2612,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614a92126eae5ef42b650a867f90c32f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 3
-  dashSpeed: 10
-  dashCooldown: 2
-  dashDuration: 0.5
+  movementSpeed: 5
+  dashSpeed: 30
+  dashCooldown: 5
+  dashDuration: 0.1
   animator: {fileID: 6743739885428278653}
   character: {fileID: 5127046540579684243}
   slowEffectTime: 2
@@ -2637,7 +2637,12 @@ MonoBehaviour:
   health: 0
   maxHealth: 100
   maxResource: 100
+  harmonyLevel: 0
+  chaosLevel: 0
   resourceChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  healthChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &4065779482777482607
@@ -2704,6 +2709,8 @@ MonoBehaviour:
   chaosSpell: {fileID: 973992933186562719}
   animator: {fileID: 6743739885428278653}
   missilesSpawnPoint: {fileID: 1730954437240259657}
+  harmonyLastSpellTime: 0.5
+  chaosLastSpellTime: 0.5
 --- !u!114 &5804524340227060190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2761,6 +2768,7 @@ MonoBehaviour:
   randomMove: 1
   randomMoveBias: 2
   biasRange: {x: 0, y: Infinity}
+  dashThreshold: 45
   aiUpdateFrequency: 0.2
   wallRaycastDistance: 5
   wallLayerMask:
