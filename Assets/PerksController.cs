@@ -15,6 +15,7 @@ public class PerksController : MonoBehaviour
     LowerResourceModifierBoost lowerResourceModifierBoost;
     HealOnHitEnemyBoost healOnHitEnemyBoost;
     HomingBoost homingBoost;
+    GrowingBoost growingBoost;
 
     public static PerksController Instance;
 
@@ -30,12 +31,14 @@ public class PerksController : MonoBehaviour
         lowerResourceModifierBoost = new LowerResourceModifierBoost();
         healOnHitEnemyBoost = new HealOnHitEnemyBoost();
         homingBoost = new HomingBoost();
+        growingBoost = new GrowingBoost();
 
         harmonySpellBoosts.Add(healOnHitEnemyBoost);
         harmonySpellBoosts.Add(slowOnHit);
         chaosSpellBoosts.Add(toxicArea);
         chaosSpellBoosts.Add(homingBoost);
 
+        anySpellBoosts.Add(growingBoost);
         anySpellBoosts.Add(numberOfBulletsBoost);
         anySpellBoosts.Add(fireRateBoost);
         anySpellBoosts.Add(lowerResourceModifierBoost);
