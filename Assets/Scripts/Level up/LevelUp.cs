@@ -75,6 +75,8 @@ public class LevelUp : MonoBehaviour
 
         monumentsRise.Invoke(1.5f);
         monumentsAnimator.SetTrigger("Hide");
+
+        MatchController.Instance.ChangeMatchState(MatchState.PRESTART);
     }
 
     public void ShowMonumentInfo(int monumentNumber)

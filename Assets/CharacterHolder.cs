@@ -66,5 +66,13 @@ public class CharacterHolder : MonoBehaviour
                 LevelUp.Instance.AddRandomLevelForBot(t, t.GetComponent<WandController>());
             }
         }
+        _deadCharacters.Clear();
+        StartCoroutine(ChangeStateAfterTime(MatchState.ACTIVE, 1f));
+    }
+
+    public IEnumerator ChangeStateAfterTime(MatchState state, float time)
+    {
+        yield return new WaitForSeconds(time);
+        MatchController.Instance.ChangeMatchState(state);
     }
 }
