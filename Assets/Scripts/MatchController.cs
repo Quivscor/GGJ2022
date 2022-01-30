@@ -50,7 +50,7 @@ public class MatchController : MonoBehaviour
                 break;
             case MatchState.FINISHED:
                 onMatchFinished?.Invoke();
-                if (round == 0)
+                if (round == 5)
                     StartCoroutine(DisplayVictory());
                 break;
             default:

@@ -49,8 +49,9 @@ public class CharacterStats : MonoBehaviour
 
     void Start()
     {
-        //Heal(MaxHealth);
         health = MaxHealth;
+        if (healthBarFill != null)
+            healthBarFill.fillAmount = health / maxHealth;
         primaryResource = maxResource / 2f;
         resourceChanged?.Invoke(primaryResource / maxResource);
         isDead = false;

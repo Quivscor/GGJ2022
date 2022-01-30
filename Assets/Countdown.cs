@@ -8,6 +8,9 @@ public class Countdown : MonoBehaviour
     TMProText countdownText;
     Animator animator;
 
+    public int countFrom = 5;
+    private int currentTime = 0;
+
     private void Awake()
     {
         countdownText = GetComponent<TMProText>();
@@ -16,23 +19,27 @@ public class Countdown : MonoBehaviour
 
     private void Start()
     {
+        currentTime = countFrom;
         StartCountdown();
     }
 
     public void StartCountdown()
     {
+        
         StartCoroutine(Counting());
     }
 
     public IEnumerator Counting()
     {
-        animator.Play("Counting");
-        countdownText.text = "3";
-        yield return new WaitForSeconds(0.2f);
-        countdownText.text = "2";
-        yield return new WaitForSeconds(0.2f);
-        countdownText.text = "1";
-        yield return new WaitForSeconds(0.2f);
+        currentTime = countFrom;
+        //animator.Play("Counting");
+        while (currentTime > 0)
+        {
+            countdownText.text = currentTime.ToString();
+            currentTime--;
+            yield return new WaitForSeconds(1f);
+        }
         MatchController.Instance.ChangeMatchState(MatchState.ACTIVE);
+        countdownText.text = "";
     }
 }
