@@ -42,6 +42,7 @@ public class Spell : MonoBehaviour
     [SerializeField]
     private float bulletSize = 1f;
 
+    private bool isHoming = false;
     private CharacterStats characterStats;
 
     public int NumberOfBullets { get => numberOfBullets; set => numberOfBullets = value; }
@@ -53,6 +54,7 @@ public class Spell : MonoBehaviour
     public int NumberOfBounces { get => numberOfBounces; set => numberOfBounces = value; }
     public float Range { get => range; set => range = value; }
     public float BulletSize { get => bulletSize; set => bulletSize = value; }
+    public bool IsHoming { get => isHoming; set => isHoming = value; }
 
     private float currentFireRate = 0.0f;
     private float currentRecoil = 0.0f;
@@ -69,6 +71,10 @@ public class Spell : MonoBehaviour
 
         currentFireRate = 1.0f / fireRate;
         currentRecoil = recoil;
+
+        //debug AF
+        HomingBoost boost = new HomingBoost();
+        boost.ProcessSpellBoost(this);
     }
 
     public Vector3 CalculatedRecoil() => new Vector3(UnityEngine.Random.Range(-currentRecoil, currentRecoil), 0.0f, UnityEngine.Random.Range(-currentRecoil, currentRecoil));
@@ -94,7 +100,7 @@ public class Spell : MonoBehaviour
                 direction.Normalize();
 
                 var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
-                bulletShot.Initialize(characterStats, damage, numberOfBounces, MissileHitCharacter, MissileHitAnything);
+                bulletShot.Initialize(characterStats, damage, numberOfBounces, MissileHitCharacter, MissileHitAnything, IsHoming);
                 bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
 
             }

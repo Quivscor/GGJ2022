@@ -17,13 +17,22 @@ public class SpellMissile : MonoBehaviour
 	public event Action<Transform, CharacterStats> HitAnything = null;
 	private Rigidbody rb;
 	private Vector3 lastVelocity;
-	public void Initialize(CharacterStats parent, float damageToApply,int bounces, Action<CharacterStats, CharacterStats, float> missileHitCharacter, Action<Transform, CharacterStats> missileHitAnything)
+
+	[Header("Homing")]
+	private bool isHoming;
+	[SerializeField] float homingForce;
+	[SerializeField] float enemyCheckFrequency;
+	[SerializeField] float homingRange;
+	private float enemyCheckCurrentTime;
+
+	public void Initialize(CharacterStats parent, float damageToApply,int bounces, Action<CharacterStats, CharacterStats, float> missileHitCharacter, Action<Transform, CharacterStats> missileHitAnything, bool isHoming = false)
 	{
 		rb = GetComponent<Rigidbody>();
 		this.parent = parent;
 		this.damageToApply = damageToApply;
 		HitCharacter = missileHitCharacter;
 		HitAnything = missileHitAnything;
+		this.isHoming = isHoming;
 	}
 
 	public Transform GetParentTransform()
@@ -34,6 +43,40 @@ public class SpellMissile : MonoBehaviour
 	private void Update()
 	{
 		lastVelocity = rb.velocity;
+
+		if(isHoming)
+        {
+			int count = 0;
+			Vector3 newVelocity = lastVelocity;
+			//detect any character in area
+			if (enemyCheckCurrentTime > 0)
+				enemyCheckCurrentTime -= Time.deltaTime;
+			else
+            {
+				enemyCheckCurrentTime = enemyCheckFrequency;
+				Collider[] cols = Physics.OverlapSphere(this.transform.position, homingRange);
+				
+				foreach(Collider col in cols)
+                {
+					if(col.TryGetComponent(out CharacterStats stats))
+                    {
+						//don't home on dead people
+						if (stats.isDead)
+							continue;
+						//don't home on yourself
+						if (stats == parent)
+							continue;
+
+						float mag = lastVelocity.magnitude;
+						Vector3 dir = Vector3.Slerp(lastVelocity.normalized, (stats.transform.position - this.transform.position).normalized, homingForce);
+
+						newVelocity = dir * mag;
+                    }
+                }
+            }
+			//curve a little in that direction
+			rb.velocity = newVelocity;
+        }
 	}
 
 	private void OnCollisionEnter(Collision collision)
@@ -53,7 +96,7 @@ public class SpellMissile : MonoBehaviour
             if (targetCharacterStats == parent && !bounced)
                 return;
 
-			if (!collision.transform.CompareTag("Player"))
+			if (!collision.transform.CompareTag("Player") && !parent.CompareTag("Player"))
 				damageToApply *= 0.5f;
             targetCharacterStats.DealDamge(damageToApply);
             HitCharacter?.Invoke(parent, targetCharacterStats, damageToApply);

@@ -110,6 +110,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitImpactParticles: {fileID: 1155741989583138616, guid: a085c5e75c8c16d4186f3a60bc07860f, type: 3}
   hitImpactParticlesLifetime: 1
+  homingForce: 0.1
+  enemyCheckFrequency: 0.1
+  homingRange: 5
 --- !u!1001 &8419918822526860346
 PrefabInstance:
   m_ObjectHideFlags: 0
