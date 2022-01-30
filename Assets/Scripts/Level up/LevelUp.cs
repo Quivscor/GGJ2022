@@ -35,6 +35,7 @@ public class LevelUp : MonoBehaviour
     public List<SpellBoost> preparedBoosts = new List<SpellBoost>();
 
     public MonumentsRise monumentsRise;
+    public AudioSource upgradeSource;
 
     private void Awake()
     {
@@ -72,8 +73,9 @@ public class LevelUp : MonoBehaviour
             return;
 
         perkBought = true;
-
-        if(chosenResource == SpellType.Harmony)
+        if (upgradeSource != null)
+            upgradeSource.Play();
+        if (chosenResource == SpellType.Harmony)
             preparedBoosts[monumentNumber].ProcessSpellBoost(playerReference.GetComponent<WandController>().HarmonySpell);
         else
             preparedBoosts[monumentNumber].ProcessSpellBoost(playerReference.GetComponent<WandController>().ChaosSpell);
