@@ -15,5 +15,7 @@ public class HomingBoost : SpellBoost
     public override void ProcessSpellBoost(Spell spell)
     {
         spell.IsHoming = true;
+        spell.HomingForce += .25f;
+        spell.ChangeCostModifier(costModifier);
     }
 }

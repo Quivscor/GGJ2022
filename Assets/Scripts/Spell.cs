@@ -43,6 +43,7 @@ public class Spell : MonoBehaviour
     private float bulletSize = 1f;
 
     private bool isHoming = false;
+    private float homingForce = 0;
     private CharacterStats characterStats;
 
     public int NumberOfBullets { get => numberOfBullets; set => numberOfBullets = value; }
@@ -55,6 +56,7 @@ public class Spell : MonoBehaviour
     public float Range { get => range; set => range = value; }
     public float BulletSize { get => bulletSize; set => bulletSize = value; }
     public bool IsHoming { get => isHoming; set => isHoming = value; }
+    public float HomingForce { get => homingForce; set => homingForce = value; }
 
     private float currentFireRate = 0.0f;
     private float currentRecoil = 0.0f;
@@ -100,7 +102,7 @@ public class Spell : MonoBehaviour
                 direction.Normalize();
 
                 var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
-                bulletShot.Initialize(characterStats, damage, numberOfBounces, MissileHitCharacter, MissileHitAnything, IsHoming);
+                bulletShot.Initialize(characterStats, damage, numberOfBounces, MissileHitCharacter, MissileHitAnything, IsHoming, homingForce);
                 bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
 
             }

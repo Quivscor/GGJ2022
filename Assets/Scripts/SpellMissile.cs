@@ -20,12 +20,12 @@ public class SpellMissile : MonoBehaviour
 
 	[Header("Homing")]
 	private bool isHoming;
-	[SerializeField] float homingForce;
+	private float homingForce;
 	[SerializeField] float enemyCheckFrequency;
 	[SerializeField] float homingRange;
 	private float enemyCheckCurrentTime;
 
-	public void Initialize(CharacterStats parent, float damageToApply,int bounces, Action<CharacterStats, CharacterStats, float> missileHitCharacter, Action<Transform, CharacterStats> missileHitAnything, bool isHoming = false)
+	public void Initialize(CharacterStats parent, float damageToApply,int bounces, Action<CharacterStats, CharacterStats, float> missileHitCharacter, Action<Transform, CharacterStats> missileHitAnything, bool isHoming = false, float homingForce = 0)
 	{
 		rb = GetComponent<Rigidbody>();
 		this.parent = parent;
@@ -33,6 +33,7 @@ public class SpellMissile : MonoBehaviour
 		HitCharacter = missileHitCharacter;
 		HitAnything = missileHitAnything;
 		this.isHoming = isHoming;
+		this.homingForce = homingForce;
 	}
 
 	public Transform GetParentTransform()
