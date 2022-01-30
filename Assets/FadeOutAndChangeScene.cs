@@ -11,6 +11,11 @@ public class FadeOutAndChangeScene : MonoBehaviour
     public AnimationCurve curve;
     public Image img;
 
+    private void Start()
+    {
+        StartCoroutine(FadeIn());
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -34,6 +39,19 @@ public class FadeOutAndChangeScene : MonoBehaviour
         if (isInRange && Input.GetKeyDown(KeyCode.E))
         {
             StartCoroutine(FadeOut(.5f));
+        }
+    }
+
+    public IEnumerator FadeIn()
+    {
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime;
+            float a = curve.Evaluate(t);
+            img.color = new Color(0f, 0f, 0f, a);
+            yield return 0;
         }
     }
 

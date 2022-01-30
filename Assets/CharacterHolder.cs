@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMProText = TMPro.TextMeshProUGUI;
 
 public class CharacterHolder : MonoBehaviour
 {
@@ -52,7 +55,34 @@ public class CharacterHolder : MonoBehaviour
 
     public void OnPlayerDeath(CharacterStats stats)
     {
-        Debug.LogError("Kurwa nie ten projekt");
+        StartCoroutine(FadeOut(2f));
+        StartCoroutine(FadeInText(1.5f));
+    }
+
+    public AnimationCurve curve;
+    public Image img;
+    public TMProText text;
+    private IEnumerator FadeOut(float t)
+    {
+        while (t > 0)
+        {
+            t -= Time.deltaTime;
+            float a = curve.Evaluate(t);
+            img.color = new Color(0f, 0f, 0f, a);
+            yield return 0;
+        }
+        SceneManager.LoadScene(0);
+    }
+
+    private IEnumerator FadeInText(float t)
+    {
+        while (t > 0f)
+        {
+            t -= Time.deltaTime;
+            float a = curve.Evaluate(t);
+            text.color = new Color(1f, 1f, 1f, a);
+            yield return 0;
+        }
     }
 
     public void ResetEveryone()

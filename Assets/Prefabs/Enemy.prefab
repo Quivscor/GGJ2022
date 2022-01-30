@@ -391,6 +391,7 @@ GameObject:
   - component: {fileID: 4991313433281345095}
   - component: {fileID: 8331289469713145579}
   - component: {fileID: 2368851467510499929}
+  - component: {fileID: 3262101850418157446}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -480,6 +481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infiniteResources: 0
+  immortality: 0
   healthBarFill: {fileID: 5190317601492438225}
   health: 0
   maxHealth: 100
@@ -658,6 +660,19 @@ MonoBehaviour:
   dashParticles: {fileID: 2773753485985672416}
   disappearingSpeed: 1
   lifetime: 2
+--- !u!114 &3262101850418157446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7594468609969001206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63a6fc2a8b711643ad2c70026e86817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disappearMaterial: {fileID: 2100000, guid: f642ba03ca66d714585d80711c9b1541, type: 2}
 --- !u!1 &7857691840350645820
 GameObject:
   m_ObjectHideFlags: 0

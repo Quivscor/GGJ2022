@@ -49,7 +49,8 @@ public class CharacterStats : MonoBehaviour
 
     void Start()
     {
-        Heal(MaxHealth);
+        //Heal(MaxHealth);
+        health = MaxHealth;
         primaryResource = maxResource / 2f;
         resourceChanged?.Invoke(primaryResource / maxResource);
         isDead = false;
@@ -73,6 +74,7 @@ public class CharacterStats : MonoBehaviour
         if (healthBarFill != null)
             healthBarFill.fillAmount = health / maxHealth;
         isDead = false;
+        GetComponent<CharacterMaterialReplacer>().RevertMat();
     }
 
     public void DealDamge(float value)
@@ -84,10 +86,8 @@ public class CharacterStats : MonoBehaviour
             {
                 Debug.LogError(this.name + " DIED");
                 died?.Invoke(this);
+                GetComponent<CharacterMaterialReplacer>().UseNewMat();
                 isDead = true;
-
-                if(transform.root.CompareTag("Player"))
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
 
             if (healthBarFill != null)

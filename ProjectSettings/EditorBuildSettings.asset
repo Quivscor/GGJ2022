@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/TutorialScene.unity
     guid: 6881768b26c163d4ca68ebe81a4acaaf
   - enabled: 1
-    path: Assets/Scenes/AIScene.unity
-    guid: c6e265ba2228d3746bc86f1236d05d21
+    path: Assets/Scenes/AISceneModels.unity
+    guid: b9173bfefcc256348a7ae7875551403e
   m_configObjects: {}

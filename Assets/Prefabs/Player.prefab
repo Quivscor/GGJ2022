@@ -257,6 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infiniteResources: 0
+  immortality: 0
   healthBarFill: {fileID: 1138002257782982429}
   health: 0
   maxHealth: 100
