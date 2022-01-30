@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMProText = TMPro.TextMeshProUGUI;
 
 [System.Serializable] public class MatchStateChanged : UnityEvent { }
+[System.Serializable] public class RoundChanged : UnityEvent<float> { }
 
 public class MatchController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class MatchController : MonoBehaviour
     public MatchStateChanged onMatchPrestarted;
     public MatchStateChanged onMatchStarted;
     public MatchStateChanged onMatchFinished;
+    public RoundChanged onRoundChange;
 
     private int round = 0;
 
@@ -40,6 +42,7 @@ public class MatchController : MonoBehaviour
         {
             case MatchState.PRESTART:
                 round++;
+                onRoundChange?.Invoke(round);
                 onMatchPrestarted?.Invoke();
                 break;
             case MatchState.ACTIVE:
