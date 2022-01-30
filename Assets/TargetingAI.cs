@@ -40,6 +40,8 @@ public class TargetingAI : MonoBehaviour
         if (MatchController.Instance.State != MatchState.ACTIVE || stats.isDead)
             return;
 
+        SanityTargetList();
+
         if (aiCurrentTime <= 0)
         {
             SelectPrimaryTarget(EvaluateTargets());
@@ -65,6 +67,16 @@ public class TargetingAI : MonoBehaviour
             }
                 
             UpdateThreat(t);
+        }
+    }
+
+    public void SanityTargetList()
+    {
+        List<Target> targetsCopy = new List<Target>(enemyTargets);
+        foreach(Target t in targetsCopy)
+        {
+            if (t.stats == null)
+                enemyTargets.Remove(t);
         }
     }
 
