@@ -122,7 +122,6 @@ public class SpellMissile : MonoBehaviour
 
             targetCharacterStats.DealDamge(damageToApply);
             HitCharacter?.Invoke(parent, targetCharacterStats, damageToApply);
-
 			if (collision.transform.root.TryGetComponent(out TargetingAI targeting))
             {
                 targeting.UpdateThreat(targeting.GetTargetFromTransform(parent.transform), damageToApply);

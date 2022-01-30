@@ -247,7 +247,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c9e9bb12465393047bed0f80c089f917, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.624
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -291,7 +291,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.487
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -404,6 +404,7 @@ GameObject:
   - component: {fileID: 1751774421265251428}
   - component: {fileID: 1751774421265251437}
   - component: {fileID: 5569091954329980727}
+  - component: {fileID: 3674625407460902960}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -565,6 +566,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  healAudio: {fileID: 9203623595701762438}
 --- !u!114 &1751774421265251429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -581,15 +583,15 @@ MonoBehaviour:
   spellType: 0
   numberOfBullets: 1
   recoil: 0.05
-  fireRate: 1.5
+  fireRate: 1.75
   spellSpeed: 15
-  damage: 5
+  damage: 7
   resourceCost: 2.5
   costModifier: 1
   numberOfBounces: 0
   range: 10
   bulletSize: 1
-  audioSource: {fileID: 3116852031621233599}
+  audioSourceSpell: {fileID: 3116852031621233599}
 --- !u!114 &1751774421265251428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,12 +611,12 @@ MonoBehaviour:
   fireRate: 1.5
   spellSpeed: 15
   damage: 20
-  resourceCost: 2.5
+  resourceCost: 3.5
   costModifier: 1
   numberOfBounces: 0
   range: 10
   bulletSize: 1
-  audioSource: {fileID: 1661728859706600749}
+  audioSourceSpell: {fileID: 1661728859706600749}
 --- !u!136 &1751774421265251437
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -659,6 +661,19 @@ MonoBehaviour:
   dashParticles: {fileID: 1049752376556038760}
   disappearingSpeed: 10
   lifetime: 2
+--- !u!114 &3674625407460902960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751774421265251431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63a6fc2a8b711643ad2c70026e86817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disappearMaterial: {fileID: 2100000, guid: 03e33817071d205499d398a000e9cd13, type: 2}
 --- !u!1 &1842473861974797387
 GameObject:
   m_ObjectHideFlags: 0
