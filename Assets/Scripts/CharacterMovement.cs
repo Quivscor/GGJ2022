@@ -34,6 +34,7 @@ public class CharacterMovement : MonoBehaviour
 	#endregion
 
 	private new Rigidbody rigidbody = null;
+	public AudioSource dashSound;
 
 
 	private void Awake()
@@ -90,6 +91,9 @@ public class CharacterMovement : MonoBehaviour
 			return;
 
 		isDashing = true;
+
+		if (dashSound != null)
+			dashSound.Play();
 		dashDurationCurrentTime = dashDuration;
 
 		Vector3 velocityToApply = new Vector3(horizontal, 0, vertical).normalized * dashSpeed;
