@@ -93,7 +93,8 @@ public class CharacterHolder : MonoBehaviour
             {
                 t.Resurect();
                 t.GetComponent<Collider>().isTrigger = false;
-                LevelUp.Instance.AddRandomLevelForBot(t, t.GetComponent<WandController>());
+                if(MatchController.Instance.round != 1)
+                    LevelUp.Instance.AddRandomLevelForBot(t, t.GetComponent<WandController>());
             }
         }
         _player.Resurect();
