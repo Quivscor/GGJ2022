@@ -548,23 +548,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueSequences:
-  - Welcome, approach me using WASD and press E to continue.
-  - "You are a wizard versed in skills of Harmony and Chaos. Your skills will be
-    tested in a arena battle.\t"
-  - First you need to know how to use your skills. But if you feel ready, feel free
-    to leave through the door behind me.
-  - With spacebar, you can quickly avoid danger with Dash
-  - With your left click, you wield the powers of Harmony. Using it grants you special
-    effects, such as recovering lost health on enemy hit.
-  - With your right click, you wield the powers of Chaos. Using it brings unpredictable
-    effects to the battlefield and packs quite a punch.
-  - Both of them require energy to be used. Spending Harmony energy increases Chaos
-    energy and vice versa. Make sure to use them both!
+  - Welcome apprentice, approach me using <b>WASD or Arrow Keys</b> and press E to
+    continue.
+  - You are an adept of <color=#64D6FF>Harmony</color> and <color=#C33CB5>Chaos</color>.
+    Today is a big day! Out of the group of adepts, only one will be ascended.
+  - First, you should remind yourself how to cast spells. But if you feel ready,
+    feel free to leave through the door behind me.
+  - With <b>spacebar/left shift/right ctrl</b>, you can quickly avoid danger with
+    Dash.
+  - With your left click, you wield the powers of <color=#64D6FF>Harmony</color>.
+    Using it grants you special effects, such as recovering lost health on enemy
+    hit.
+  - With your right click, you wield the powers of <color=#C33CB5>Chaos</color>.
+    Using it brings unpredictable effects to the battlefield and packs quite a punch.
+  - Both of them require energy to be used. Spending <color=#64D6FF>Harmony energy</color> 
+    increases <color=#C33CB5>Chaos energy</color>  and vice versa. Make sure to use
+    them both!
   - If you happen to win a round, you can make progress in wielding one of the powers.
     Try combining different effects to make your power unique and strong.
-  - Your opponents will grow in power in the same manner, be mindful of that!
+  - 'Your opponents will grow in power in the same manner, be mindful of that!
+
+    If
+    you  will stay on your feet for 5 rounds, the council will choose you.'
   - You can try using your powers here. When you are done, proceed through the passage
-    behind me.
+    behind me. Good luck!
   currentSequence: 0
   hud: {fileID: 8264549780097344038}
   text: {fileID: 1820331736036614345}
@@ -1243,8 +1250,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Perk description  Perk description Perk description Perk description Perk
-    description '
+  m_text: Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsumLorem ipsum
+    Lorem ipsum Lorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem
+    ipsu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f97c02110167a97469ec9742714b9cf4, type: 2}
   m_sharedMaterial: {fileID: 1717706943794690661, guid: f97c02110167a97469ec9742714b9cf4, type: 2}
@@ -1278,8 +1286,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1783,7 +1791,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 5, y: 1255.2029}
+  m_AnchoredPosition: {x: 5, y: 683.9529}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8264549779991887748

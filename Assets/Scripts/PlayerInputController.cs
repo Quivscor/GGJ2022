@@ -34,7 +34,7 @@ public class PlayerInputController : MonoBehaviour
 		float vertical = Input.GetAxis("Vertical");
 		float horizontal = Input.GetAxis("Horizontal");
 
-		bool dash = Input.GetKeyDown(KeyCode.Space);
+		bool dash = (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.RightControl) || Input.GetKeyDown(KeyCode.LeftShift));
 
 		if (dash)
 			characterMovement.ProcessDash(vertical, horizontal);

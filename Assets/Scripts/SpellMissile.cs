@@ -96,17 +96,18 @@ public class SpellMissile : MonoBehaviour
     {
         if (collision.transform.root.CompareTag("Bullet"))
         {
-			if (parent == collision.transform.GetComponent<SpellMissile>().parent)
-            {
-				if (!bounced)
-					return;
+			return;
+			//if (parent == collision.transform.GetComponent<SpellMissile>().parent)
+   //         {
+			//	if (!bounced)
+			//		return;
 
-			}
+			//}
 
-			HitAnything?.Invoke(this.transform, parent);
-			CreateHitImpact();
-			Destroy(collision.transform.root.gameObject);
-			Destroy(this.gameObject);
+			//HitAnything?.Invoke(this.transform, parent);
+			//CreateHitImpact();
+			//Destroy(collision.transform.root.gameObject);
+			//Destroy(this.gameObject);
         }
 
 		HitAnything?.Invoke(this.transform, parent);
