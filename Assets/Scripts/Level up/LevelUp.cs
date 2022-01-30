@@ -15,6 +15,8 @@ public class LevelUp : MonoBehaviour
     [SerializeField]
     private Animator monumentsAnimator;
     [SerializeField]
+    private Animator[] planesAnimator;
+    [SerializeField]
     private List<GameObject> monumentsObjects = new List<GameObject>();
     [SerializeField]
     private Material harmonyMaterial;
@@ -59,6 +61,9 @@ public class LevelUp : MonoBehaviour
         monumentsRise.Invoke(1.5f);
         PrepareBoostsList(spellType, numberOfBoostsToChoose);
         monumentsAnimator.SetTrigger("Show");
+
+        foreach (Animator animator in planesAnimator)
+            animator.SetTrigger("HideTrigger");
     }
 
     public void BuyPerkFromMonument(int monumentNumber)

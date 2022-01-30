@@ -73,6 +73,8 @@ public class Spell : MonoBehaviour
     public float FinalResourceCost { get => finalResourceCost; set => finalResourceCost = value; }
     public float ChanceToHomingMissile { get => chanceToHomingMissile; set => chanceToHomingMissile = value; }
 
+    public AudioSource audioSource;
+
     private float currentFireRate = 0.0f;
     private float currentRecoil = 0.0f;
     private float finalResourceCost = 0f;
@@ -125,8 +127,8 @@ public class Spell : MonoBehaviour
         {
             characterStats.SpendResource(FinalResourceCost, spellType);
 
-
-
+            if(audioSource != null)
+                audioSource.Play();
             for (int i = 0; i < numberOfBullets; i++)
             {
                 Vector3 direction = missilesSpawnPoint.transform.forward + CalculatedRecoil();
