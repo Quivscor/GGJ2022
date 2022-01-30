@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CreateToxicAreaOnHitBoost : SpellBoost
 {
@@ -9,7 +10,7 @@ public class CreateToxicAreaOnHitBoost : SpellBoost
 	private int spawnEveryXShot = 5;
 	private int currentShots = 0;
 	private float chanceToCreateArea = 0f;
-	private float chanceToCreateAreaStep = 5f;
+	private float chanceToCreateAreaStep = 10f;
 
 
 	private ToxicArea toxicAreaPrefab = null;
@@ -19,7 +20,7 @@ public class CreateToxicAreaOnHitBoost : SpellBoost
 		costModifier = 0.1f;
 		spellType = SpellType.Chaos;
 		spellName = "Forbidden Circle";
-		description = "Creates dangerous zone every 5th attack. Taking this skill again reduces the amount by 1.";
+		description = "10% chance to create dangerous zone. Taking this skill again increases the chances by 10%.";
 		toxicAreaPrefab = Resources.Load<ToxicArea>("ToxicArea");
 	}
 
@@ -27,12 +28,12 @@ public class CreateToxicAreaOnHitBoost : SpellBoost
 	{
 		spell.MissileHitAnything += CreateToxicAreaInRange;
 		spell.ChangeCostModifier(costModifier);
-		spawnEveryXShot--;
+		chanceToCreateArea += chanceToCreateAreaStep;
 	}
 
 	private void CreateToxicAreaInRange(Transform missilePosition, CharacterStats owner)
 	{
-		if (currentShots == spawnEveryXShot)
+		if (Random.Range(0,100) < chanceToCreateArea)
 		{
 			currentShots = 0;
 
@@ -48,12 +49,6 @@ public class CreateToxicAreaOnHitBoost : SpellBoost
 			var spawnedArea = MonoBehaviour.Instantiate(toxicAreaPrefab, spawnPosition, Quaternion.identity);
 			MonoBehaviour.Destroy(spawnedArea.gameObject, toxicAreaLifetime);
 		}
-		else
-        {
-			//Debug.Log(currentShots);
-			currentShots++;
-        }
-
 
 	}
 }
