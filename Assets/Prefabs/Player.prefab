@@ -609,8 +609,8 @@ MonoBehaviour:
   numberOfBullets: 1
   recoil: 0.05
   fireRate: 1.5
-  spellSpeed: 15
-  damage: 20
+  spellSpeed: 18
+  damage: 17
   resourceCost: 3.5
   costModifier: 1
   numberOfBounces: 0

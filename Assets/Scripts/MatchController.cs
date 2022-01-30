@@ -18,7 +18,7 @@ public class MatchController : MonoBehaviour
     public MatchStateChanged onMatchFinished;
     public RoundChanged onRoundChange;
 
-    private int round = 1;
+    public int round = 1;
 
     public MatchState State { get; private set; }
     [SerializeField] MatchState initialStartState = MatchState.DEFAULT;

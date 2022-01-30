@@ -101,10 +101,14 @@ public class LevelUp : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F3))
+        if(Application.isEditor)
         {
-            ToggleChoosingPhaze(true);
+            if (Input.GetKeyDown(KeyCode.F3))
+            {
+                ToggleChoosingPhaze(true);
+            }
         }
+
 
     }
 
