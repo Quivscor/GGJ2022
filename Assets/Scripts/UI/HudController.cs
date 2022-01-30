@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
+
 public class HudController : MonoBehaviour
 {
     [Header("References")]
@@ -79,10 +81,42 @@ public class HudController : MonoBehaviour
 
     public void TogglePressEInfo(bool toggle, string text = "Press E")
     {
+        pressEInfoTMP.text = text;
         pressEInfo.SetActive(toggle);
     }
     public void HidePerkInfo()
     {
         perkAnimator.SetTrigger("Hide");
+    }
+
+    public void TogglePressurePlateInfo(bool toggle, SpellType spellType = SpellType.Harmony)
+    {
+        if(toggle)
+        {
+            resourceUseTMP.text = "";
+            perkAnimator.SetTrigger("Show");
+            if (spellType == SpellType.Harmony)
+            {
+                perkNameTMP.text = "Harmony";
+                perkNameTMP.color = harmonyColor;
+                perkFrame.color = harmonyColor;
+                perkDescTMP.text = "Progress in Harmony to buff yourself and make life difficult for your enemies. Healing and slowing spells are unique for Harmony.";
+            }
+            else
+            {
+                perkNameTMP.text = "Chaos";
+                perkNameTMP.color = chaosColor;
+                perkFrame.color = chaosColor;
+                perkDescTMP.text = "Progress in Chaos to sow destruction and havoc. Bouncing and forbidden spells are unique for Chaos.";
+
+            }
+        }
+        else
+        {
+            perkAnimator.SetTrigger("Hide");
+        }
+
+
+        
     }
 }

@@ -71,6 +71,7 @@ public class Spell : MonoBehaviour
     public float ChanceToHomingMissileStep { get => chanceToHomingMissileStep; set => chanceToHomingMissileStep = value; }
     public float CostModifier { get => costModifier; set => costModifier = value; }
     public float FinalResourceCost { get => finalResourceCost; set => finalResourceCost = value; }
+    public float ChanceToHomingMissile { get => chanceToHomingMissile; set => chanceToHomingMissile = value; }
 
     private float currentFireRate = 0.0f;
     private float currentRecoil = 0.0f;
@@ -135,14 +136,10 @@ public class Spell : MonoBehaviour
                     direction = CalculateBulletAngle(i);
                 }
                
-                if(Random.Range(0, 100) < chanceToHomingMissile)
+                if(Random.Range(0, 100) < ChanceToHomingMissile)
                 {
                     IsHoming = true;
-                    chanceToHomingMissile = 0f;
-                }
-                else
-                {
-                    chanceToHomingMissile += chanceToHomingMissileStep;
+                
                 }
 
                 direction.Normalize();

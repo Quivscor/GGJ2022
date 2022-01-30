@@ -6,7 +6,7 @@ using UnityEngine;
 public class CreateToxicAreaOnHitBoost : SpellBoost
 {
 	private float toxicAreaLifetime = 5f;
-	private int spawnEveryXShot = 16;
+	private int spawnEveryXShot = 5;
 	private int currentShots = 0;
 	private float chanceToCreateArea = 0f;
 	private float chanceToCreateAreaStep = 5f;
@@ -19,7 +19,7 @@ public class CreateToxicAreaOnHitBoost : SpellBoost
 		costModifier = 0.1f;
 		spellType = SpellType.Chaos;
 		spellName = "Forbidden Circle";
-		description = "Creates dangerous zone every 15th attack. Taking this skill again reduces the amount by 1.";
+		description = "Creates dangerous zone every 5th attack. Taking this skill again reduces the amount by 1.";
 		toxicAreaPrefab = Resources.Load<ToxicArea>("ToxicArea");
 	}
 

@@ -9,13 +9,13 @@ public class HomingBoost : SpellBoost
         costModifier = 0.2f;
         spellType = SpellType.Chaos;
         spellName = "Mage-to-Mage missile";
-        description = "Some of your bullets now are homing. Taking this skill again will will enhance the effect";
+        description = "Some of your bullets now are homing. Taking this skill again will increase the chances.";
     }
 
     public override void ProcessSpellBoost(Spell spell)
     {
         spell.IsHoming = true;
-        spell.ChanceToHomingMissileStep += 5f;
+        spell.ChanceToHomingMissile += 10f;
         spell.ChangeCostModifier(costModifier);
     }
 }

@@ -50,7 +50,7 @@ public class LevelUp : MonoBehaviour
     public void ResourceWasChosen(SpellType spellType)
     {
         perkBought = false;
-
+        HudController.Instance.TogglePressurePlateInfo(false);
         chosenResource = spellType;
         playerReference.GetComponent<CharacterStats>().AddLevel(spellType);
         ToggleChoosingPhaze(false);
@@ -75,8 +75,9 @@ public class LevelUp : MonoBehaviour
 
         monumentsRise.Invoke(1.5f);
         monumentsAnimator.SetTrigger("Hide");
-        preparedBoosts.Clear();
+        
         MatchController.Instance.ChangeMatchState(MatchState.PRESTART);
+        preparedBoosts.Clear();
     }
 
     public void ShowMonumentInfo(int monumentNumber)
@@ -88,11 +89,16 @@ public class LevelUp : MonoBehaviour
     {
         HudController.Instance.HidePerkInfo();
     }
+
+    public void TogglePressurePlateInfo(SpellType spellType, bool toggle)
+    {
+        HudController.Instance.TogglePressurePlateInfo(toggle, spellType);
+    }
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.F3))
         {
-            ResourceWasChosen(SpellType.Harmony);
+            ToggleChoosingPhaze(true);
         }
 
     }
@@ -132,21 +138,29 @@ public class LevelUp : MonoBehaviour
     {
         List<SpellBoost> availableBoosts = new List<SpellBoost>(PerksController.Instance.anySpellBoosts);
 
-        if(spellType == SpellType.Harmony)
-        {
-            availableBoosts.AddRange(PerksController.Instance.harmonySpellBoosts);
-        }
-        else
-        {
-            availableBoosts.AddRange(PerksController.Instance.chaosSpellBoosts);
-        }
-
+        int randomIndexForSpecialSpell = Random.Range(0, numberOfBoosts);
         for (int i = 0; i < numberOfBoosts; i++)
         { 
-            var randomBoost = Random.Range(0, availableBoosts.Count);
+            if(i == randomIndexForSpecialSpell)
+            {
+                if(spellType == SpellType.Harmony)
+                {
+                    preparedBoosts.Add(PerksController.Instance.harmonySpellBoosts[Random.Range(0, PerksController.Instance.harmonySpellBoosts.Count)]);
+                }
+                else
+                {
+                    preparedBoosts.Add(PerksController.Instance.chaosSpellBoosts[Random.Range(0, PerksController.Instance.chaosSpellBoosts.Count)]);
 
-            preparedBoosts.Add(availableBoosts[randomBoost]);
-            availableBoosts.RemoveAt(randomBoost);
+                }
+             
+            }
+            else
+            {
+                var randomBoost = Random.Range(0, availableBoosts.Count);
+                preparedBoosts.Add(availableBoosts[randomBoost]);
+                availableBoosts.RemoveAt(randomBoost);
+            }
+            
         }
 
         foreach (SpellBoost spellboost in preparedBoosts)

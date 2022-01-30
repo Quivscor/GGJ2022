@@ -141,5 +141,10 @@ public class CharacterStats : MonoBehaviour
             harmonyLevel++;
         else
             chaosLevel++;
+
+        if(transform.root.CompareTag("Player"))
+            maxHealth += maxHealth * 0.15f;
+        else
+            maxHealth += maxHealth * 0.1f;
     }
 }

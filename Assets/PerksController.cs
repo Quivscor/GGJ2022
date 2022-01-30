@@ -16,6 +16,8 @@ public class PerksController : MonoBehaviour
     HealOnHitEnemyBoost healOnHitEnemyBoost;
     HomingBoost homingBoost;
     GrowingBoost growingBoost;
+    BouncingBoosts bouncingBoost;
+    FastBoost fastBoost;
 
     public static PerksController Instance;
 
@@ -32,40 +34,20 @@ public class PerksController : MonoBehaviour
         healOnHitEnemyBoost = new HealOnHitEnemyBoost();
         homingBoost = new HomingBoost();
         growingBoost = new GrowingBoost();
+        bouncingBoost = new BouncingBoosts();
+        fastBoost = new FastBoost();
 
         harmonySpellBoosts.Add(healOnHitEnemyBoost);
         harmonySpellBoosts.Add(slowOnHit);
         chaosSpellBoosts.Add(toxicArea);
-        chaosSpellBoosts.Add(homingBoost);
+        chaosSpellBoosts.Add(bouncingBoost);
 
         anySpellBoosts.Add(growingBoost);
         anySpellBoosts.Add(numberOfBulletsBoost);
         anySpellBoosts.Add(fireRateBoost);
         anySpellBoosts.Add(lowerResourceModifierBoost);
-    }
-    public void AddBoostToxicArea(Spell spell)
-    {
-        toxicArea.ProcessSpellBoost(spell);
-    }
-
-    public void AddBoostSlowOnHit(Spell spell)
-    {
-        slowOnHit.ProcessSpellBoost(spell);
-    }
-
-    public void AddBoostNumberOfBullets(Spell spell)
-    {
-        numberOfBulletsBoost.ProcessSpellBoost(spell);
-    }
-
-    public void AddBoostFireRate(Spell spell)
-    {
-        fireRateBoost.ProcessSpellBoost(spell);
-    }
-
-    public void AddBoostLowerResourceModifier(Spell spell)
-    {
-        lowerResourceModifierBoost.ProcessSpellBoost(spell);
+        anySpellBoosts.Add(homingBoost);
+        anySpellBoosts.Add(fastBoost);
     }
 
     public void AddHealingOnEnemyHit(Spell spell)

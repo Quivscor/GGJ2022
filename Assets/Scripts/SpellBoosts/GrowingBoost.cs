@@ -9,15 +9,15 @@ public class GrowingBoost : SpellBoost
         costModifier = 0.3f;
         spellType = SpellType.Any;
         spellName = "Big Chungus";
-        description = "Your bullets are now growing";
+        description = "Your bullets are growing in the air. Additionally they deal +25% damage.";
     }
 
     public override void ProcessSpellBoost(Spell spell)
     {
         spell.IsGrowing = true;
         spell.GrowingForce += .0125f;
-        spell.MaxScale = 3f;
+        spell.MaxScale += 1f;
         spell.ChangeCostModifier(costModifier);
-        spell.Damage += 5;
+        spell.Damage += spell.Damage * 0.25f;
     }
 }
