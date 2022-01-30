@@ -29,7 +29,7 @@ public class PerkMonument : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E))
+        if(isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
             LevelUp.Instance.BuyPerkFromMonument(monumentNumber);
         }

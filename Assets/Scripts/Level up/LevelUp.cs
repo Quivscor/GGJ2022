@@ -50,6 +50,8 @@ public class LevelUp : MonoBehaviour
     public void ResourceWasChosen(SpellType spellType)
     {
         perkBought = false;
+
+        chosenResource = spellType;
         playerReference.GetComponent<CharacterStats>().AddLevel(spellType);
         ToggleChoosingPhaze(false);
         SetMonumentsMaterial(spellType);
@@ -65,6 +67,7 @@ public class LevelUp : MonoBehaviour
             return;
 
         perkBought = true;
+
         if(chosenResource == SpellType.Harmony)
             preparedBoosts[monumentNumber].ProcessSpellBoost(playerReference.GetComponent<WandController>().HarmonySpell);
         else

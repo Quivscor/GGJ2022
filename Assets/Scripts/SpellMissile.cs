@@ -8,7 +8,7 @@ public class SpellMissile : MonoBehaviour
 	[SerializeField] private GameObject hitImpactParticles = null;
 	[SerializeField] private float hitImpactParticlesLifetime = 1.0f;
 
-	private CharacterStats parent = null;
+	public CharacterStats parent = null;
 	private float damageToApply = 0.0f;
 	private int bouncesLeft = 1;
 	private bool bounced = false;
@@ -40,6 +40,13 @@ public class SpellMissile : MonoBehaviour
     {
         if (collision.transform.root.CompareTag("Bullet"))
         {
+			if (parent == collision.transform.GetComponent<SpellMissile>().parent)
+            {
+				if (!bounced)
+					return;
+
+			}
+
 			HitAnything?.Invoke(this.transform, parent);
 			CreateHitImpact();
 			Destroy(collision.transform.root.gameObject);
@@ -55,6 +62,7 @@ public class SpellMissile : MonoBehaviour
 
 			if (!collision.transform.CompareTag("Player"))
 				damageToApply *= 0.5f;
+
             targetCharacterStats.DealDamge(damageToApply);
             HitCharacter?.Invoke(parent, targetCharacterStats, damageToApply);
 

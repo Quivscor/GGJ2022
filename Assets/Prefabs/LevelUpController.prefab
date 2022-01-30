@@ -236,6 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monumentNumber: 0
+  detector: {fileID: 0}
 --- !u!1 &3387933193106959090
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,6 +448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monumentNumber: 1
+  detector: {fileID: 0}
 --- !u!1 &6709925738585922832
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,6 +1014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monumentNumber: 2
+  detector: {fileID: 0}
 --- !u!1 &9193429334603494471
 GameObject:
   m_ObjectHideFlags: 0
