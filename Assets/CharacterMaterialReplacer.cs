@@ -8,6 +8,7 @@ public class CharacterMaterialReplacer : MonoBehaviour
 
 	List<Material[]> oldSkinnedMaterials = new List<Material[]>();
 	List<Material[]> oldMaterials = new List<Material[]>();
+	bool materialsSet = false;
 
     public void UseNewMat()
     {
@@ -19,7 +20,8 @@ public class CharacterMaterialReplacer : MonoBehaviour
 			for (int i = 0; i < skinnedMeshRenderer.materials.Length; i++)
 				newMaterials[i] = disappearMaterial;
 
-			oldSkinnedMaterials.Add(skinnedMeshRenderer.materials);
+			if(!materialsSet)
+				oldSkinnedMaterials.Add(skinnedMeshRenderer.materials);
 			skinnedMeshRenderer.materials = newMaterials;
 		}
 
@@ -31,13 +33,17 @@ public class CharacterMaterialReplacer : MonoBehaviour
 			for (int i = 0; i < meshRenderer.materials.Length; i++)
 				newMaterials[i] = disappearMaterial;
 
-			oldMaterials.Add(meshRenderer.materials);
+			if(!materialsSet)
+				oldMaterials.Add(meshRenderer.materials);
 			meshRenderer.materials = newMaterials;
 		}
+		materialsSet = true;
 	}
 
 	public void RevertMat()
     {
+		if (!materialsSet)
+			return;
 		SkinnedMeshRenderer[] skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
 		for(int i = 0; i < skinnedMeshRenderers.Length; i++)
         {

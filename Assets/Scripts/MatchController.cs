@@ -47,7 +47,7 @@ public class MatchController : MonoBehaviour
                 break;
             case MatchState.FINISHED:
                 onMatchFinished?.Invoke();
-                if (round == 5)
+                if (round == 0)
                     StartCoroutine(DisplayVictory());
                 break;
             default:
@@ -76,10 +76,10 @@ public class MatchController : MonoBehaviour
 
     private IEnumerator HideVictory()
     {
-        yield return StartCoroutine(FadeOut(1f, reverseCurve));
-        yield return StartCoroutine(FadeInText(1f, mainText, reverseCurve));
-        yield return StartCoroutine(FadeInText(1f, questionText, reverseCurve));
         yield return StartCoroutine(FadeInButtons(1f, canvasGroup, reverseCurve));
+        yield return StartCoroutine(FadeInText(1f, questionText, reverseCurve));
+        yield return StartCoroutine(FadeInText(1f, mainText, reverseCurve));
+        yield return StartCoroutine(FadeOut(1f, reverseCurve));
     }
 
     public AnimationCurve curve;
