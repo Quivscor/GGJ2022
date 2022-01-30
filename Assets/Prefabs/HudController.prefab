@@ -569,8 +569,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 205}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0, y: 409}
+  m_SizeDelta: {x: 340.9514, y: 170.8007}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1111608327
 CanvasRenderer:
@@ -600,7 +600,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f97c02110167a97469ec9742714b9cf4, type: 2}
   m_sharedMaterial: {fileID: 1717706943794690661, guid: f97c02110167a97469ec9742714b9cf4, type: 2}
@@ -609,7 +609,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2332033023
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -663,7 +663,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -266.89758, z: 0, w: 0}
+  m_margin: {x: 0, y: -2.4004517, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -677,7 +677,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1111608323}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: fdcd3554317844743a1c98e387851ee8, type: 2}
   m_CullingMode: 0
@@ -1112,7 +1112,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You lost
+  m_text: You lost...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f97c02110167a97469ec9742714b9cf4, type: 2}
   m_sharedMaterial: {fileID: 1717706943794690661, guid: f97c02110167a97469ec9742714b9cf4, type: 2}
@@ -1247,10 +1247,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'You have passed your trial!
+  m_text: 'You have passed your trial and will be ascended!
 
-    You can either leave as a victor or keep
-    fighting until you fall'
+    You can either leave
+    as a victor or keep training.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f97c02110167a97469ec9742714b9cf4, type: 2}
   m_sharedMaterial: {fileID: 1717706943794690661, guid: f97c02110167a97469ec9742714b9cf4, type: 2}
@@ -1346,7 +1346,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4466741334249861208}
   - {fileID: 1343199090823612318}
