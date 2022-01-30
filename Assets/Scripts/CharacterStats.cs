@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class ResourceChanged : UnityEvent <float> { }
@@ -13,6 +14,8 @@ public class CharacterStats : MonoBehaviour
     [Header("Debug options")]
     [SerializeField]
     private bool infiniteResources = false;
+    [SerializeField]
+    private bool immortality = false;
 
     [Header("References")]
     [SerializeField]
@@ -74,17 +77,24 @@ public class CharacterStats : MonoBehaviour
 
     public void DealDamge(float value)
     {
-        health -= value;
-        if (health <= 0 && !isDead)
+        if(!immortality)
         {
-            Debug.LogError(this.name + " DIED");
-            died?.Invoke(this);
-            isDead = true;
+            health -= value;
+            if (health <= 0 && !isDead)
+            {
+                Debug.LogError(this.name + " DIED");
+                died?.Invoke(this);
+                isDead = true;
+
+                if(transform.root.CompareTag("Player"))
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+
+            if (healthBarFill != null)
+                healthBarFill.fillAmount = health / maxHealth;
+            healthChanged?.Invoke(health / maxHealth);
         }
-            
-        if (healthBarFill != null)
-            healthBarFill.fillAmount = health / maxHealth;
-        healthChanged?.Invoke(health / maxHealth);
+
     }
 
     public void CastTestSpell(int spellType)

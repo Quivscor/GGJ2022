@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HealOnHitEnemyBoost : SpellBoost
 {
-	private float healingFactor = 0.25f;
+	private float healingFactor = 0.66f;
 
 	private GameObject healingEffectParticles = null;
 	private GameObject healingEnemyEffectParticles = null;
