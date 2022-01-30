@@ -34,11 +34,11 @@ public class HealOnHitEnemyBoost : SpellBoost
 
 		if (parent.TryGetComponent<PlayerInputController>(out PlayerInputController playerInputController))
 		{
-			spawnedParticles = MonoBehaviour.Instantiate(healingEffectParticles, parent.transform.position, Quaternion.identity);
+			spawnedParticles = MonoBehaviour.Instantiate(healingEffectParticles, parent.transform);
 		}
 		else
 		{
-			spawnedParticles = MonoBehaviour.Instantiate(healingEnemyEffectParticles, parent.transform.position, Quaternion.identity);
+			spawnedParticles = MonoBehaviour.Instantiate(healingEnemyEffectParticles, parent.transform);
 		}
 
 		MonoBehaviour.Destroy(spawnedParticles, 1.5f);
