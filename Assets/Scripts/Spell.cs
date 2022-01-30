@@ -44,6 +44,11 @@ public class Spell : MonoBehaviour
 
     private bool isHoming = false;
     private float homingForce = 0;
+
+    private bool isGrowing = false;
+    private float growingForce = 0;
+    private float maxScale = 1;
+
     private CharacterStats characterStats;
 
     public int NumberOfBullets { get => numberOfBullets; set => numberOfBullets = value; }
@@ -57,6 +62,9 @@ public class Spell : MonoBehaviour
     public float BulletSize { get => bulletSize; set => bulletSize = value; }
     public bool IsHoming { get => isHoming; set => isHoming = value; }
     public float HomingForce { get => homingForce; set => homingForce = value; }
+    public bool IsGrowing { get => isGrowing; set => isGrowing = value; }
+    public float GrowingForce { get => growingForce; set => growingForce = value; }
+    public float MaxScale { get => maxScale; set => maxScale = value; }
 
     private float currentFireRate = 0.0f;
     private float currentRecoil = 0.0f;
@@ -75,8 +83,8 @@ public class Spell : MonoBehaviour
         currentRecoil = recoil;
 
         //debug AF
-        HomingBoost boost = new HomingBoost();
-        boost.ProcessSpellBoost(this);
+        //GrowingBoost growingBoost = new GrowingBoost();
+        //growingBoost.ProcessSpellBoost(this);
     }
 
     public void RecalculateFireRate()
@@ -116,7 +124,7 @@ public class Spell : MonoBehaviour
                 direction.Normalize();
 
                 var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
-                bulletShot.Initialize(characterStats, damage, numberOfBounces, MissileHitCharacter, MissileHitAnything, IsHoming, homingForce);
+                bulletShot.Initialize(characterStats, damage, numberOfBounces, MissileHitCharacter, MissileHitAnything, IsHoming, homingForce, IsGrowing, GrowingForce, maxScale);
                 bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
 
             }

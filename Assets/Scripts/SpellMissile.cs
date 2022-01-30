@@ -24,8 +24,11 @@ public class SpellMissile : MonoBehaviour
 	[SerializeField] float enemyCheckFrequency;
 	[SerializeField] float homingRange;
 	private float enemyCheckCurrentTime;
+	private bool isGrowing;
+	private Vector3 growVector;
+	private Vector3 maxScale;
 
-	public void Initialize(CharacterStats parent, float damageToApply,int bounces, Action<CharacterStats, CharacterStats, float> missileHitCharacter, Action<Transform, CharacterStats> missileHitAnything, bool isHoming = false, float homingForce = 0)
+	public void Initialize(CharacterStats parent, float damageToApply,int bounces, Action<CharacterStats, CharacterStats, float> missileHitCharacter, Action<Transform, CharacterStats> missileHitAnything, bool isHoming = false, float homingForce = 0, bool isGrowing = false, float growingForce = 1, float maxScaleValue = 1)
 	{
 		rb = GetComponent<Rigidbody>();
 		this.parent = parent;
@@ -35,6 +38,9 @@ public class SpellMissile : MonoBehaviour
 		this.isHoming = isHoming;
 		this.homingForce = homingForce;
 		this.bouncesLeft = bounces;
+		this.isGrowing = isGrowing;
+		growVector = new Vector3(growingForce, growingForce, growingForce);
+		maxScale = new Vector3(maxScaleValue, maxScaleValue, maxScaleValue);
 	}
 
 	public Transform GetParentTransform()
@@ -48,7 +54,6 @@ public class SpellMissile : MonoBehaviour
 
 		if(isHoming)
         {
-			int count = 0;
 			Vector3 newVelocity = lastVelocity;
 			//detect any character in area
 			if (enemyCheckCurrentTime > 0)
@@ -79,6 +84,12 @@ public class SpellMissile : MonoBehaviour
 			//curve a little in that direction
 			rb.velocity = newVelocity;
         }
+
+		if(isGrowing)
+        {
+			if(this.transform.localScale.magnitude < maxScale.magnitude)
+				this.transform.localScale = this.transform.localScale + growVector;
+		}
 	}
 
 	private void OnCollisionEnter(Collision collision)
@@ -139,6 +150,7 @@ public class SpellMissile : MonoBehaviour
 		if (hitImpactParticles != null)
 		{
 			GameObject createdImpact = Instantiate(hitImpactParticles, this.transform.position, Quaternion.identity);
+			createdImpact.transform.localScale = this.transform.localScale;
 			Destroy(createdImpact, hitImpactParticlesLifetime);
 		}
 	}

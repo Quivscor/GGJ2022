@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8497839004430648388}
   - component: {fileID: 4070534521643537724}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 3855462858374811989}
   - component: {fileID: 6472670754188301743}
   - component: {fileID: 1881288736024043230}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BulletHarmony
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8497839004430648388}
   - {fileID: 7615884528981774868}
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitImpactParticles: {fileID: 5573970946837640395, guid: 2a9731fbe042e184b9777c78d1014b3c, type: 3}
   hitImpactParticlesLifetime: 1
-  homingForce: 0.1
+  parent: {fileID: 0}
   enemyCheckFrequency: 0.1
   homingRange: 5
 --- !u!1001 &6545523844973242658
@@ -120,6 +120,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3855462858374811989}
     m_Modifications:
+    - target: {fileID: 937590147698609456, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1008790516884735941, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1195094932478787836, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1414649900418405663, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3308088641108200901, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3704019245347158838, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -167,6 +187,46 @@ PrefabInstance:
     - target: {fileID: 4012999363031794288, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
       propertyPath: m_Name
       value: HarmonyParticlesArcane
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012999363031794288, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4024498747737871775, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5475148470775104029, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275878087016440538, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370016307211101973, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6748441237282299976, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7108686386617747579, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7280843715934993712, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7773056513989677689, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7815157417763638546, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 595c18cde38a5b847996c4ab0cc70ff3, type: 3}
