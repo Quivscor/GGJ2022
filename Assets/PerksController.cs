@@ -7,6 +7,7 @@ public class PerksController : MonoBehaviour
     public List<SpellBoost> anySpellBoosts = new List<SpellBoost>();
     public List<SpellBoost> harmonySpellBoosts = new List<SpellBoost>();
     public List<SpellBoost> chaosSpellBoosts = new List<SpellBoost>();
+    public List<SpellBoost> allSpellBoosts = new List<SpellBoost>();
 
     SlowOnHitEnemyBoost slowOnHit;
     CreateToxicAreaOnHitBoost toxicArea;
@@ -48,6 +49,17 @@ public class PerksController : MonoBehaviour
         anySpellBoosts.Add(lowerResourceModifierBoost);
         anySpellBoosts.Add(homingBoost);
         anySpellBoosts.Add(fastBoost);
+
+        allSpellBoosts.Add(healOnHitEnemyBoost);
+        allSpellBoosts.Add(slowOnHit);
+        allSpellBoosts.Add(toxicArea);
+        allSpellBoosts.Add(bouncingBoost);
+        allSpellBoosts.Add(growingBoost);
+        allSpellBoosts.Add(numberOfBulletsBoost);
+        allSpellBoosts.Add(fireRateBoost);
+        allSpellBoosts.Add(lowerResourceModifierBoost);
+        allSpellBoosts.Add(homingBoost);
+        allSpellBoosts.Add(fastBoost);
     }
 
     public void AddHealingOnEnemyHit(Spell spell)
