@@ -75,7 +75,7 @@ public class LevelUp : MonoBehaviour
 
         monumentsRise.Invoke(1.5f);
         monumentsAnimator.SetTrigger("Hide");
-
+        preparedBoosts.Clear();
         MatchController.Instance.ChangeMatchState(MatchState.PRESTART);
     }
 
@@ -87,6 +87,14 @@ public class LevelUp : MonoBehaviour
     public void HideMonumentInfo(int monumentNumber)
     {
         HudController.Instance.HidePerkInfo();
+    }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.F3))
+        {
+            ResourceWasChosen(SpellType.Harmony);
+        }
+
     }
 
     private void SetMonumentsMaterial(SpellType spellType)
@@ -145,6 +153,7 @@ public class LevelUp : MonoBehaviour
         {
             Debug.Log(spellboost.spellName);
         }
+
     }
     public SpellBoost GetRandomSpellBoost(SpellType spellType)
     {
