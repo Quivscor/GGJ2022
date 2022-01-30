@@ -18,7 +18,7 @@ public class MatchController : MonoBehaviour
     public MatchStateChanged onMatchFinished;
     public RoundChanged onRoundChange;
 
-    private int round = 0;
+    private int round = 1;
 
     public MatchState State { get; private set; }
     [SerializeField] MatchState initialStartState = MatchState.DEFAULT;
@@ -42,6 +42,7 @@ public class MatchController : MonoBehaviour
         {
             case MatchState.PRESTART:
                 round++;
+                HudController.Instance.ChangeRound("Round " + round);
                 onRoundChange?.Invoke(round);
                 onMatchPrestarted?.Invoke();
                 break;
@@ -50,8 +51,12 @@ public class MatchController : MonoBehaviour
                 break;
             case MatchState.FINISHED:
                 onMatchFinished?.Invoke();
-                if (round == 5)
+                if (round == 1)
+                {
+                    HudController.Instance.ChangeRound("");
                     StartCoroutine(DisplayVictory());
+                }
+                    
                 break;
             default:
                 Debug.Log("unknown");
@@ -70,6 +75,7 @@ public class MatchController : MonoBehaviour
 
     public void Continue()
     {
+        HudController.Instance.ChangeRound("Round " + round);
         StartCoroutine(HideVictory());
     }
 

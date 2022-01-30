@@ -9,9 +9,8 @@ public class HudController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
-    private Image resourceBar;
-    [SerializeField]
-    private Image healthBar;
+    private TextMeshProUGUI roundInfo;
+
     [SerializeField]
     [Header("Perk Info")]
     private TextMeshProUGUI perkNameTMP;
@@ -118,5 +117,10 @@ public class HudController : MonoBehaviour
 
 
         
+    }
+
+    public void ChangeRound(string text)
+    {
+        roundInfo.text = text;
     }
 }
