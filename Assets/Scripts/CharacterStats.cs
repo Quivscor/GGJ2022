@@ -93,7 +93,6 @@ public class CharacterStats : MonoBehaviour
             health -= value;
             if (health <= 0 && !isDead)
             {
-                Debug.LogError(this.name + " DIED");
                 died?.Invoke(this);
                 GetComponent<CharacterMaterialReplacer>().UseNewMat();
                 isDead = true;
