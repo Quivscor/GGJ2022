@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(CharacterStats))]
 public class Spell : MonoBehaviour
@@ -49,7 +50,10 @@ public class Spell : MonoBehaviour
     private float growingForce = 0;
     private float maxScale = 1;
 
+    private float homingForce = 0.35f;
     private CharacterStats characterStats;
+    private float chanceToHomingMissile = 0f;
+    private float chanceToHomingMissileStep = 0f;
 
     public int NumberOfBullets { get => numberOfBullets; set => numberOfBullets = value; }
     public float Recoil { get => recoil; set => recoil = value; }
@@ -65,9 +69,13 @@ public class Spell : MonoBehaviour
     public bool IsGrowing { get => isGrowing; set => isGrowing = value; }
     public float GrowingForce { get => growingForce; set => growingForce = value; }
     public float MaxScale { get => maxScale; set => maxScale = value; }
+    public float ChanceToHomingMissileStep { get => chanceToHomingMissileStep; set => chanceToHomingMissileStep = value; }
+    public float CostModifier { get => costModifier; set => costModifier = value; }
+    public float FinalResourceCost { get => finalResourceCost; set => finalResourceCost = value; }
 
     private float currentFireRate = 0.0f;
     private float currentRecoil = 0.0f;
+    private float finalResourceCost = 0f;
 
     private bool isOnCooldown = false;
     private float angleBetweenShots = 8f;
@@ -78,7 +86,7 @@ public class Spell : MonoBehaviour
     private void Awake()
     {
         characterStats = GetComponent<CharacterStats>();
-
+        RecalculateResourceCost();
         RecalculateFireRate();
         currentRecoil = recoil;
 
@@ -90,6 +98,11 @@ public class Spell : MonoBehaviour
     public void RecalculateFireRate()
     {
         currentFireRate = 1.0f / fireRate;
+    }
+
+    public void RecalculateResourceCost()
+    {
+        finalResourceCost = resourceCost * CostModifier;
     }
 
 	private void Start()
@@ -108,9 +121,11 @@ public class Spell : MonoBehaviour
         if (isOnCooldown)
             return;
 
-        if (characterStats.HaveEnoughResource(ResourceCost * costModifier, spellType))
+        if (characterStats.HaveEnoughResource(FinalResourceCost, spellType))
         {
-            characterStats.SpendResource(ResourceCost * costModifier, spellType);
+            characterStats.SpendResource(FinalResourceCost, spellType);
+
+
 
             for (int i = 0; i < numberOfBullets; i++)
             {
@@ -121,11 +136,22 @@ public class Spell : MonoBehaviour
                     direction = CalculateBulletAngle(i);
                 }
                
+                if(Random.Range(0, 100) < chanceToHomingMissile)
+                {
+                    IsHoming = true;
+                    chanceToHomingMissile = 0f;
+                }
+                else
+                {
+                    chanceToHomingMissile += chanceToHomingMissileStep;
+                }
+
                 direction.Normalize();
 
                 var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
                 bulletShot.Initialize(characterStats, damage, numberOfBounces, MissileHitCharacter, MissileHitAnything, IsHoming, homingForce, IsGrowing, GrowingForce, maxScale);
                 bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
+                IsHoming = false;
 
             }
             StartCoroutine(EnableCooldown());
@@ -160,5 +186,6 @@ public class Spell : MonoBehaviour
         {
             costModifier = 0.25f;
         }
+        RecalculateResourceCost();
     }
 }

@@ -66,6 +66,7 @@ public class CharacterHolder : MonoBehaviour
                 LevelUp.Instance.AddRandomLevelForBot(t, t.GetComponent<WandController>());
             }
         }
+        _player.Resurect();
         _deadCharacters.Clear();
         StartCoroutine(ChangeStateAfterTime(MatchState.ACTIVE, 1f));
     }
