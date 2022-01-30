@@ -25,7 +25,7 @@ public class CharacterStats : MonoBehaviour
     [SerializeField]
     private float health;
     [SerializeField]
-    private float maxHealth = 100;
+    public float maxHealth = 100;
     [SerializeField]
     private float maxResource = 100;
     [SerializeField]

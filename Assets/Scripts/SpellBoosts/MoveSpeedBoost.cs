@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveSpeedBoost : MonoBehaviour
+public class MoveSpeedBoost : SpellBoost
 {
-    // Start is called before the first frame update
-    void Start()
+    public MoveSpeedBoost()
     {
-        
+        costModifier = 0;
+        spellType = SpellType.Any;
+        spellName = "Fleet Footwork";
+        description = "You walk faster.";
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void ProcessSpellBoost(Spell spell)
     {
-        
+        spell.GetComponent<CharacterMovement>().IncreaseMovementSpeed(1f);
     }
 }

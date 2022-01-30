@@ -19,6 +19,8 @@ public class PerksController : MonoBehaviour
     GrowingBoost growingBoost;
     BouncingBoosts bouncingBoost;
     FastBoost fastBoost;
+    MoveSpeedBoost moveBoost;
+    HealthBoost healthBoost;
 
     public static PerksController Instance;
 
@@ -37,6 +39,8 @@ public class PerksController : MonoBehaviour
         growingBoost = new GrowingBoost();
         bouncingBoost = new BouncingBoosts();
         fastBoost = new FastBoost();
+        moveBoost = new MoveSpeedBoost();
+        healthBoost = new HealthBoost();
 
         harmonySpellBoosts.Add(healOnHitEnemyBoost);
         harmonySpellBoosts.Add(slowOnHit);
@@ -49,6 +53,8 @@ public class PerksController : MonoBehaviour
         anySpellBoosts.Add(lowerResourceModifierBoost);
         anySpellBoosts.Add(homingBoost);
         anySpellBoosts.Add(fastBoost);
+        anySpellBoosts.Add(moveBoost);
+        anySpellBoosts.Add(healthBoost);
 
         allSpellBoosts.Add(healOnHitEnemyBoost);
         allSpellBoosts.Add(slowOnHit);
@@ -60,6 +66,8 @@ public class PerksController : MonoBehaviour
         allSpellBoosts.Add(lowerResourceModifierBoost);
         allSpellBoosts.Add(homingBoost);
         allSpellBoosts.Add(fastBoost);
+        allSpellBoosts.Add(moveBoost);
+        allSpellBoosts.Add(healthBoost);
     }
 
     public void AddHealingOnEnemyHit(Spell spell)

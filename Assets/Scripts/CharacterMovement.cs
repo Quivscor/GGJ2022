@@ -107,6 +107,12 @@ public class CharacterMovement : MonoBehaviour
 		DashValuesChanged?.Invoke(currentDashes, (dashCooldown - dashCooldownCurrentTime) / dashCooldown);
 	}
 
+	public void IncreaseMovementSpeed(float value)
+    {
+		movementSpeed += value;
+
+    }
+	
 	private void ProcessAnimator(float vertical, float horizontal)
 	{
 		//	bool swap = false;
