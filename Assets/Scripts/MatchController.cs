@@ -61,6 +61,7 @@ public class MatchController : MonoBehaviour
 
     private IEnumerator DisplayVictory()
     {
+        Cursor.visible = true;
         yield return StartCoroutine(FadeOut(1f, curve));
         yield return StartCoroutine(FadeInText(1f, mainText, curve));
         yield return StartCoroutine(FadeInText(1f, questionText, curve));
@@ -79,6 +80,7 @@ public class MatchController : MonoBehaviour
 
     private IEnumerator HideVictory()
     {
+        Cursor.visible = false;
         yield return StartCoroutine(FadeInButtons(1f, canvasGroup, reverseCurve));
         yield return StartCoroutine(FadeInText(1f, questionText, reverseCurve));
         yield return StartCoroutine(FadeInText(1f, mainText, reverseCurve));
