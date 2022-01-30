@@ -121,6 +121,9 @@ public class MovementAI : MonoBehaviour
     {
         foreach(Transform t in enemyTargets)
         {
+            if (t == null)
+                continue;
+
             //vector towards target
             Vector3 unitDistance = t.position - this.transform.position;
 
