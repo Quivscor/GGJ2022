@@ -589,9 +589,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614a92126eae5ef42b650a867f90c32f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
+  movementSpeed: 4
   dashSpeed: 30
-  dashCooldown: 5
+  dashCooldown: 35
   dashDuration: 0.1
   animator: {fileID: 8208030644305788871}
   character: {fileID: 2812749440012527037}
@@ -614,7 +614,7 @@ MonoBehaviour:
   immortality: 0
   healthBarFill: {fileID: 5190317601492438225}
   health: 0
-  maxHealth: 100
+  maxHealth: 50
   maxResource: 100
   harmonyLevel: 0
   chaosLevel: 0
@@ -624,6 +624,7 @@ MonoBehaviour:
   healthChanged:
     m_PersistentCalls:
       m_Calls: []
+  healAudio: {fileID: 0}
 --- !u!114 &4065779482777482607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,15 +641,15 @@ MonoBehaviour:
   spellType: 0
   numberOfBullets: 1
   recoil: 0.05
-  fireRate: 1
-  spellSpeed: 10
-  damage: 10
-  resourceCost: 10
+  fireRate: 1.35
+  spellSpeed: 9
+  damage: 5
+  resourceCost: 2.5
   costModifier: 1
   numberOfBounces: 0
   range: 10
   bulletSize: 1
-  audioSource: {fileID: 6589925750766990551}
+  audioSourceSpell: {fileID: 0}
 --- !u!114 &973992933186562719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -661,19 +662,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a5746f8e81c5914381bd7e68a46544a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 1881288736024043230, guid: 7441c3af128305d4f9d18104e1dc5f83, type: 3}
+  bullet: {fileID: 1881288736024043230, guid: 10c6e3577033655449321bd7780723df, type: 3}
   spellType: 1
   numberOfBullets: 1
   recoil: 0.05
-  fireRate: 1
-  spellSpeed: 10
+  fireRate: 1.25
+  spellSpeed: 12
   damage: 10
-  resourceCost: 10
+  resourceCost: 3.5
   costModifier: 1
-  numberOfBounces: 0
+  numberOfBounces: 1
   range: 10
   bulletSize: 1
-  audioSource: {fileID: 1474125973416132343}
+  audioSourceSpell: {fileID: 0}
 --- !u!114 &3143153335421167259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,7 +760,7 @@ MonoBehaviour:
   wallBias: 0.4
   wallDistanceFactor: 10
   bulletDetectionRange: 7
-  bulletBias: 0.8
+  bulletBias: 0.4
   bulletTag: Bullet
   debugDrawRange: 0
 --- !u!114 &2368851467510499929

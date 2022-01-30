@@ -29,7 +29,7 @@ public class HealOnHitEnemyBoost : SpellBoost
 	private void HealOnHitTarget(CharacterStats parent, CharacterStats target, float damage)
 	{
 		parent.Heal(damage * healingFactor);
-
+		parent.PlayHealSound();
 		GameObject spawnedParticles = null;
 
 		if (parent.TryGetComponent<PlayerInputController>(out PlayerInputController playerInputController))

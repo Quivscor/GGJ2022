@@ -47,6 +47,14 @@ public class CharacterStats : MonoBehaviour
     public int HarmonyLevel { get => harmonyLevel; }
     public int ChaosLevel { get => chaosLevel; }
 
+    public AudioSource healAudio;
+
+    public void PlayHealSound()
+    {
+        if (healAudio != null && transform.CompareTag("Player"))
+            healAudio.Play();
+    }
+
     void Start()
     {
         health = MaxHealth;
