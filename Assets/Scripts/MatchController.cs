@@ -51,7 +51,7 @@ public class MatchController : MonoBehaviour
                 break;
             case MatchState.FINISHED:
                 onMatchFinished?.Invoke();
-                if (round == 1)
+                if (round == 5)
                 {
                     HudController.Instance.ChangeRound("");
                     StartCoroutine(DisplayVictory());
