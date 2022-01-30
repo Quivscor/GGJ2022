@@ -116,22 +116,36 @@ public class LevelUp : MonoBehaviour
     }
     public void AddRandomLevelForBot(CharacterStats characterStats, WandController wandController)
     {
-        SpellType randomSpellType;
+        SpellBoost randomSpellBoost = GetRandomSpellBoost();
 
-        if (Random.Range(0, 2) == 0)
-            randomSpellType = SpellType.Harmony;
+        // Jezeli wylosowany pochodzi z harmonii
+        if (randomSpellBoost.spellType == SpellType.Harmony)
+        {
+            randomSpellBoost.ProcessSpellBoost(wandController.HarmonySpell);
+            characterStats.AddLevel(randomSpellBoost.spellType);
+        } // Jezeli wylosowany pochodzi z harmonii
+        else if (randomSpellBoost.spellType == SpellType.Chaos)
+        {
+            randomSpellBoost.ProcessSpellBoost(wandController.ChaosSpell);
+            characterStats.AddLevel(randomSpellBoost.spellType);
+
+
+        }// Jezeli wylosowany jest Commonem, wylosuj do tego kategorie 
         else
-            randomSpellType = SpellType.Chaos;
+        {
+            if(Random.Range(0, 2) == 0)
+            {
+                randomSpellBoost.ProcessSpellBoost(wandController.HarmonySpell);
+                characterStats.AddLevel(SpellType.Harmony);
+            }
+            else
+            {
+                randomSpellBoost.ProcessSpellBoost(wandController.ChaosSpell);
+                characterStats.AddLevel(SpellType.Chaos);
+            }
+        }
 
-            characterStats.AddLevel(randomSpellType);
-
-        SpellBoost randomSpellBost = GetRandomSpellBoost(randomSpellType);
-
-        if(randomSpellType == SpellType.Harmony)
-            randomSpellBost.ProcessSpellBoost(wandController.HarmonySpell);
-        else
-            randomSpellBost.ProcessSpellBoost(wandController.ChaosSpell);
-        Debug.Log("Bot leveled up: " + randomSpellBost.description);
+        Debug.Log("Bot leveled up: " + randomSpellBoost.spellName);
     }
 
     public void PrepareBoostsList(SpellType spellType, int numberOfBoosts)
@@ -169,25 +183,8 @@ public class LevelUp : MonoBehaviour
         }
 
     }
-    public SpellBoost GetRandomSpellBoost(SpellType spellType)
+    public SpellBoost GetRandomSpellBoost()
     {
-        int errors = 0;
-        SpellBoost randomBoost;
-        while (true) 
-        {
-            randomBoost = PerksController.Instance.anySpellBoosts[Random.Range(0, PerksController.Instance.anySpellBoosts.Count)];
-            if (randomBoost.spellType == SpellType.Any || randomBoost.spellType == spellType)
-                break;
-
-            errors++;
-            if (errors >= 10000)
-            {
-                Debug.LogError("Over 10000 tries in GetRandomSpellBoost");
-                break;
-            }
-
-        } 
-
-        return randomBoost;
+        return PerksController.Instance.allSpellBoosts[Random.Range(0, PerksController.Instance.allSpellBoosts.Count)];
     }
 }
