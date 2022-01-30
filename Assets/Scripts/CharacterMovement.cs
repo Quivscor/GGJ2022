@@ -17,6 +17,7 @@ public class CharacterMovement : MonoBehaviour
 	private int availableDashes = 2;
 	private int currentDashes = 0;
 	public event Action<int, float> DashValuesChanged = null;
+	[SerializeField] private ParticleSystem slowParticles = null;
 	
 	[Header("References:")]
 	[SerializeField] private Animator animator = null;
@@ -157,9 +158,13 @@ public class CharacterMovement : MonoBehaviour
 	public void AddSlowEffect()
 	{
 		if (slowedEffectCoroutine != null)
+		{
 			StopCoroutine(slowedEffectCoroutine);
+			slowParticles?.Stop();
+		}
 
 		slowedEffectCoroutine = StartCoroutine(SlowEffectTimer());
+		slowParticles?.Play();
 	}
 
 	private IEnumerator SlowEffectTimer()
