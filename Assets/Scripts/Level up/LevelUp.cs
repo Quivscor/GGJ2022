@@ -79,7 +79,7 @@ public class LevelUp : MonoBehaviour
 
     public void ShowMonumentInfo(int monumentNumber)
     {
-        HudController.Instance.ShowPerkInfo(preparedBoosts[monumentNumber].spellName, preparedBoosts[monumentNumber].description);
+        HudController.Instance.ShowPerkInfo(preparedBoosts[monumentNumber].spellName, preparedBoosts[monumentNumber].description, preparedBoosts[monumentNumber].costModifier, chosenResource);
     }
 
     public void HideMonumentInfo(int monumentNumber)
