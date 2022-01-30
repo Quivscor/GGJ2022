@@ -44,7 +44,6 @@ public class Spell : MonoBehaviour
     private float bulletSize = 1f;
 
     private bool isHoming = false;
-    private float homingForce = 0;
 
     private bool isGrowing = false;
     private float growingForce = 0;
