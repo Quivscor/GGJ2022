@@ -28,6 +28,7 @@ public class LevelUp : MonoBehaviour
     private GameObject playerReference;
     public static LevelUp Instance;
     private SpellType chosenResource;
+    private bool perkBought = false;
     
     public List<SpellBoost> preparedBoosts = new List<SpellBoost>();
 
@@ -48,6 +49,9 @@ public class LevelUp : MonoBehaviour
 
     public void ResourceWasChosen(SpellType spellType)
     {
+        perkBought = false;
+
+        chosenResource = spellType;
         playerReference.GetComponent<CharacterStats>().AddLevel(spellType);
         ToggleChoosingPhaze(false);
         SetMonumentsMaterial(spellType);
@@ -57,9 +61,25 @@ public class LevelUp : MonoBehaviour
         monumentsAnimator.SetTrigger("Show");
     }
 
+    public void BuyPerkFromMonument(int monumentNumber)
+    {
+        if (perkBought)
+            return;
+
+        perkBought = true;
+
+        if(chosenResource == SpellType.Harmony)
+            preparedBoosts[monumentNumber].ProcessSpellBoost(playerReference.GetComponent<WandController>().HarmonySpell);
+        else
+            preparedBoosts[monumentNumber].ProcessSpellBoost(playerReference.GetComponent<WandController>().ChaosSpell);
+
+        monumentsRise.Invoke(1.5f);
+        monumentsAnimator.SetTrigger("Hide");
+    }
+
     public void ShowMonumentInfo(int monumentNumber)
     {
-        HudController.Instance.ShowPerkInfo(preparedBoosts[monumentNumber].spellName, preparedBoosts[monumentNumber].description);
+        HudController.Instance.ShowPerkInfo(preparedBoosts[monumentNumber].spellName, preparedBoosts[monumentNumber].description, preparedBoosts[monumentNumber].costModifier, chosenResource);
     }
 
     public void HideMonumentInfo(int monumentNumber)
@@ -111,17 +131,17 @@ public class LevelUp : MonoBehaviour
             availableBoosts.AddRange(PerksController.Instance.chaosSpellBoosts);
         }
 
-        foreach (SpellBoost spellboost in availableBoosts)
-        {
-            Debug.Log(spellboost.spellName);
-        }
-
         for (int i = 0; i < numberOfBoosts; i++)
         { 
             var randomBoost = Random.Range(0, availableBoosts.Count);
 
             preparedBoosts.Add(availableBoosts[randomBoost]);
             availableBoosts.RemoveAt(randomBoost);
+        }
+
+        foreach (SpellBoost spellboost in preparedBoosts)
+        {
+            Debug.Log(spellboost.spellName);
         }
     }
     public SpellBoost GetRandomSpellBoost(SpellType spellType)

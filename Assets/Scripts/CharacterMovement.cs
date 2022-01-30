@@ -16,6 +16,7 @@ public class CharacterMovement : MonoBehaviour
 	[Header("References:")]
 	[SerializeField] private Animator animator = null;
 	[SerializeField] private Transform character = null;
+	[SerializeField] private DashVisualEffect dashVisualEffects = null;
 
 	#region Slow Effect
 	[Header("Slow Effect Options:")]
@@ -78,6 +79,8 @@ public class CharacterMovement : MonoBehaviour
 
 		rigidbody.velocity = velocityToApply;
 		dashCooldownCurrentTime = dashCooldown;
+
+		dashVisualEffects?.ProcessDash();
 		ProcessAnimator(vertical, horizontal);
 	}
 
