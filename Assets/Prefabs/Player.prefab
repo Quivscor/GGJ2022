@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db07d94b1795e049ae61b67c8e628c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infiniteResources: 1
+  infiniteResources: 0
   healthBarFill: {fileID: 1138002257782982429}
   health: 0
   maxHealth: 100
@@ -321,8 +321,8 @@ MonoBehaviour:
   spellType: 0
   numberOfBullets: 1
   recoil: 0.05
-  fireRate: 3
-  spellSpeed: 10
+  fireRate: 1.5
+  spellSpeed: 15
   damage: 5
   resourceCost: 2.5
   costModifier: 1
@@ -345,8 +345,8 @@ MonoBehaviour:
   spellType: 1
   numberOfBullets: 1
   recoil: 0.05
-  fireRate: 3
-  spellSpeed: 10
+  fireRate: 1.5
+  spellSpeed: 15
   damage: 20
   resourceCost: 2.5
   costModifier: 1
@@ -1647,7 +1647,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 4874126678125670354, guid: dcb8419350f3d8c4784d63a25bbcf840, type: 3}
-  - {fileID: 2100000, guid: ac9530dead1106a4abd951ea05fd0c29, type: 2}
+  - {fileID: 2100000, guid: 12b63091fb314f5409cf4fed169196fe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2132,7 +2132,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 4874126678125670354, guid: 56430464ded63084ba785b408055dbb2, type: 3}
-  - {fileID: 2100000, guid: aa4deb0ac50b7e149adfdb619e95ce75, type: 2}
+  - {fileID: 2100000, guid: b5c3a0a4d9ece73428f858a9486bbbfe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2228,6 +2228,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d4220cf3318e28b4489d9b5c2ffdfcca, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b0a372171ad5dca4885bd19e4a947bb6, type: 2}
     - target: {fileID: 919132149155446097, guid: d4220cf3318e28b4489d9b5c2ffdfcca, type: 3}
       propertyPath: m_Name
       value: hair_1
@@ -2322,7 +2326,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 4874126678125670354, guid: 56430464ded63084ba785b408055dbb2, type: 3}
-  - {fileID: 2100000, guid: aa4deb0ac50b7e149adfdb619e95ce75, type: 2}
+  - {fileID: 2100000, guid: b5c3a0a4d9ece73428f858a9486bbbfe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2807,7 +2811,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 4874126678125670354, guid: dcb8419350f3d8c4784d63a25bbcf840, type: 3}
-  - {fileID: 2100000, guid: ac9530dead1106a4abd951ea05fd0c29, type: 2}
+  - {fileID: 2100000, guid: 12b63091fb314f5409cf4fed169196fe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2917,11 +2921,11 @@ PrefabInstance:
     - target: {fileID: -8924213618123467279, guid: 5ed4c57442665f042898c96447379237, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ac9530dead1106a4abd951ea05fd0c29, type: 2}
+      objectReference: {fileID: 2100000, guid: 12b63091fb314f5409cf4fed169196fe, type: 2}
     - target: {fileID: -8924213618123467279, guid: 5ed4c57442665f042898c96447379237, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: aa4deb0ac50b7e149adfdb619e95ce75, type: 2}
+      objectReference: {fileID: 2100000, guid: b5c3a0a4d9ece73428f858a9486bbbfe, type: 2}
     - target: {fileID: -8924213618123467279, guid: 5ed4c57442665f042898c96447379237, type: 3}
       propertyPath: m_Materials.Array.data[2]
       value: 
@@ -2982,6 +2986,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3139687007742183775, guid: 5ed4c57442665f042898c96447379237, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b0a372171ad5dca4885bd19e4a947bb6, type: 2}
     - target: {fileID: -3086436065929644917, guid: 5ed4c57442665f042898c96447379237, type: 3}
       propertyPath: m_Layer
       value: 10

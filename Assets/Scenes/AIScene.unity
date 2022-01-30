@@ -1497,14 +1497,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1498657453040417929, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: b5c3a0a4d9ece73428f858a9486bbbfe, type: 2}
-    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: infiniteResources
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: resourceChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1513,30 +1505,6 @@ PrefabInstance:
       propertyPath: resourceChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1418839337}
-    - target: {fileID: 1751774421265251428, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: damage
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1751774421265251428, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: fireRate
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1751774421265251428, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: spellSpeed
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1751774421265251428, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: numberOfBounces
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1751774421265251429, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: fireRate
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1751774421265251429, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: spellSpeed
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251431, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1585,34 +1553,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2526351542734764628, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: b0a372171ad5dca4885bd19e4a947bb6, type: 2}
-    - target: {fileID: 3173922652904494356, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: b0a372171ad5dca4885bd19e4a947bb6, type: 2}
-    - target: {fileID: 4433914965682229706, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 12b63091fb314f5409cf4fed169196fe, type: 2}
-    - target: {fileID: 4781974518465932987, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 12b63091fb314f5409cf4fed169196fe, type: 2}
-    - target: {fileID: 5480705411278630976, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: b5c3a0a4d9ece73428f858a9486bbbfe, type: 2}
-    - target: {fileID: 8305801983611443460, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 12b63091fb314f5409cf4fed169196fe, type: 2}
-    - target: {fileID: 8305801983611443460, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: b5c3a0a4d9ece73428f858a9486bbbfe, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
 --- !u!114 &1484477471 stripped
