@@ -98,12 +98,5 @@ public class CharacterHolder : MonoBehaviour
         }
         _player.Resurect();
         _deadCharacters.Clear();
-        StartCoroutine(ChangeStateAfterTime(MatchState.ACTIVE, 1f));
-    }
-
-    public IEnumerator ChangeStateAfterTime(MatchState state, float time)
-    {
-        yield return new WaitForSeconds(time);
-        MatchController.Instance.ChangeMatchState(state);
     }
 }
