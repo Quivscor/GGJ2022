@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,13 @@ public class CharacterMovement : MonoBehaviour
 	[SerializeField] private float dashSpeed = 10f;
 	[SerializeField] private float dashCooldown = 2f;
 	[SerializeField] private float dashDuration = .5f;
+
 	private float dashCooldownCurrentTime = 0;
 	private float dashDurationCurrentTime = 0;
 	private bool isDashing = false;
+	private int availableDashes = 2;
+	private int currentDashes = 0;
+	public event Action<int, float> DashValuesChanged = null;
 	
 	[Header("References:")]
 	[SerializeField] private Animator animator = null;
@@ -36,24 +41,38 @@ public class CharacterMovement : MonoBehaviour
 			animator = GetComponentInChildren<Animator>();
 
 		rigidbody = GetComponent<Rigidbody>();
+
+		currentDashes = availableDashes;
 	}
 
     private void Update()
     {
-		if(dashCooldownCurrentTime > 0)
+		if(currentDashes != availableDashes)
+		{
 			dashCooldownCurrentTime -= Time.deltaTime;
+
+			if (dashCooldownCurrentTime <= 0)
+			{
+				currentDashes++;
+
+				if (currentDashes != availableDashes)
+					dashCooldownCurrentTime = dashCooldown;
+			}
+
+			DashValuesChanged?.Invoke(currentDashes, (dashCooldown - dashCooldownCurrentTime) / dashCooldown);
+		}
+
 		if (dashDurationCurrentTime > 0)
 			dashDurationCurrentTime -= Time.deltaTime;
 		else if (isDashing)
 			isDashing = false;
-
-			
     }
 
     public void ProcessMovement(float vertical, float horizontal)
 	{
 		if (isDashing)
 			return;
+
 		Vector3 velocityToApply = new Vector3(horizontal, 0, vertical).normalized * movementSpeed;
 
 		if (isSlowed)
@@ -66,7 +85,7 @@ public class CharacterMovement : MonoBehaviour
 
 	public void ProcessDash(float vertical, float horizontal)
     {
-		if (dashCooldownCurrentTime > 0)
+		if (currentDashes <= 0 || isDashing)
 			return;
 
 		isDashing = true;
@@ -78,10 +97,14 @@ public class CharacterMovement : MonoBehaviour
 			velocityToApply *= slowedMovementSpeedFactor;
 
 		rigidbody.velocity = velocityToApply;
-		dashCooldownCurrentTime = dashCooldown;
+
+		if (currentDashes != 1)
+			dashCooldownCurrentTime = dashCooldown;
 
 		dashVisualEffects?.ProcessDash();
 		ProcessAnimator(vertical, horizontal);
+		currentDashes--;
+		DashValuesChanged?.Invoke(currentDashes, (dashCooldown - dashCooldownCurrentTime) / dashCooldown);
 	}
 
 	private void ProcessAnimator(float vertical, float horizontal)
