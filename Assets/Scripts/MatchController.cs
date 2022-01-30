@@ -70,7 +70,7 @@ public class MatchController : MonoBehaviour
         yield return StartCoroutine(FadeOut(1f, curve));
         yield return StartCoroutine(FadeInText(1f, mainText, curve));
         yield return StartCoroutine(FadeInText(1f, questionText, curve));
-        yield return StartCoroutine(FadeInButtons(1f, canvasGroup, curve));
+        yield return StartCoroutine(FadeInButtons(1f, canvasGroup, curve, true));
     }
 
     public void Continue()
@@ -87,7 +87,7 @@ public class MatchController : MonoBehaviour
     private IEnumerator HideVictory()
     {
         Cursor.visible = false;
-        yield return StartCoroutine(FadeInButtons(1f, canvasGroup, reverseCurve));
+        yield return StartCoroutine(FadeInButtons(1f, canvasGroup, reverseCurve, false));
         yield return StartCoroutine(FadeInText(1f, questionText, reverseCurve));
         yield return StartCoroutine(FadeInText(1f, mainText, reverseCurve));
         yield return StartCoroutine(FadeOut(1f, reverseCurve));
@@ -122,10 +122,8 @@ public class MatchController : MonoBehaviour
         }
     }
 
-    private IEnumerator FadeInButtons(float t, CanvasGroup canvasGroup, AnimationCurve curve)
+    private IEnumerator FadeInButtons(float t, CanvasGroup canvasGroup, AnimationCurve curve, bool unlock)
     {
-        canvasGroup.interactable = false;
-        canvasGroup.blocksRaycasts = false;
         while (t > 0f)
         {
             t -= Time.deltaTime;
@@ -133,8 +131,8 @@ public class MatchController : MonoBehaviour
             canvasGroup.alpha = a;
             yield return 0;
         }
-        canvasGroup.interactable = true;
-        canvasGroup.blocksRaycasts = true;
+        canvasGroup.interactable = unlock;
+        canvasGroup.blocksRaycasts = unlock;
     }
 }
 
