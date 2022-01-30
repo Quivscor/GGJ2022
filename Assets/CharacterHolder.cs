@@ -56,7 +56,7 @@ public class CharacterHolder : MonoBehaviour
     public void OnPlayerDeath(CharacterStats stats)
     {
         StartCoroutine(FadeOut(2f));
-        StartCoroutine(FadeInText(1.5f));
+        StartCoroutine(FadeInText(2f));
     }
 
     public AnimationCurve curve;
