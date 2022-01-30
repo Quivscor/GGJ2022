@@ -8,7 +8,7 @@ public class HomingBoost : SpellBoost
     {
         costModifier = 0.1f;
         spellType = SpellType.Chaos;
-        spellName = "";
+        spellName = "Homing Missiles";
         description = "";
     }
 
