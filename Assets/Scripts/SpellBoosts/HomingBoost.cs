@@ -6,10 +6,10 @@ public class HomingBoost : SpellBoost
 {
     public HomingBoost()
     {
-        costModifier = 0.1f;
+        costModifier = 0.2f;
         spellType = SpellType.Chaos;
-        spellName = "Homing Missiles";
-        description = "";
+        spellName = "Mage-to-Mage missile";
+        description = "Your bullets now are homing";
     }
 
     public override void ProcessSpellBoost(Spell spell)

@@ -71,12 +71,17 @@ public class Spell : MonoBehaviour
     {
         characterStats = GetComponent<CharacterStats>();
 
-        currentFireRate = 1.0f / fireRate;
+        RecalculateFireRate();
         currentRecoil = recoil;
 
         //debug AF
         HomingBoost boost = new HomingBoost();
         boost.ProcessSpellBoost(this);
+    }
+
+    public void RecalculateFireRate()
+    {
+        currentFireRate = 1.0f / fireRate;
     }
 
 	private void Start()

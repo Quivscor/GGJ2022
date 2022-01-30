@@ -14,7 +14,8 @@ public class FireRateBoost : SpellBoost
     public override void ProcessSpellBoost(Spell spell)
     {
         spell.FireRate += 1;
-        spell.Damage *= 0.95f;
+        spell.Damage -= spell.Damage * 0.95f;
+        spell.RecalculateFireRate();
     }
 
 
