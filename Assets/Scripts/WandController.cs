@@ -46,9 +46,9 @@ public class WandController : MonoBehaviour
     public float GetSpellCost(bool primarySpell, bool secondarySpell)
     {
         if (primarySpell)
-            return harmonySpell.ResourceCost;
+            return harmonySpell.FinalResourceCost;
         else if (secondarySpell)
-            return chaosSpell.ResourceCost;
+            return chaosSpell.FinalResourceCost;
         else
             return Mathf.NegativeInfinity;
     }

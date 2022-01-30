@@ -61,9 +61,12 @@ public class Spell : MonoBehaviour
     public bool IsHoming { get => isHoming; set => isHoming = value; }
     public float HomingForce { get => homingForce; set => homingForce = value; }
     public float ChanceToHomingMissileStep { get => chanceToHomingMissileStep; set => chanceToHomingMissileStep = value; }
+    public float CostModifier { get => costModifier; set => costModifier = value; }
+    public float FinalResourceCost { get => finalResourceCost; set => finalResourceCost = value; }
 
     private float currentFireRate = 0.0f;
     private float currentRecoil = 0.0f;
+    private float finalResourceCost = 0f;
 
     private bool isOnCooldown = false;
     private float angleBetweenShots = 8f;
@@ -74,7 +77,7 @@ public class Spell : MonoBehaviour
     private void Awake()
     {
         characterStats = GetComponent<CharacterStats>();
-
+        RecalculateResourceCost();
         RecalculateFireRate();
         currentRecoil = recoil;
 
@@ -86,6 +89,11 @@ public class Spell : MonoBehaviour
     public void RecalculateFireRate()
     {
         currentFireRate = 1.0f / fireRate;
+    }
+
+    public void RecalculateResourceCost()
+    {
+        finalResourceCost = resourceCost * CostModifier;
     }
 
 	private void Start()
@@ -104,9 +112,9 @@ public class Spell : MonoBehaviour
         if (isOnCooldown)
             return;
 
-        if (characterStats.HaveEnoughResource(ResourceCost * costModifier, spellType))
+        if (characterStats.HaveEnoughResource(FinalResourceCost, spellType))
         {
-            characterStats.SpendResource(ResourceCost * costModifier, spellType);
+            characterStats.SpendResource(FinalResourceCost, spellType);
 
 
 
@@ -169,5 +177,6 @@ public class Spell : MonoBehaviour
         {
             costModifier = 0.25f;
         }
+        RecalculateResourceCost();
     }
 }
