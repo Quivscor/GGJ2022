@@ -174,6 +174,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 973992933186562719, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 1881288736024043230, guid: 10c6e3577033655449321bd7780723df, type: 3}
+    - target: {fileID: 973992933186562719, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: damage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 973992933186562719, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: fireRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065779482777482607, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: damage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065779482777482607, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: fireRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065779482777482607, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: resourceCost
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7594468609969001206, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_Name
       value: Enemy (3)
@@ -662,6 +686,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 973992933186562719, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 1881288736024043230, guid: 10c6e3577033655449321bd7780723df, type: 3}
+    - target: {fileID: 973992933186562719, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: damage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 973992933186562719, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: fireRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065779482777482607, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: damage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065779482777482607, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: fireRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065779482777482607, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: resourceCost
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4794161559356311390, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: dashCooldown
       value: 35
@@ -700,6 +748,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b61247e2ad3200d48a7028b22505f6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &920350873 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2985061041446489412, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+  m_PrefabInstance: {fileID: 1556048971}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db07d94b1795e049ae61b67c8e628c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &940924787
@@ -939,6 +998,7 @@ MonoBehaviour:
   - {fileID: 1484477474}
   - {fileID: 935629537831303512}
   - {fileID: 795222698}
+  - {fileID: 920350873}
 --- !u!4 &961678138
 Transform:
   m_ObjectHideFlags: 0
@@ -1262,7 +1322,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: infiniteResources
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: resourceChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1272,18 +1332,6 @@ PrefabInstance:
       propertyPath: resourceChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1418839337}
-    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: chaosLastSpellTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: harmonyLastSpellTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1751774421265251429, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: damage
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251431, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1504,13 +1552,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 973992933186562719, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 1881288736024043230, guid: 10c6e3577033655449321bd7780723df, type: 3}
+    - target: {fileID: 973992933186562719, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: damage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 973992933186562719, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: fireRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065779482777482607, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: damage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065779482777482607, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: fireRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065779482777482607, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: resourceCost
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7594468609969001206, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_Name
       value: Enemy (2)
       objectReference: {fileID: 0}
     - target: {fileID: 7594468609969001206, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
@@ -1627,7 +1699,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9193429334603494471, guid: 48086fbbeaf07854b9a9827084dfe1d8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48086fbbeaf07854b9a9827084dfe1d8, type: 3}
@@ -1993,6 +2065,30 @@ PrefabInstance:
     - target: {fileID: 59735033571689389, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 973992933186562719, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 1881288736024043230, guid: 10c6e3577033655449321bd7780723df, type: 3}
+    - target: {fileID: 973992933186562719, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: damage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 973992933186562719, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: fireRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065779482777482607, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: damage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065779482777482607, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: fireRate
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4065779482777482607, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: resourceCost
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4794161559356311390, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: dashCooldown
