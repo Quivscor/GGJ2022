@@ -6,7 +6,11 @@ using UnityEngine;
 public class CreateToxicAreaOnHitBoost : SpellBoost
 {
 	private float toxicAreaLifetime = 5f;
-	private float chanceToSlowEnemyPerHit = 0.2f; //20%
+	private int spawnEveryXShot = 16;
+	private int currentShots = 0;
+	private float chanceToCreateArea = 0f;
+	private float chanceToCreateAreaStep = 5f;
+
 
 	private ToxicArea toxicAreaPrefab = null;
 
@@ -15,22 +19,23 @@ public class CreateToxicAreaOnHitBoost : SpellBoost
 		costModifier = 0.1f;
 		spellType = SpellType.Chaos;
 		spellName = "Forbidden Circle";
-		description = "Creates zone that drains life";
+		description = "Creates dangerous zone every 15th attack. Taking this skill again reduces the amount by 1.";
 		toxicAreaPrefab = Resources.Load<ToxicArea>("ToxicArea");
 	}
 
 	public override void ProcessSpellBoost(Spell spell)
 	{
-
-
 		spell.MissileHitAnything += CreateToxicAreaInRange;
 		spell.ChangeCostModifier(costModifier);
+		spawnEveryXShot--;
 	}
 
 	private void CreateToxicAreaInRange(Transform missilePosition, CharacterStats owner)
 	{
-		if (UnityEngine.Random.Range(0.0f, 1.0f) < chanceToSlowEnemyPerHit)
+		if (currentShots == spawnEveryXShot)
 		{
+			currentShots = 0;
+
 			if (toxicAreaPrefab == null)
 			{
 				Debug.LogError("Toxic area prefab reference is null!");
@@ -43,5 +48,12 @@ public class CreateToxicAreaOnHitBoost : SpellBoost
 			var spawnedArea = MonoBehaviour.Instantiate(toxicAreaPrefab, spawnPosition, Quaternion.identity);
 			MonoBehaviour.Destroy(spawnedArea.gameObject, toxicAreaLifetime);
 		}
+		else
+        {
+			//Debug.Log(currentShots);
+			currentShots++;
+        }
+
+
 	}
 }

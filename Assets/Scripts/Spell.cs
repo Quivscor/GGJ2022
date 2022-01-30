@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(CharacterStats))]
 public class Spell : MonoBehaviour
@@ -43,8 +44,10 @@ public class Spell : MonoBehaviour
     private float bulletSize = 1f;
 
     private bool isHoming = false;
-    private float homingForce = 0;
+    private float homingForce = 0.35f;
     private CharacterStats characterStats;
+    private float chanceToHomingMissile = 0f;
+    private float chanceToHomingMissileStep = 0f;
 
     public int NumberOfBullets { get => numberOfBullets; set => numberOfBullets = value; }
     public float Recoil { get => recoil; set => recoil = value; }
@@ -57,6 +60,7 @@ public class Spell : MonoBehaviour
     public float BulletSize { get => bulletSize; set => bulletSize = value; }
     public bool IsHoming { get => isHoming; set => isHoming = value; }
     public float HomingForce { get => homingForce; set => homingForce = value; }
+    public float ChanceToHomingMissileStep { get => chanceToHomingMissileStep; set => chanceToHomingMissileStep = value; }
 
     private float currentFireRate = 0.0f;
     private float currentRecoil = 0.0f;
@@ -104,6 +108,8 @@ public class Spell : MonoBehaviour
         {
             characterStats.SpendResource(ResourceCost * costModifier, spellType);
 
+
+
             for (int i = 0; i < numberOfBullets; i++)
             {
                 Vector3 direction = missilesSpawnPoint.transform.forward + CalculatedRecoil();
@@ -113,11 +119,22 @@ public class Spell : MonoBehaviour
                     direction = CalculateBulletAngle(i);
                 }
                
+                if(Random.Range(0, 100) < chanceToHomingMissile)
+                {
+                    IsHoming = true;
+                    chanceToHomingMissile = 0f;
+                }
+                else
+                {
+                    chanceToHomingMissile += chanceToHomingMissileStep;
+                }
+
                 direction.Normalize();
 
                 var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
                 bulletShot.Initialize(characterStats, damage, numberOfBounces, MissileHitCharacter, MissileHitAnything, IsHoming, homingForce);
                 bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
+                IsHoming = false;
 
             }
             StartCoroutine(EnableCooldown());
