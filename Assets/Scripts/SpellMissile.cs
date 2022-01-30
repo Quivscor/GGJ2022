@@ -10,7 +10,7 @@ public class SpellMissile : MonoBehaviour
 
 	public CharacterStats parent = null;
 	private float damageToApply = 0.0f;
-	private int bouncesLeft = 1;
+	private int bouncesLeft = 0;
 	private bool bounced = false;
 
 	public event Action<CharacterStats, CharacterStats, float> HitCharacter = null;
@@ -33,6 +33,7 @@ public class SpellMissile : MonoBehaviour
 		HitCharacter = missileHitCharacter;
 		HitAnything = missileHitAnything;
 		this.isHoming = isHoming;
+		this.bouncesLeft = bounces;
 	}
 
 	public Transform GetParentTransform()

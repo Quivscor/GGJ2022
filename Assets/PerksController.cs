@@ -61,4 +61,9 @@ public class PerksController : MonoBehaviour
     {
         lowerResourceModifierBoost.ProcessSpellBoost(spell);
     }
+
+    public void AddHealingOnEnemyHit(Spell spell)
+    {
+        healOnHitEnemyBoost.ProcessSpellBoost(spell);
+    }
 }

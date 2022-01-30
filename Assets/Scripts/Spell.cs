@@ -77,7 +77,16 @@ public class Spell : MonoBehaviour
         boost.ProcessSpellBoost(this);
     }
 
-    public Vector3 CalculatedRecoil() => new Vector3(UnityEngine.Random.Range(-currentRecoil, currentRecoil), 0.0f, UnityEngine.Random.Range(-currentRecoil, currentRecoil));
+	private void Start()
+	{
+
+        if (spellType == SpellType.Harmony)
+        {
+            PerksController.Instance.AddHealingOnEnemyHit(this);
+        }
+    }
+
+	public Vector3 CalculatedRecoil() => new Vector3(UnityEngine.Random.Range(-currentRecoil, currentRecoil), 0.0f, UnityEngine.Random.Range(-currentRecoil, currentRecoil));
     public Vector3 CalculatedAngleBetweenShots(float angle) => new Vector3(angle, 0f, angle);
     public void CastSpell()
     {
