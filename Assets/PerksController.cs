@@ -23,11 +23,14 @@ public class PerksController : MonoBehaviour
     HealthBoost healthBoost;
 
     public static PerksController Instance;
+    private GameObject playerRef;
 
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
+
+        playerRef = GameObject.FindGameObjectWithTag("Player");
 
         slowOnHit = new SlowOnHitEnemyBoost();
         toxicArea = new CreateToxicAreaOnHitBoost();
@@ -73,5 +76,32 @@ public class PerksController : MonoBehaviour
     public void AddHealingOnEnemyHit(Spell spell)
     {
         healOnHitEnemyBoost.ProcessSpellBoost(spell);
+    }
+
+    public void AddGrowingBoost(string spellType)
+    {
+        if(spellType == "harmony")
+            growingBoost.ProcessSpellBoost(playerRef.GetComponent<WandController>().HarmonySpell);
+        else
+            growingBoost.ProcessSpellBoost(playerRef.GetComponent<WandController>().ChaosSpell);
+
+    }
+
+    public void AddHomingBoost(string spellType)
+    {
+        if (spellType == "harmony")
+            homingBoost.ProcessSpellBoost(playerRef.GetComponent<WandController>().HarmonySpell);
+        else
+            homingBoost.ProcessSpellBoost(playerRef.GetComponent<WandController>().ChaosSpell);
+
+    }
+
+    public void AddMissile(string spellType)
+    {
+        if (spellType == "harmony")
+            numberOfBulletsBoost.ProcessSpellBoost(playerRef.GetComponent<WandController>().HarmonySpell);
+        else
+            numberOfBulletsBoost.ProcessSpellBoost(playerRef.GetComponent<WandController>().ChaosSpell);
+
     }
 }

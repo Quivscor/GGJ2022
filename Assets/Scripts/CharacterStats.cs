@@ -38,6 +38,7 @@ public class CharacterStats : MonoBehaviour
     private ResourceChanged resourceChanged;
     [SerializeField]
     private ResourceChanged healthChanged;
+
     public Action<CharacterStats> died;
     public bool isDead { get; private set; }
 
@@ -46,6 +47,7 @@ public class CharacterStats : MonoBehaviour
     public float MaxHealth { get => maxHealth; }
     public int HarmonyLevel { get => harmonyLevel; }
     public int ChaosLevel { get => chaosLevel; }
+    public bool Immortality { get => immortality; set => immortality = value; }
 
     public AudioSource healAudio;
 
@@ -65,6 +67,10 @@ public class CharacterStats : MonoBehaviour
         isDead = false;
     }
 
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
     public void Heal(float value)
     {
@@ -88,7 +94,7 @@ public class CharacterStats : MonoBehaviour
 
     public void DealDamge(float value)
     {
-        if(!immortality)
+        if(!Immortality)
         {
             health -= value;
             if (health <= 0 && !isDead)
