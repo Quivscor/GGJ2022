@@ -9,11 +9,11 @@ public class MoveSpeedBoost : SpellBoost
         costModifier = 0;
         spellType = SpellType.Any;
         spellName = "Fleet Footwork";
-        description = "You walk faster.";
+        description = "You walk much faster.";
     }
 
     public override void ProcessSpellBoost(Spell spell)
     {
-        spell.GetComponent<CharacterMovement>().IncreaseMovementSpeed(1f);
+        spell.GetComponent<CharacterMovement>().IncreaseMovementSpeed(2f);
     }
 }

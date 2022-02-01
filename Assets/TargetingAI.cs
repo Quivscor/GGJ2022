@@ -80,6 +80,11 @@ public class TargetingAI : MonoBehaviour
         }
     }
 
+    public void ClearEnemyTargets()
+    {
+        enemyTargets.Clear();
+    }
+
     public void CheckEnemiesInArea()
     {
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, areaScanRadius);

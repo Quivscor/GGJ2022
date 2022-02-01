@@ -9,12 +9,12 @@ public class FireRateBoost : SpellBoost
         spellType = SpellType.Any;
         costModifier = 0.0f;
         spellName = "Ratatata";
-        description = "Adds 1 attack per second. Damage is lowered by 5%.";
+        description = "Increases fire rate by 2 (two more attack per second). Damage is lowered by 10%.";
     }
     public override void ProcessSpellBoost(Spell spell)
     {
-        spell.FireRate += 1;
-        spell.Damage -= spell.Damage * 0.05f;
+        spell.FireRate += 2;
+        spell.Damage -= spell.Damage * 0.1f;
         spell.RecalculateFireRate();
     }
 

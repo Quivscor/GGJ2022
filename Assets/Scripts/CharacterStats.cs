@@ -157,8 +157,8 @@ public class CharacterStats : MonoBehaviour
             chaosLevel++;
 
         if(transform.root.CompareTag("Player"))
-            maxHealth += maxHealth * 0.15f;
+            maxHealth += 25;
         else
-            maxHealth += maxHealth * 0.1f;
+            maxHealth += 20;
     }
 }

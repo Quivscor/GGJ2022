@@ -9,14 +9,15 @@ public class SlowOnHitEnemyBoost : SpellBoost
     public SlowOnHitEnemyBoost()
     {
 		spellType = SpellType.Harmony;
-		costModifier = 0.2f;
-		spellName = "Slow them!";
-		description = "Has 20% chance for slowing enemy on impact";
+		costModifier = 0.15f;
+		spellName = "Slippery Snail";
+		description = "Adds a 15 % chance that the missile will slow target. Adds +5% damage";
 	}
 	public override void ProcessSpellBoost(Spell spell)
 	{
 		
 		spell.MissileHitCharacter += SlowOnHitTarget;
+		spell.Damage += spell.Damage * 0.05f;
 		spell.ChangeCostModifier(costModifier);
 	}
 

@@ -8,12 +8,13 @@ public class HealthBoost : SpellBoost
     {
         spellType = SpellType.Any;
         costModifier = 0.0f;
-        spellName = "Healthy";
-        description = "Increases health.";
+        spellName = "Pump the muscles";
+        description = "Increases health by 25 points and adds +10% damage.";
     }
 
     public override void ProcessSpellBoost(Spell spell)
     {
-        spell.GetComponent<CharacterStats>().maxHealth += 20f;
+        spell.GetComponent<CharacterStats>().maxHealth += 25f;
+        spell.Damage += spell.Damage * 0.1f;
     }
 }

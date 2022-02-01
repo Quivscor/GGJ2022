@@ -155,29 +155,59 @@ public class SpellMissile : MonoBehaviour
 		}
 	}
 
-	//   private void OnTriggerEnter(Collider other)
-	//{
-	//	if (other.transform.root.CompareTag("Bullet"))
-	//		return;
+    private void OnTriggerEnter(Collider other)
+    {
+		if (other.transform.root.CompareTag("Bullet"))
+		{
+			return;
+			//if (parent == collision.transform.GetComponent<SpellMissile>().parent)
+			//         {
+			//	if (!bounced)
+			//		return;
 
-	//	if (!other.isTrigger)
-	//	{
-	//		if (other.transform.root.TryGetComponent(out CharacterStats targetCharacterStats))
-	//		{
-	//			if (targetCharacterStats == parent)
-	//				return;
+			//}
 
-	//			targetCharacterStats.DealDamge(damageToApply);
-	//			HitCharacter?.Invoke(parent, targetCharacterStats, damageToApply);
-	//			HitAnything?.Invoke(this.transform, parent);
+			//HitAnything?.Invoke(this.transform, parent);
+			//CreateHitImpact();
+			//Destroy(collision.transform.root.gameObject);
+			//Destroy(this.gameObject);
+		}
 
-	//			if(other.transform.root.TryGetComponent(out TargetingAI targeting))
-	//               {
-	//				targeting.UpdateThreat(targeting.GetTargetFromTransform(parent.transform), damageToApply);
-	//               }
-	//		}
+		HitAnything?.Invoke(this.transform, parent);
 
-	//		Destroy(this.gameObject);
-	//	}
-	//}
+		if (other.transform.root.TryGetComponent(out CharacterStats targetCharacterStats))
+		{
+			if (targetCharacterStats == parent && !bounced)
+				return;
+
+			if (!other.transform.CompareTag("Player") && !parent.CompareTag("Player"))
+				damageToApply *= 0.5f;
+
+			targetCharacterStats.DealDamge(damageToApply);
+			HitCharacter?.Invoke(parent, targetCharacterStats, damageToApply);
+			if (other.transform.root.TryGetComponent(out TargetingAI targeting))
+			{
+				targeting.UpdateThreat(targeting.GetTargetFromTransform(parent.transform), damageToApply);
+			}
+
+			CreateHitImpact();
+			Destroy(this.gameObject);
+		}
+
+		CreateHitImpact();
+		Destroy(this.gameObject);
+
+		//if (bouncesLeft > 0)
+		//{
+		//	bounced = true;
+		//	var direction = Vector3.Reflect(lastVelocity.normalized, other.contacts[0].normal);
+		//	GetComponent<Rigidbody>().velocity = direction * Mathf.Max(lastVelocity.magnitude, 1f);
+		//	bouncesLeft--;
+		//}
+		//else
+		//{
+		//	CreateHitImpact();
+		//	Destroy(this.gameObject);
+		//}
+	}
 }

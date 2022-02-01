@@ -8,8 +8,8 @@ public class NumberOfBulletsBoost : SpellBoost
     {
         costModifier = 0.1f;
         spellType = SpellType.Any;
-        spellName = "Additional pellet";
-        description = "Adds one attack to cast";
+        spellName = "Rain of bullets";
+        description = "Adds one missile to cast.";
     }
     public override void ProcessSpellBoost(Spell spell)
     {
