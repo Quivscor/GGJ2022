@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMProText = TMPro.TextMeshProUGUI;
+using System;
 
 public class CharacterHolder : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class CharacterHolder : MonoBehaviour
     [SerializeField] List<CharacterStats> _characters;
     List<CharacterStats> _deadCharacters;
     public List<CharacterStats> Characters => _characters;
-
+    private List<BotUpgradeInfo> botUpgradeInfo = new List<BotUpgradeInfo>();
     private void Awake()
     {
         if (Instance == null)
@@ -37,6 +38,17 @@ public class CharacterHolder : MonoBehaviour
         }
     }
 
+    public void KillAllBots()
+    {
+        foreach (CharacterStats t in Characters)
+        {
+            if (t != _player)
+            {
+                t.DealDamge(10000);
+            }
+        }
+    }
+
     public void OnCharacterDeath(CharacterStats stats)
     {
         if(!_deadCharacters.Contains(stats))
@@ -50,6 +62,7 @@ public class CharacterHolder : MonoBehaviour
         if(_deadCharacters.Count == _characters.Count - 1)
         {
             MatchController.Instance.ChangeMatchState(MatchState.FINISHED);
+            LevelUpBots();
         }
     }
 
@@ -85,17 +98,31 @@ public class CharacterHolder : MonoBehaviour
         }
     }
 
+    public void LevelUpBots()
+    {
+        botUpgradeInfo.Clear();
+        LevelUp.Instance.PrepareBoostsForBots();
+
+        foreach (CharacterStats t in Characters)
+        {
+            if (t != _player)
+            {
+                botUpgradeInfo.Add(LevelUp.Instance.AddRandomLevelForBot(t, t.GetComponent<WandController>()));
+            }
+        }
+
+        HudController.Instance.TurnOnBotsUpgradeInfo(botUpgradeInfo);
+    }
+
     public void ResetEveryone()
     {
-        foreach(CharacterStats t in Characters)
+        foreach (CharacterStats t in Characters)
         {
             if(t != _player)
             {
                 t.Resurect();
                 t.GetComponent<Collider>().isTrigger = false;
                 t.GetComponent<TargetingAI>().ClearEnemyTargets();
-                if(MatchController.Instance.round != 1)
-                    LevelUp.Instance.AddRandomLevelForBot(t, t.GetComponent<WandController>());
             }
         }
         _player.Resurect();

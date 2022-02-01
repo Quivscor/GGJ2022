@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 [System.Serializable]
 public class ResourceChanged : UnityEvent <float> { }
@@ -20,8 +21,13 @@ public class CharacterStats : MonoBehaviour
     [Header("References")]
     [SerializeField]
     private Image healthBarFill;
+    [SerializeField]
+    private TextMeshProUGUI wizardNameTMP;
+    [SerializeField]
+    private GameObject upgradeIconsHolder;
 
     [Header("Stats")]
+    public string wizardName;
     [SerializeField]
     private float health;
     [SerializeField]
@@ -59,6 +65,9 @@ public class CharacterStats : MonoBehaviour
 
     void Start()
     {
+        if(wizardNameTMP != null)
+        wizardNameTMP.text = wizardName;
+
         health = MaxHealth;
         if (healthBarFill != null)
             healthBarFill.fillAmount = health / maxHealth;
@@ -70,6 +79,12 @@ public class CharacterStats : MonoBehaviour
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void AddUpgradeIcon(Color upgradeColor)
+    {
+        var loadedIcon =  Instantiate(Resources.Load<GameObject>("UpgradeIcon"), upgradeIconsHolder.transform);
+        loadedIcon.GetComponent<Image>().color = upgradeColor;
     }
 
     public void Heal(float value)

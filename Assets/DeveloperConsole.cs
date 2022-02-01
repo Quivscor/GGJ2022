@@ -295,24 +295,24 @@ public class DeveloperConsole : MonoBehaviour
 
     }
 
-    private string AddBracketsToText(string text)
+    public static string AddBracketsToText(string text)
     {
         return  " <" + text + ">";
 
     }
 
-    private string AddColorToText(string text, Color color)
+    public static string AddColorToText(string text, Color color)
     {
         string tmp = "<color=#" + ColorUtility.ToHtmlStringRGBA(color) + ">" + text + "</color>";
         return tmp;
     }
 
-    private string AddUnderlineToText(string text, Color underLineColor)
+    public static string AddUnderlineToText(string text, Color underLineColor)
     {
         return "<u color=#" + ColorUtility.ToHtmlStringRGBA(underLineColor) + ">" + text + "</u>";
     }
 
-    private string AddBoldToText(string text)
+    public static string AddBoldToText(string text)
     {
         return "<b>" + text + "</b>";
     }

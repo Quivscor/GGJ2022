@@ -10,6 +10,10 @@ public class HudController : MonoBehaviour
     [Header("References")]
     [SerializeField]
     private TextMeshProUGUI roundInfo;
+    [SerializeField]
+    private GameObject botsUpgradesHolder;
+    [SerializeField]
+    private TextMeshProUGUI botsUpgradesTMP;
 
     [SerializeField]
     [Header("Perk Info")]
@@ -22,10 +26,8 @@ public class HudController : MonoBehaviour
     private Animator perkAnimator;
     [SerializeField]
     private Image perkFrame;
-    [SerializeField]
-    private Color harmonyColor;
-    [SerializeField]
-    private Color chaosColor;
+    public Color harmonyColor;
+    public Color chaosColor;
 
     [Header("Press E Info")]
     [SerializeField]
@@ -113,11 +115,35 @@ public class HudController : MonoBehaviour
         else
         {
             perkAnimator.SetTrigger("Hide");
-        }
-
-
-        
+        }  
     }
+
+    public void TurnOnBotsUpgradeInfo(List<BotUpgradeInfo> botUpgradeInfo)
+    {
+        botsUpgradesHolder.gameObject.SetActive(true);
+        botsUpgradesTMP.text = "";
+ 
+        for (int i = 0; i < botUpgradeInfo.Count; i++)
+        {
+            botsUpgradesTMP.text += botUpgradeInfo[i].botname + " => ";
+            if(botUpgradeInfo[i].spellType == SpellType.Harmony)
+            {
+                botsUpgradesTMP.text += DeveloperConsole.AddColorToText(botUpgradeInfo[i].spellname, harmonyColor);
+            }
+            else
+            {
+                botsUpgradesTMP.text += DeveloperConsole.AddColorToText(botUpgradeInfo[i].spellname, chaosColor);
+            }
+
+            botsUpgradesTMP.text += "\n";
+        }
+    }
+
+    public void TurnOffBotsUpgradeInfo()
+    {
+        botsUpgradesHolder.gameObject.SetActive(false);
+    }
+
 
     public void ChangeRound(string text)
     {

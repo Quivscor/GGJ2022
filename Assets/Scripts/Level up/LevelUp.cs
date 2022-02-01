@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 [System.Serializable]
 public class MonumentsRise : UnityEvent<float> { }
@@ -33,6 +35,7 @@ public class LevelUp : MonoBehaviour
     private bool perkBought = false;
     
     public List<SpellBoost> preparedBoosts = new List<SpellBoost>();
+    public List<SpellBoost> preparedBoostsBots = new List<SpellBoost>();
 
     public MonumentsRise monumentsRise;
     public AudioSource upgradeSource;
@@ -85,6 +88,8 @@ public class LevelUp : MonoBehaviour
         
         MatchController.Instance.ChangeMatchState(MatchState.PRESTART);
         preparedBoosts.Clear();
+
+        HudController.Instance.TurnOffBotsUpgradeInfo();
     }
 
     public void ShowMonumentInfo(int monumentNumber)
@@ -125,38 +130,65 @@ public class LevelUp : MonoBehaviour
 
         }
     }
-    public void AddRandomLevelForBot(CharacterStats characterStats, WandController wandController)
+    public void PrepareBoostsForBots()
     {
-        SpellBoost randomSpellBoost = GetRandomSpellBoost();
+        preparedBoostsBots.Clear();
+        preparedBoostsBots.AddRange(PerksController.Instance.allSpellBoosts);
+    }
+
+    public BotUpgradeInfo AddRandomLevelForBot(CharacterStats characterStats, WandController wandController)
+    {
+        Random.InitState(System.DateTime.Now.Millisecond);
+
+        SpellBoost randomSpellBoost = GetRandomSpellBoostFromList();
+        SpellType spellTypeInfo;
 
         // Jezeli wylosowany pochodzi z harmonii
         if (randomSpellBoost.spellType == SpellType.Harmony)
         {
             randomSpellBoost.ProcessSpellBoost(wandController.HarmonySpell);
             characterStats.AddLevel(randomSpellBoost.spellType);
+            spellTypeInfo = SpellType.Harmony;
+
         } // Jezeli wylosowany pochodzi z harmonii
         else if (randomSpellBoost.spellType == SpellType.Chaos)
         {
             randomSpellBoost.ProcessSpellBoost(wandController.ChaosSpell);
             characterStats.AddLevel(randomSpellBoost.spellType);
+            spellTypeInfo = SpellType.Chaos;
 
 
         }// Jezeli wylosowany jest Commonem, wylosuj do tego kategorie 
         else
         {
-            if(Random.Range(0, 2) == 0)
+            Random.InitState(System.DateTime.Now.Millisecond);
+            int rand = Random.Range(0, 2);
+            if (rand == 0)
             {
                 randomSpellBoost.ProcessSpellBoost(wandController.HarmonySpell);
                 characterStats.AddLevel(SpellType.Harmony);
+                spellTypeInfo = SpellType.Harmony;
+
             }
             else
             {
                 randomSpellBoost.ProcessSpellBoost(wandController.ChaosSpell);
                 characterStats.AddLevel(SpellType.Chaos);
+                spellTypeInfo = SpellType.Chaos;
             }
         }
+        if (spellTypeInfo == SpellType.Harmony)
+        {
+            characterStats.AddUpgradeIcon(HudController.Instance.harmonyColor);
+        }
+        else
+        {
+            characterStats.AddUpgradeIcon(HudController.Instance.chaosColor);
 
-        Debug.Log("Bot leveled up: " + randomSpellBoost.spellName);
+        }
+
+
+        return new BotUpgradeInfo(characterStats.wizardName, randomSpellBoost.spellName, spellTypeInfo);
     }
 
     public void PrepareBoostsList(SpellType spellType, int numberOfBoosts)
@@ -194,8 +226,28 @@ public class LevelUp : MonoBehaviour
         }
 
     }
-    public SpellBoost GetRandomSpellBoost()
+    public SpellBoost GetRandomSpellBoostFromList()
     {
-        return PerksController.Instance.allSpellBoosts[Random.Range(0, PerksController.Instance.allSpellBoosts.Count)];
+        Random.InitState(System.DateTime.Now.Millisecond);
+        int rand = Random.Range(0, preparedBoostsBots.Count);
+        SpellBoost spellBoostTemp = preparedBoostsBots[rand];
+        preparedBoostsBots.RemoveAt(rand);
+
+        Debug.Log("Random spell: " + spellBoostTemp.spellName);
+        return spellBoostTemp;
+    }
+
+}
+public struct BotUpgradeInfo
+{
+    public string botname;
+    public string spellname;
+    public SpellType spellType;
+
+    public BotUpgradeInfo(string wizardName, string spellName, SpellType spellType) : this()
+    {
+        this.botname = wizardName;
+        this.spellname = spellName;
+        this.spellType = spellType;
     }
 }
