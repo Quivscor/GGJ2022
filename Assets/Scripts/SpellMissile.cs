@@ -193,9 +193,12 @@ public class SpellMissile : MonoBehaviour
 			CreateHitImpact();
 			Destroy(this.gameObject);
 		}
+		if(other.transform.CompareTag("Obstacles"))
+        {
+			CreateHitImpact();
+			Destroy(this.gameObject);
+		}
 
-		CreateHitImpact();
-		Destroy(this.gameObject);
 
 		//if (bouncesLeft > 0)
 		//{
