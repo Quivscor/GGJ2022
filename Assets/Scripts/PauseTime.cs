@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PauseTime : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject pauseCanvas;
+
     private static float m_TimeScale;
     public static float TimeScale
     {
@@ -18,15 +21,25 @@ public class PauseTime : MonoBehaviour
     private void Start()
     {
         m_TimeScale = Time.timeScale;
+    }
 
-        PauseGame();
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PauseGame();
     }
 
     public void PauseGame()
     {
         if (TimeScale == 0)
+        {
             TimeScale = 1;
+            pauseCanvas.SetActive(false);
+        }
         else
+        {
             TimeScale = 0;
+            pauseCanvas.SetActive(true);
+        }
     }
 }

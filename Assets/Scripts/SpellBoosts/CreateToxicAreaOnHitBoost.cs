@@ -20,7 +20,7 @@ public class CreateToxicAreaOnHitBoost : SpellBoost
 		costModifier = 0.1f;
 		spellType = SpellType.Chaos;
 		spellName = "Forbidden Circle";
-		description = "10% chance to create dangerous zone. Taking this skill again increases the chances by 10%.";
+		description = "Adds a 10 % chance that the missile will create dangerous zone that deals damage over time.";
 		toxicAreaPrefab = Resources.Load<ToxicArea>("ToxicArea");
 	}
 
