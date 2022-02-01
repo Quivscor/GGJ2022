@@ -54,6 +54,7 @@ public class CharacterStats : MonoBehaviour
     public int HarmonyLevel { get => harmonyLevel; }
     public int ChaosLevel { get => chaosLevel; }
     public bool Immortality { get => immortality; set => immortality = value; }
+    public bool InfiniteResources { get => infiniteResources; set => infiniteResources = value; }
 
     public AudioSource healAudio;
 
@@ -149,7 +150,7 @@ public class CharacterStats : MonoBehaviour
 
     public void SpendResource(float value, SpellType spellType)
     {
-        if(!infiniteResources)
+        if(!InfiniteResources)
         {
             if (spellType == SpellType.Harmony)
             {
