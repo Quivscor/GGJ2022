@@ -48,7 +48,7 @@ public class PerksController : MonoBehaviour
         harmonySpellBoosts.Add(healOnHitEnemyBoost);
         harmonySpellBoosts.Add(slowOnHit);
         chaosSpellBoosts.Add(toxicArea);
-        chaosSpellBoosts.Add(bouncingBoost);
+        //chaosSpellBoosts.Add(bouncingBoost);
 
         anySpellBoosts.Add(growingBoost);
         anySpellBoosts.Add(numberOfBulletsBoost);
@@ -62,7 +62,7 @@ public class PerksController : MonoBehaviour
         allSpellBoosts.Add(healOnHitEnemyBoost);
         allSpellBoosts.Add(slowOnHit);
         allSpellBoosts.Add(toxicArea);
-        allSpellBoosts.Add(bouncingBoost);
+       // allSpellBoosts.Add(bouncingBoost);
         allSpellBoosts.Add(growingBoost);
         allSpellBoosts.Add(numberOfBulletsBoost);
         allSpellBoosts.Add(fireRateBoost);

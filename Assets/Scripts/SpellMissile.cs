@@ -193,24 +193,30 @@ public class SpellMissile : MonoBehaviour
 			CreateHitImpact();
 			Destroy(this.gameObject);
 		}
-		if(other.transform.CompareTag("Obstacles"))
-        {
+		if (other.transform.CompareTag("Obstacles"))
+		{
 			CreateHitImpact();
 			Destroy(this.gameObject);
 		}
 
 
-		//if (bouncesLeft > 0)
-		//{
+		//if (bouncesLeft > 0 && other.transform.CompareTag("Obstacles"))
+  //      {
+		//	RaycastHit hit;
+		//	if (Physics.Raycast(transform.position, transform.forward, out hit))
+		//	{
+		//		Debug.Log("Point of contact: " + hit.point);
+		//	}
+
 		//	bounced = true;
-		//	var direction = Vector3.Reflect(lastVelocity.normalized, other.contacts[0].normal);
-		//	GetComponent<Rigidbody>().velocity = direction * Mathf.Max(lastVelocity.magnitude, 1f);
-		//	bouncesLeft--;
-		//}
-		//else
+  //          var direction = Vector3.Reflect(lastVelocity.normalized, hit.point.normalized);
+  //          GetComponent<Rigidbody>().velocity = direction * Mathf.Max(lastVelocity.magnitude, 1f);
+  //          bouncesLeft--;
+  //      }
+  //      else if(other.transform.CompareTag("Obstacles"))
 		//{
-		//	CreateHitImpact();
-		//	Destroy(this.gameObject);
-		//}
-	}
+  //          CreateHitImpact();
+  //          Destroy(this.gameObject);
+  //      }
+    }
 }

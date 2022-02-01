@@ -4460,6 +4460,10 @@ PrefabInstance:
       propertyPath: resourceChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1418839337}
+    - target: {fileID: 1751774421265251428, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: numberOfBounces
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251431, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: m_Name
       value: Player
