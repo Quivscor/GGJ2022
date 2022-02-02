@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HealOnHitEnemyBoost : SpellBoost
 {
-	private float healingFactor = 0.66f;
+	private float healingFactor = 0.25f;
 
 	private GameObject healingEffectParticles = null;
 	private GameObject healingEnemyEffectParticles = null;
@@ -15,15 +15,16 @@ public class HealOnHitEnemyBoost : SpellBoost
 		costModifier = 0.1f;
 		spellType = SpellType.Harmony;
 		spellName = "Hit & Heal";
-		description = "Every attack heals you by +25% of damage dealt";
+		description = "Every attack heals you by +25% of damage dealt.";
 
 		healingEffectParticles = Resources.Load<GameObject>("HealingParticles");
-		healingEnemyEffectParticles = Resources.Load<GameObject>("HealingParticlesEnemy");
+		healingEnemyEffectParticles = Resources.Load<GameObject>("HealingParticles");
 	}
 
 	public override void ProcessSpellBoost(Spell spell)
 	{
-		spell.MissileHitCharacter += HealOnHitTarget;
+		//spell.MissileHitCharacter += HealOnHitTarget;
+		spell.LifeSteal += healingFactor;
 	}
 
 	private void HealOnHitTarget(CharacterStats parent, CharacterStats target, float damage)

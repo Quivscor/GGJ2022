@@ -27,8 +27,9 @@ public class SpellMissile : MonoBehaviour
 	private bool isGrowing;
 	private Vector3 growVector;
 	private Vector3 maxScale;
+	private float lifeSteal;
 
-	public void Initialize(CharacterStats parent, float damageToApply,int bounces, Action<CharacterStats, CharacterStats, float> missileHitCharacter, Action<Transform, CharacterStats> missileHitAnything, bool isHoming = false, float homingForce = 0, bool isGrowing = false, float growingForce = 1, float maxScaleValue = 1)
+	public void Initialize(CharacterStats parent, float damageToApply, int bounces, Action<CharacterStats, CharacterStats, float> missileHitCharacter, Action<Transform, CharacterStats> missileHitAnything, bool isHoming = false, float homingForce = 0, bool isGrowing = false, float growingForce = 1, float maxScaleValue = 1, float lifeSteal = 1)
 	{
 		rb = GetComponent<Rigidbody>();
 		this.parent = parent;
@@ -41,6 +42,7 @@ public class SpellMissile : MonoBehaviour
 		this.isGrowing = isGrowing;
 		growVector = new Vector3(growingForce, growingForce, growingForce);
 		maxScale = new Vector3(maxScaleValue, maxScaleValue, maxScaleValue);
+		this.lifeSteal = lifeSteal;
 	}
 
 	public Transform GetParentTransform()
@@ -92,59 +94,6 @@ public class SpellMissile : MonoBehaviour
 		}
 	}
 
-	private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.root.CompareTag("Bullet"))
-        {
-			return;
-			//if (parent == collision.transform.GetComponent<SpellMissile>().parent)
-   //         {
-			//	if (!bounced)
-			//		return;
-
-			//}
-
-			//HitAnything?.Invoke(this.transform, parent);
-			//CreateHitImpact();
-			//Destroy(collision.transform.root.gameObject);
-			//Destroy(this.gameObject);
-        }
-
-		HitAnything?.Invoke(this.transform, parent);
-
-		if (collision.transform.root.TryGetComponent(out CharacterStats targetCharacterStats))
-        {
-            if (targetCharacterStats == parent && !bounced)
-                return;
-
-			if (!collision.transform.CompareTag("Player") && !parent.CompareTag("Player"))
-				damageToApply *= 0.5f;
-
-            targetCharacterStats.DealDamge(damageToApply);
-            HitCharacter?.Invoke(parent, targetCharacterStats, damageToApply);
-			if (collision.transform.root.TryGetComponent(out TargetingAI targeting))
-            {
-                targeting.UpdateThreat(targeting.GetTargetFromTransform(parent.transform), damageToApply);
-            }
-
-			CreateHitImpact();
-			Destroy(this.gameObject);
-		}
-
-		if (bouncesLeft > 0)
-		{
-			bounced = true;
-			var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
-			GetComponent<Rigidbody>().velocity = direction * Mathf.Max(lastVelocity.magnitude, 1f);
-			bouncesLeft--;
-		}
-		else
-		{
-			CreateHitImpact();
-			Destroy(this.gameObject);
-		}
-    }
-
 	private void CreateHitImpact()
 	{
 		if (hitImpactParticles != null)
@@ -160,17 +109,6 @@ public class SpellMissile : MonoBehaviour
 		if (other.transform.root.CompareTag("Bullet"))
 		{
 			return;
-			//if (parent == collision.transform.GetComponent<SpellMissile>().parent)
-			//         {
-			//	if (!bounced)
-			//		return;
-
-			//}
-
-			//HitAnything?.Invoke(this.transform, parent);
-			//CreateHitImpact();
-			//Destroy(collision.transform.root.gameObject);
-			//Destroy(this.gameObject);
 		}
 
 		HitAnything?.Invoke(this.transform, parent);
@@ -185,6 +123,17 @@ public class SpellMissile : MonoBehaviour
 
 			targetCharacterStats.DealDamge(damageToApply);
 			HitCharacter?.Invoke(parent, targetCharacterStats, damageToApply);
+			if (lifeSteal > 0 && !targetCharacterStats.isDead)
+			{
+				parent.Heal(damageToApply * lifeSteal);
+				parent.PlayHealSound();
+				GameObject spawnedParticles = null;
+
+				spawnedParticles = MonoBehaviour.Instantiate(Resources.Load<GameObject>("HealingParticles"), parent.transform);
+
+				MonoBehaviour.Destroy(spawnedParticles, 1.5f);
+			}
+
 			if (other.transform.root.TryGetComponent(out TargetingAI targeting))
 			{
 				targeting.UpdateThreat(targeting.GetTargetFromTransform(parent.transform), damageToApply);

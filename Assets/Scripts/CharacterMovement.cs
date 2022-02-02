@@ -23,6 +23,7 @@ public class CharacterMovement : MonoBehaviour
 	[SerializeField] private Animator animator = null;
 	[SerializeField] private Transform character = null;
 	[SerializeField] private DashVisualEffect dashVisualEffects = null;
+	private float basicMovementSpeed;
 
 	#region Slow Effect
 	[Header("Slow Effect Options:")]
@@ -36,8 +37,10 @@ public class CharacterMovement : MonoBehaviour
 	private new Rigidbody rigidbody = null;
 	public AudioSource dashSound;
 
+    public float BasicMovementSpeed { get => basicMovementSpeed; set => basicMovementSpeed = value; }
+    public float MovementSpeed { get => movementSpeed; set => movementSpeed = value; }
 
-	private void Awake()
+    private void Awake()
 	{
 		if (animator == null)
 			animator = GetComponentInChildren<Animator>();
@@ -45,6 +48,7 @@ public class CharacterMovement : MonoBehaviour
 		rigidbody = GetComponent<Rigidbody>();
 
 		currentDashes = availableDashes;
+		BasicMovementSpeed = MovementSpeed;
 	}
 
     private void Update()
@@ -75,7 +79,7 @@ public class CharacterMovement : MonoBehaviour
 		if (isDashing)
 			return;
 
-		Vector3 velocityToApply = new Vector3(horizontal, 0, vertical).normalized * movementSpeed;
+		Vector3 velocityToApply = new Vector3(horizontal, 0, vertical).normalized * MovementSpeed;
 
 		if (isSlowed)
 			velocityToApply *= slowedMovementSpeedFactor;
@@ -114,8 +118,7 @@ public class CharacterMovement : MonoBehaviour
 
 	public void IncreaseMovementSpeed(float value)
     {
-		movementSpeed += value;
-
+		MovementSpeed += value;
     }
 	
 	private void ProcessAnimator(float vertical, float horizontal)

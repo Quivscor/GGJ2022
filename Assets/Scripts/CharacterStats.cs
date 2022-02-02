@@ -122,6 +122,7 @@ public class CharacterStats : MonoBehaviour
 
             if (healthBarFill != null)
                 healthBarFill.fillAmount = health / maxHealth;
+
             healthChanged?.Invoke(health / maxHealth);
         }
 

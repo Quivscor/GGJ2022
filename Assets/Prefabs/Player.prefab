@@ -524,6 +524,7 @@ MonoBehaviour:
   immortality: 0
   healthBarFill: {fileID: 1138002257782982429}
   wizardNameTMP: {fileID: 0}
+  upgradeIconsHolder: {fileID: 0}
   wizardName: 
   health: 0
   maxHealth: 100
@@ -619,7 +620,7 @@ MonoBehaviour:
   damage: 17
   resourceCost: 3.5
   costModifier: 1
-  numberOfBounces: 0
+  numberOfBounces: 1
   range: 10
   bulletSize: 1
   audioSourceSpell: {fileID: 1661728859706600749}
@@ -942,7 +943,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.65882355, b: 0.0058837445, a: 1}
+  m_Color: {r: 0.65882355, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1979,7 +1980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &824661464375236220
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3223,6 +3224,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1751774421265251436}
     m_Modifications:
+    - target: {fileID: 7954482009870392864, guid: c05761c091a240649b87f021ef0b5ea6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7954482010309455894, guid: c05761c091a240649b87f021ef0b5ea6, type: 3}
       propertyPath: m_Name
       value: SlowParticles

@@ -63,6 +63,7 @@ public class CharacterHolder : MonoBehaviour
         {
             MatchController.Instance.ChangeMatchState(MatchState.FINISHED);
             LevelUpBots();
+            HudController.Instance.ToggleRoundEnded(true);
         }
     }
 

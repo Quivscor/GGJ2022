@@ -14,6 +14,8 @@ public class HudController : MonoBehaviour
     private GameObject botsUpgradesHolder;
     [SerializeField]
     private TextMeshProUGUI botsUpgradesTMP;
+    [SerializeField]
+    private GameObject roundEndedObject;
 
     [SerializeField]
     [Header("Perk Info")]
@@ -26,6 +28,40 @@ public class HudController : MonoBehaviour
     private Animator perkAnimator;
     [SerializeField]
     private Image perkFrame;
+
+    [Header("Stats info")]
+    [SerializeField] Animator statsInfoAnimator;
+    [SerializeField] private GameObject statsHolder;
+    [SerializeField] private TextMeshProUGUI neutralStats;
+    [SerializeField] private TextMeshProUGUI manaCostHarmony;
+    [SerializeField] private TextMeshProUGUI manaCostChaos;
+
+
+    [SerializeField]
+    private TextMeshProUGUI damageHarmony;
+    [SerializeField]
+    private TextMeshProUGUI damageChaos;
+
+    [SerializeField]
+    private TextMeshProUGUI numberOfBulletsHarmony;
+    [SerializeField]
+    private TextMeshProUGUI numberOfBulletsChaos;
+
+    [SerializeField]
+    private TextMeshProUGUI fireRateHarmony;
+    [SerializeField]
+    private TextMeshProUGUI fireRateChaos;
+
+    [SerializeField]
+    private TextMeshProUGUI bulletSpeedHarmony;
+    [SerializeField]
+    private TextMeshProUGUI bulletSpeedChaos;
+
+    [SerializeField]
+    private TextMeshProUGUI additionallEffectsHarmony;
+    [SerializeField]
+    private TextMeshProUGUI additionallEffectsChaos;
+
     public Color harmonyColor;
     public Color chaosColor;
 
@@ -36,16 +72,97 @@ public class HudController : MonoBehaviour
     private GameObject pressEInfo;
 
     private bool perkInfoVisible = false;
-
+    private GameObject playerRef;
+    private Spell harmonySpell;
+    private Spell chaosSpell;
     public static HudController Instance;
-    
+    private bool statsOpen = false;
+
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
     }
+    private void Start()
+    {
+        playerRef = GameObject.FindGameObjectWithTag("Player");
+        harmonySpell = playerRef.GetComponent<WandController>().HarmonySpell;
+        chaosSpell = playerRef.GetComponent<WandController>().ChaosSpell;
 
-    
+        UpdateStatsInfo();
+    }
+
+    public void ToggleRoundEnded(bool toggle)
+    {
+        roundEndedObject.SetActive(toggle);
+    }
+
+    public void ToggleStatsInfo()
+    {
+        statsOpen = !statsOpen;
+        if (statsOpen)
+            statsInfoAnimator.SetTrigger("Show");
+        else
+            statsInfoAnimator.SetTrigger("Hide");
+
+        UpdateStatsInfo();
+    }
+
+    public void UpdateStatsInfo()
+    {
+
+        manaCostHarmony.text = Math.Round(harmonySpell.FinalResourceCost, 2).ToString();
+        manaCostChaos.text = Math.Round(chaosSpell.FinalResourceCost, 2).ToString();
+
+        damageHarmony.text = Math.Round(harmonySpell.Damage, 2).ToString();
+        damageChaos.text = Math.Round(chaosSpell.Damage, 2).ToString();
+
+        numberOfBulletsHarmony.text = harmonySpell.NumberOfBullets.ToString();
+        numberOfBulletsChaos.text = chaosSpell.NumberOfBullets.ToString();  
+        
+        fireRateHarmony.text = harmonySpell.FireRate.ToString();
+        fireRateChaos.text = chaosSpell.FireRate.ToString();
+
+        bulletSpeedHarmony.text = harmonySpell.SpellSpeed.ToString();
+        bulletSpeedChaos.text = chaosSpell.SpellSpeed.ToString();
+
+        neutralStats.text = GenerateNeutralStats();
+
+        additionallEffectsHarmony.text = GenerateAdditionalEffectsInfo(harmonySpell);
+        additionallEffectsChaos.text = GenerateAdditionalEffectsInfo(chaosSpell);
+    }
+
+    private string GenerateNeutralStats()
+    {
+        string result = "";
+
+        var basicMoveSpeed = playerRef.GetComponent<CharacterMovement>().BasicMovementSpeed;
+        var currentMoveSpeed = playerRef.GetComponent<CharacterMovement>().MovementSpeed;
+
+        result += Math.Round(((currentMoveSpeed - basicMoveSpeed) / currentMoveSpeed) * 100f, 2) + "% faster walking\n";
+
+        result += playerRef.GetComponent<CharacterStats>().MaxHealth + " point of max health\n";
+        
+
+        return result;
+    }
+
+    private string GenerateAdditionalEffectsInfo(Spell spell)
+    {
+        string result = "";
+
+        if(spell.LifeSteal > 0)
+            result += "Attacks heal you by " + spell.LifeSteal * 100f + "% damage dealt\n";
+        if (spell.ChanceToHomingMissile > 0)
+            result += spell.ChanceToHomingMissile + "% chance for homing missile\n";
+        if (spell.ChanceToCreateForbiddenArea> 0)
+            result += spell.ChanceToCreateForbiddenArea + "% chance to create forbidden area\n";
+        if (spell.MaxScale > 1)
+            result += "Attacks grow in air up to " + 1 + spell.MaxScale * 10f + "% in scale\n";
+        
+        return result;
+    }
+
     public void ShowPerkInfo(string perkName, string perkDesc, float resourceUse, SpellType spellType)
     {
         resourceUseTMP.text = "";

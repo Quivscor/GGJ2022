@@ -7,31 +7,40 @@ public class PressurePlate : MonoBehaviour
     [SerializeField]
     private SpellType spellType;
 
-    private bool isPlayerInRange = false;
-    private void OnTriggerEnter(Collider other)
+    private bool activated = false;
+
+
+    private void OnEnable()
     {
-        if(other.gameObject.transform.root.CompareTag("Player"))
-        {
-            isPlayerInRange = true;
-            HudController.Instance.TogglePressEInfo(true, "Press E to choose");
-            LevelUp.Instance.TogglePressurePlateInfo(spellType, true);
-        }
+        activated = false;
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.transform.root.CompareTag("Player"))
         {
-            isPlayerInRange = false;
-            HudController.Instance.TogglePressEInfo(false);
+            activated = false;
+            HudController.Instance.TogglePressEInfo(false, "Press E to choose");
             LevelUp.Instance.TogglePressurePlateInfo(spellType, false);
-
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.transform.root.CompareTag("Player"))
+        {
+            if(!activated)
+            {
+                activated = true;
+                HudController.Instance.TogglePressEInfo(true, "Press E to choose");
+                LevelUp.Instance.TogglePressurePlateInfo(spellType, true);
+            }
+        }
+    }
     private void Update()
     {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
+        
+        if(Input.GetKeyDown(KeyCode.E) && activated)
         {
             LevelUp.Instance.ResourceWasChosen(spellType);
         }

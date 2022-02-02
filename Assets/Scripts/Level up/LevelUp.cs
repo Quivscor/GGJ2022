@@ -39,6 +39,7 @@ public class LevelUp : MonoBehaviour
 
     public MonumentsRise monumentsRise;
     public AudioSource upgradeSource;
+    public bool choosingPhaze = false;
 
     private void Awake()
     {
@@ -50,24 +51,34 @@ public class LevelUp : MonoBehaviour
 
     public void ToggleChoosingPhaze(bool toggle)
     {
+        choosingPhaze = toggle;
         choosingPlace?.SetActive(toggle);
     }
 
     public void ResourceWasChosen(SpellType spellType)
     {
-        perkBought = false;
-        HudController.Instance.TogglePressurePlateInfo(false);
-        chosenResource = spellType;
-        playerReference.GetComponent<CharacterStats>().AddLevel(spellType);
-        ToggleChoosingPhaze(false);
-        SetMonumentsMaterial(spellType);
+        if(choosingPhaze)
+        {
+            ToggleChoosingPhaze(false);
 
-        monumentsRise.Invoke(1.5f);
-        PrepareBoostsList(spellType, numberOfBoostsToChoose);
-        monumentsAnimator.SetTrigger("Show");
+            perkBought = false;
 
-        foreach (Animator animator in planesAnimator)
-            animator.SetTrigger("HideTrigger");
+            HudController.Instance.TogglePressurePlateInfo(false);
+            HudController.Instance.TogglePressEInfo(false);
+
+            chosenResource = spellType;
+            playerReference.GetComponent<CharacterStats>().AddLevel(spellType);
+
+            SetMonumentsMaterial(spellType);
+
+            monumentsRise.Invoke(1.5f);
+            PrepareBoostsList(spellType, numberOfBoostsToChoose);
+            monumentsAnimator.SetTrigger("Show");
+
+            foreach (Animator animator in planesAnimator)
+                animator.SetTrigger("HideTrigger");
+        }
+      
     }
 
     public void BuyPerkFromMonument(int monumentNumber)
@@ -83,6 +94,8 @@ public class LevelUp : MonoBehaviour
         else
             preparedBoosts[monumentNumber].ProcessSpellBoost(playerReference.GetComponent<WandController>().ChaosSpell);
 
+        HudController.Instance.UpdateStatsInfo();
+
         monumentsRise.Invoke(1.5f);
         monumentsAnimator.SetTrigger("Hide");
         
@@ -90,6 +103,7 @@ public class LevelUp : MonoBehaviour
         preparedBoosts.Clear();
 
         HudController.Instance.TurnOffBotsUpgradeInfo();
+        HudController.Instance.ToggleRoundEnded(false);
     }
 
     public void ShowMonumentInfo(int monumentNumber)

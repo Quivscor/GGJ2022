@@ -39,5 +39,10 @@ public class PlayerInputController : MonoBehaviour
 		if (dash)
 			characterMovement.ProcessDash(vertical, horizontal);
 		characterMovement.ProcessMovement(vertical, horizontal);
+
+		if(Input.GetKeyDown(KeyCode.Tab))
+        {
+			HudController.Instance.ToggleStatsInfo();
+        }
 	}
 }

@@ -29,6 +29,7 @@ public class CreateToxicAreaOnHitBoost : SpellBoost
 		spell.MissileHitAnything += CreateToxicAreaInRange;
 		spell.ChangeCostModifier(costModifier);
 		chanceToCreateArea += chanceToCreateAreaStep;
+		spell.ChanceToCreateForbiddenArea = chanceToCreateArea;
 	}
 
 	private void CreateToxicAreaInRange(Transform missilePosition, CharacterStats owner)

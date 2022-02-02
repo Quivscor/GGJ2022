@@ -42,12 +42,15 @@ public class Spell : MonoBehaviour
     private float range = 10f;
     [SerializeField]
     private float bulletSize = 1f;
+    [SerializeField]
+    private float lifeSteal = 0f;
 
     private bool isHoming = false;
 
     private bool isGrowing = false;
     private float growingForce = 0;
     private float maxScale = 1;
+    private float chanceToCreateForbiddenArea = 0f;
 
     private float homingForce = 0.35f;
     private CharacterStats characterStats;
@@ -72,6 +75,8 @@ public class Spell : MonoBehaviour
     public float CostModifier { get => costModifier; set => costModifier = value; }
     public float FinalResourceCost { get => finalResourceCost; set => finalResourceCost = value; }
     public float ChanceToHomingMissile { get => chanceToHomingMissile; set => chanceToHomingMissile = value; }
+    public float LifeSteal { get => lifeSteal; set => lifeSteal = value; }
+    public float ChanceToCreateForbiddenArea { get => chanceToCreateForbiddenArea; set => chanceToCreateForbiddenArea = value; }
 
     public AudioSource audioSourceSpell;
 
@@ -92,9 +97,6 @@ public class Spell : MonoBehaviour
         RecalculateFireRate();
         currentRecoil = recoil;
 
-        //debug AF
-        //GrowingBoost growingBoost = new GrowingBoost();
-        //growingBoost.ProcessSpellBoost(this);
     }
 
     public void RecalculateFireRate()
@@ -148,7 +150,7 @@ public class Spell : MonoBehaviour
                 direction.Normalize();
 
                 var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
-                bulletShot.Initialize(characterStats, damage, numberOfBounces, MissileHitCharacter, MissileHitAnything, IsHoming, homingForce, IsGrowing, GrowingForce, maxScale);
+                bulletShot.Initialize(characterStats, damage, numberOfBounces, MissileHitCharacter, MissileHitAnything, IsHoming, homingForce, IsGrowing, GrowingForce, maxScale, LifeSteal);
                 bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
                 IsHoming = false;
 
