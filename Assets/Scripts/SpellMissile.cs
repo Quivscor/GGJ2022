@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SpellMissile : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class SpellMissile : MonoBehaviour
 	private float damageToApply = 0.0f;
 	private int bouncesLeft = 0;
 	private bool bounced = false;
+	private Spell spellSource;
 
 	public event Action<CharacterStats, CharacterStats, float> HitCharacter = null;
 	public event Action<Transform, CharacterStats> HitAnything = null;
@@ -29,20 +31,22 @@ public class SpellMissile : MonoBehaviour
 	private Vector3 maxScale;
 	private float lifeSteal;
 
-	public void Initialize(CharacterStats parent, float damageToApply, int bounces, Action<CharacterStats, CharacterStats, float> missileHitCharacter, Action<Transform, CharacterStats> missileHitAnything, bool isHoming = false, float homingForce = 0, bool isGrowing = false, float growingForce = 1, float maxScaleValue = 1, float lifeSteal = 1)
+	public void Initialize(Spell spellSource, Action<CharacterStats, CharacterStats, float> missileHitCharacter, Action<Transform, CharacterStats> missileHitAnything)
 	{
+		this.spellSource = spellSource;
 		rb = GetComponent<Rigidbody>();
-		this.parent = parent;
-		this.damageToApply = damageToApply;
+		this.parent = spellSource.characterStats;
+		this.damageToApply = spellSource.Damage;
 		HitCharacter = missileHitCharacter;
-		HitAnything = missileHitAnything;
-		this.isHoming = isHoming;
-		this.homingForce = homingForce;
-		this.bouncesLeft = bounces;
-		this.isGrowing = isGrowing;
-		growVector = new Vector3(growingForce, growingForce, growingForce);
-		maxScale = new Vector3(maxScaleValue, maxScaleValue, maxScaleValue);
-		this.lifeSteal = lifeSteal;
+		 HitAnything = missileHitAnything;
+		this.homingForce = spellSource.HomingForce;
+		this.bouncesLeft = spellSource.NumberOfBounces;
+		this.isGrowing = spellSource.IsGrowing;
+		growVector = new Vector3(spellSource.GrowingForce, spellSource.GrowingForce, spellSource.GrowingForce);
+		maxScale = new Vector3(spellSource.MaxScale, spellSource.MaxScale, spellSource.MaxScale);
+		this.lifeSteal = spellSource.LifeSteal;
+
+		isHoming = IsHoming();
 	}
 
 	public Transform GetParentTransform()
@@ -92,6 +96,17 @@ public class SpellMissile : MonoBehaviour
 			if(this.transform.localScale.magnitude < maxScale.magnitude)
 				this.transform.localScale = this.transform.localScale + growVector;
 		}
+	}
+
+	private bool IsHoming()
+    {
+		if (Random.Range(0, 100) < spellSource.ChanceToHomingMissile)
+		{
+			return true;
+		}
+
+		else return false;
+
 	}
 
 	private void CreateHitImpact()

@@ -26,6 +26,8 @@ public class Spell : MonoBehaviour
         this.missilesSpawnPoint = missilesSpawnPoint;
     }
 
+    private Dictionary<string, int> upgradesDictionary;
+
 	[SerializeField]
     private float fireRate = 1f; // How many attacks per 1 second
     [SerializeField]
@@ -53,7 +55,7 @@ public class Spell : MonoBehaviour
     private float chanceToCreateForbiddenArea = 0f;
 
     private float homingForce = 0.35f;
-    private CharacterStats characterStats;
+    public CharacterStats characterStats;
     private float chanceToHomingMissile = 0f;
     private float chanceToHomingMissileStep = 0f;
 
@@ -111,6 +113,12 @@ public class Spell : MonoBehaviour
 
 	private void Start()
 	{
+        upgradesDictionary = new Dictionary<string, int>();
+
+        for (int i = 0; i < PerksController.Instance.spellBoostDictionary.Count; i++)
+        {
+            upgradesDictionary.Add(PerksController.Instance.spellBoostDictionary[i].name, 0);
+        }   
 
         if (spellType == SpellType.Harmony)
         {
@@ -144,13 +152,12 @@ public class Spell : MonoBehaviour
                 if(Random.Range(0, 100) < ChanceToHomingMissile)
                 {
                     IsHoming = true;
-                
                 }
 
                 direction.Normalize();
 
                 var bulletShot = Instantiate(bullet, missilesSpawnPoint.transform.position, Quaternion.identity);
-                bulletShot.Initialize(characterStats, damage, numberOfBounces, MissileHitCharacter, MissileHitAnything, IsHoming, homingForce, IsGrowing, GrowingForce, maxScale, LifeSteal);
+                bulletShot.Initialize(this, MissileHitCharacter, MissileHitAnything);
                 bulletShot.GetComponent<Rigidbody>().velocity = direction * spellSpeed;
                 IsHoming = false;
 

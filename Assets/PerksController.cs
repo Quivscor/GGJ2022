@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PerksController : MonoBehaviour
 {
+    public List<SpellBoostScriptable> spellBoostScriptables;
+    public Dictionary<int, SpellBoostScriptable> spellBoostDictionary;
     public List<SpellBoost> anySpellBoosts = new List<SpellBoost>();
     public List<SpellBoost> harmonySpellBoosts = new List<SpellBoost>();
     public List<SpellBoost> chaosSpellBoosts = new List<SpellBoost>();
@@ -24,6 +26,16 @@ public class PerksController : MonoBehaviour
 
     public static PerksController Instance;
     private GameObject playerRef;
+
+    private void Start()
+    {
+        spellBoostDictionary = new Dictionary<int, SpellBoostScriptable>();
+
+        foreach (SpellBoostScriptable spellBoost in spellBoostScriptables)
+        {
+            spellBoostDictionary.Add(spellBoost.id, spellBoost);
+        }
+    }
 
     private void Awake()
     {
