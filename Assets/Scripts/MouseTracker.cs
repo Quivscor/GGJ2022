@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MouseTracker : MonoBehaviour
 {
 	public static MouseTracker Instance = null;
 
 	[SerializeField] private LayerMask layerMasks;
+	private PlayerInput _input;
+	private Controls _controls;
+
+	private const string gamepadScheme = "Gamepad";
+	private const string keyboardScheme = "Keyboard&Mouse";
 
 	private void Awake()
 	{
@@ -20,7 +26,7 @@ public class MouseTracker : MonoBehaviour
 
 	private void Update()
 	{
-		Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Ray inputRay = Camera.main.ScreenPointToRay(GeneralizedCursor.cursorPosition);
 
 		RaycastHit hit;
 

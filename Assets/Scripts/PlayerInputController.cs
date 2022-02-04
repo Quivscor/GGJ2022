@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInputController : MonoBehaviour
 {
@@ -9,11 +10,27 @@ public class PlayerInputController : MonoBehaviour
 	[SerializeField] private CharacterRotator characterRotator = null;
 	[SerializeField] private WandController wandController = null;
 
-	private void Update()
+	private Controls _controls;
+	private Vector2 _inputVector;
+
+    private void Awake()
+    {
+		_controls = new Controls();
+		_controls.Enable();
+		_controls.Gameplay.Dash.performed += ProcessDash;
+	}
+
+    private void Update()
 	{
 		ProcessRotation();
+
+		_inputVector = _controls.Gameplay.Movement.ReadValue<Vector2>();
 		ProcessMovement();
-		ProcessMouseInputs();
+
+		if (_controls.Gameplay.FireRight.IsPressed())
+			ProcessFireRight();
+		if (_controls.Gameplay.FireLeft.IsPressed())
+			ProcessFireLeft();
 	}
 
 	private void ProcessRotation()
@@ -21,23 +38,23 @@ public class PlayerInputController : MonoBehaviour
 		characterRotator.LookAt(MouseTracker.Instance.WorldPosition);
 	}
 
-	private void ProcessMouseInputs()
-	{
-		bool fire1pressed = Input.GetButton("Fire1");
-		bool fire2pressed = Input.GetButton("Fire2");
-
-		wandController.ProcessSpell(fire1pressed, fire2pressed);
-	}
-
 	private void ProcessMovement()
 	{
-		float vertical = Input.GetAxis("Vertical");
-		float horizontal = Input.GetAxis("Horizontal");
+		characterMovement.ProcessMovement(_inputVector.y, _inputVector.x);
+	}
 
-		bool dash = (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.RightControl) || Input.GetKeyDown(KeyCode.LeftShift));
+	private void ProcessFireLeft()
+    {
+		wandController.ProcessSpell(true, false);
+	}
 
-		if (dash)
-			characterMovement.ProcessDash(vertical, horizontal);
-		characterMovement.ProcessMovement(vertical, horizontal);
+	private void ProcessFireRight()
+	{
+		wandController.ProcessSpell(false, true);
+	}
+
+	private void ProcessDash(InputAction.CallbackContext context)
+    {
+		characterMovement.ProcessDash(_inputVector.y, _inputVector.x);
 	}
 }

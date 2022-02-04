@@ -524,6 +524,7 @@ MonoBehaviour:
   immortality: 0
   healthBarFill: {fileID: 1138002257782982429}
   wizardNameTMP: {fileID: 0}
+  upgradeIconsHolder: {fileID: 0}
   wizardName: 
   health: 0
   maxHealth: 100

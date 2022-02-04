@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PauseTime : MonoBehaviour
 {
@@ -21,15 +22,11 @@ public class PauseTime : MonoBehaviour
     private void Start()
     {
         m_TimeScale = Time.timeScale;
+        Controls controls = new Controls();
+        controls.Gameplay.Pause.performed += PauseGame;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            PauseGame();
-    }
-
-    public void PauseGame()
+    public void PauseGame(InputAction.CallbackContext context)
     {
         if (TimeScale == 0)
         {
