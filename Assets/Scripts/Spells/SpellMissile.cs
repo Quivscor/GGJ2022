@@ -33,30 +33,19 @@ public class SpellMissile : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
 		Vector3 recoil = GetSpellRecoil(spell);
-		rb.velocity = (direction + recoil) * spell.SpellSpeed;
-
-		this.parent = parent;
-		this.damageToApply = damageToApply;
-		HitCharacter = missileHitCharacter;
-		HitAnything = missileHitAnything;
-		this.isHoming = isHoming;
-		this.homingForce = homingForce;
-		this.bouncesLeft = bounces;
-		this.isGrowing = isGrowing;
-		growVector = new Vector3(growingForce, growingForce, growingForce);
-		maxScale = new Vector3(maxScaleValue, maxScaleValue, maxScaleValue);
-		this.lifeSteal = lifeSteal;
+		rb.velocity = (direction + recoil) * spell.currentData.spellSpeed;
 	}
 
-	public void SubscribeToEvents(Action<CharacterStats, CharacterStats, float> onHitCharacter, Action<Transform, CharacterStats> onHitAnything)
+	public void SubscribeToEvents(Spell spell)
     {
-		HitCharacter = onHitCharacter;
-		HitAnything = onHitAnything;
+		HitCharacter = spell.currentData.MissileHitCharacter;
+		HitAnything = spell.currentData.MissileHitAnything;
 	}
 
 	private Vector3 GetSpellRecoil(Spell spell)
     {
-		return new Vector3(UnityEngine.Random.Range(-spell.currentRecoil, spell.currentRecoil), 0.0f, UnityEngine.Random.Range(-spell.currentRecoil, spell.currentRecoil));
+		return new Vector3(UnityEngine.Random.Range(-spell.currentData.recoil, spell.currentData.recoil), 0.0f, 
+			UnityEngine.Random.Range(-spell.currentData.recoil, spell.currentData.recoil));
 	}
 
 	public Transform GetParentTransform()

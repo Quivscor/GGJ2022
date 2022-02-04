@@ -108,7 +108,7 @@ public class CharacterHolder : MonoBehaviour
         {
             if (t != _player)
             {
-                botUpgradeInfo.Add(LevelUp.Instance.AddRandomLevelForBot(t, t.GetComponent<SpellcastingController>()));
+                //botUpgradeInfo.Add(LevelUp.Instance.AddRandomLevelForBot(t, t.GetComponent<SpellcastingController>()));
             }
         }
 

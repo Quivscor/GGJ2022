@@ -8,11 +8,10 @@ public class FireRateSpellBoost : SpellBoostScriptable
     public float fireRateBonus = 2;
     public float damageModifier = 0.1f;
 
-    public override void ProcessSpellBoost(Spell spell)
+    public override void ProcessSpellBoost(SpellData spell)
     {
-        spell.FireRate += fireRateBonus;
-        spell.Damage -= spell.Damage * damageModifier;
+        spell.fireRate += fireRateBonus;
+        spell.damage -= spell.damage * damageModifier;
+        spell.costModifier += resourceModifier;
     }
-
-   
 }

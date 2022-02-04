@@ -8,11 +8,10 @@ public class FasterBulletsSpellBoost : SpellBoostScriptable
     public float spellSpeedBonus = 3.5f;
     public float damageModifier = 0.1f;
 
-    public override void ProcessSpellBoost(Spell spell)
+    public override void ProcessSpellBoost(SpellData spell)
     {
-        spell.SpellSpeed += spellSpeedBonus;
-        spell.Damage += spell.Damage * damageModifier;
-        spell.ChangeCostModifier(resourceModifier);
+        spell.spellSpeed += spellSpeedBonus;
+        spell.damage += spell.damage * damageModifier;
+        spell.costModifier += resourceModifier;
     }
-
 }

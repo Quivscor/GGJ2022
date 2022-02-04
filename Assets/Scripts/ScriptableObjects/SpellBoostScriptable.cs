@@ -7,14 +7,13 @@ using UnityEngine.UI;
 public abstract class SpellBoostScriptable : ScriptableObject
 {
     public int id;
+    public int sortingPriority;
+    public string[] tags;
     public string spellName;
     public string description;
     public Image icon;
     public float resourceModifier;
     public SpellType spellType = SpellType.Any;
 
-    public abstract void ProcessSpellBoost(Spell spell);
-
-
-
+    public abstract void ProcessSpellBoost(SpellData spell);
 }

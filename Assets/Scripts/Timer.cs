@@ -55,7 +55,7 @@ namespace DrunkenDwarves
         public void Update(float deltaTime)
         {
             timeToFinish -= deltaTime;
-            if (isHasStopped || timeToFinish <= 0)
+            if (!isHasStopped && timeToFinish <= 0)
             {
                 isHasStopped = true;
                 onTimerFinished?.Invoke();

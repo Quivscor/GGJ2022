@@ -400,8 +400,6 @@ GameObject:
   - component: {fileID: 1751774421265251425}
   - component: {fileID: 1751774421265251427}
   - component: {fileID: 1751774421265251426}
-  - component: {fileID: 1751774421265251429}
-  - component: {fileID: 1751774421265251428}
   - component: {fileID: 1751774421265251437}
   - component: {fileID: 5569091954329980727}
   - component: {fileID: 3674625407460902960}
@@ -466,7 +464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterMovement: {fileID: 1751774421265251425}
   characterRotator: {fileID: 7521472916018323397}
-  wandController: {fileID: 1751774421265251427}
+  SpellcastingController: {fileID: 1751774421265251427}
 --- !u!114 &1751774421265251425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,12 +500,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff87283558411f94a98723b95e5956c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  harmonySpell: {fileID: 1751774421265251429}
-  chaosSpell: {fileID: 1751774421265251428}
-  animator: {fileID: 2740552193469428068}
-  missilesSpawnPoint: {fileID: 1863671589824990291}
-  harmonyLastSpellTime: 1
-  chaosLastSpellTime: 1
+  bullet: {fileID: 1881288736024043230, guid: 10c6e3577033655449321bd7780723df, type: 3}
+  leftSpell:
+    spellType: 0
+    baseData:
+      numberOfBullets: 1
+      recoil: 8
+      fireRate: 1
+      spellSpeed: 1
+      damage: 10
+      resourceCost: 1
+      costModifier: 1
+      numberOfBounces: 0
+      range: 5
+      bulletSize: 1
+      lifeSteal: 0
+      isHoming: 0
+      isGrowing: 0
+      growingForce: 0
+      maxScale: 0
+      chanceToCreateForbiddenArea: 0
+      homingForce: 0
+      chanceToHomingMissile: 0
+      chanceToHomingMissileStep: 0
+      angleBetweenShots: 0
+    currentData:
+      numberOfBullets: 0
+      recoil: 0
+      fireRate: 0
+      spellSpeed: 0
+      damage: 0
+      resourceCost: 0
+      costModifier: 0
+      numberOfBounces: 0
+      range: 0
+      bulletSize: 0
+      lifeSteal: 0
+      isHoming: 0
+      isGrowing: 0
+      growingForce: 0
+      maxScale: 0
+      chanceToCreateForbiddenArea: 0
+      homingForce: 0
+      chanceToHomingMissile: 0
+      chanceToHomingMissileStep: 0
+      angleBetweenShots: 0
+    spellBoosts: []
+  rightSpell:
+    spellType: 1
+    baseData:
+      numberOfBullets: 1
+      recoil: 8
+      fireRate: 1
+      spellSpeed: 1
+      damage: 10
+      resourceCost: 1
+      costModifier: 1
+      numberOfBounces: 0
+      range: 5
+      bulletSize: 1
+      lifeSteal: 0
+      isHoming: 0
+      isGrowing: 0
+      growingForce: 0
+      maxScale: 0
+      chanceToCreateForbiddenArea: 0
+      homingForce: 0
+      chanceToHomingMissile: 0
+      chanceToHomingMissileStep: 0
+      angleBetweenShots: 0
+    currentData:
+      numberOfBullets: 0
+      recoil: 0
+      fireRate: 0
+      spellSpeed: 0
+      damage: 0
+      resourceCost: 0
+      costModifier: 0
+      numberOfBounces: 0
+      range: 0
+      bulletSize: 0
+      lifeSteal: 0
+      isHoming: 0
+      isGrowing: 0
+      growingForce: 0
+      maxScale: 0
+      chanceToCreateForbiddenArea: 0
+      homingForce: 0
+      chanceToHomingMissile: 0
+      chanceToHomingMissileStep: 0
+      angleBetweenShots: 0
+    spellBoosts: []
+  bulletOrigin: {fileID: 1863671589824990291}
+  leftSpellLastTime: 0.5
+  rightSpellLastTime: 0.5
 --- !u!114 &1751774421265251426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,56 +660,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   healAudio: {fileID: 9203623595701762438}
---- !u!114 &1751774421265251429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1751774421265251431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a5746f8e81c5914381bd7e68a46544a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 1881288736024043230, guid: 7441c3af128305d4f9d18104e1dc5f83, type: 3}
-  spellType: 0
-  numberOfBullets: 1
-  recoil: 0.05
-  fireRate: 1.75
-  spellSpeed: 15
-  damage: 7
-  resourceCost: 2.5
-  costModifier: 1
-  numberOfBounces: 0
-  range: 10
-  bulletSize: 1
-  audioSourceSpell: {fileID: 3116852031621233599}
---- !u!114 &1751774421265251428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1751774421265251431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a5746f8e81c5914381bd7e68a46544a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 1881288736024043230, guid: 10c6e3577033655449321bd7780723df, type: 3}
-  spellType: 1
-  numberOfBullets: 1
-  recoil: 0.05
-  fireRate: 1.5
-  spellSpeed: 18
-  damage: 17
-  resourceCost: 3.5
-  costModifier: 1
-  numberOfBounces: 1
-  range: 10
-  bulletSize: 1
-  audioSourceSpell: {fileID: 1661728859706600749}
 --- !u!136 &1751774421265251437
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -652,8 +688,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentsToDestroy:
   - {fileID: 1751774421265251425}
-  - {fileID: 1751774421265251429}
-  - {fileID: 1751774421265251428}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 1751774421265251439}
   - {fileID: 1751774421265251438}
   - {fileID: 1751774421265251427}

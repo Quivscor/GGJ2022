@@ -661,6 +661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c82bbbdf97950478e0728c3277c549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spellBoostScriptables: []
 --- !u!1 &334500655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2982,6 +2983,10 @@ PrefabInstance:
       propertyPath: wandController
       value: 
       objectReference: {fileID: 1484477471}
+    - target: {fileID: 4443855207342216468, guid: 649e8ffc4e34190458ee7ffc1949be4e, type: 3}
+      propertyPath: SpellcastingController
+      value: 
+      objectReference: {fileID: 1484477471}
     - target: {fileID: 4443855207342216469, guid: 649e8ffc4e34190458ee7ffc1949be4e, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -3359,6 +3364,14 @@ PrefabInstance:
       propertyPath: resourceChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1418839337}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: leftSpell.baseData
+      value: 
+      objectReference: {fileID: 11400000, guid: a9faec82cb7d5814d83bc75bb788ff69, type: 2}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: rightSpell.baseData
+      value: 
+      objectReference: {fileID: 11400000, guid: bc9950a4823e531419a320fe0539b02f, type: 2}
     - target: {fileID: 1751774421265251428, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: damage
       value: 20
