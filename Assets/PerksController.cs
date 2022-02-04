@@ -27,16 +27,6 @@ public class PerksController : MonoBehaviour
     public static PerksController Instance;
     private GameObject playerRef;
 
-    private void Start()
-    {
-        spellBoostDictionary = new Dictionary<int, SpellBoostScriptable>();
-
-        foreach (SpellBoostScriptable spellBoost in spellBoostScriptables)
-        {
-            spellBoostDictionary.Add(spellBoost.id, spellBoost);
-        }
-    }
-
     private void Awake()
     {
         if (Instance == null)
@@ -83,6 +73,13 @@ public class PerksController : MonoBehaviour
         allSpellBoosts.Add(fastBoost);
         allSpellBoosts.Add(moveBoost);
         allSpellBoosts.Add(healthBoost);
+
+        spellBoostDictionary = new Dictionary<int, SpellBoostScriptable>();
+
+        foreach (SpellBoostScriptable spellBoost in spellBoostScriptables)
+        {
+            spellBoostDictionary.Add(spellBoost.id, spellBoost);
+        }
     }
 
     public void AddHealingOnEnemyHit(Spell spell)
