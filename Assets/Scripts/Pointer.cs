@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Pointer : MonoBehaviour
 {
-	[SerializeField] private WandController wandController = null;
+	[SerializeField] private SpellcastingController SpellcastingController = null;
 	[SerializeField] private Animator animator = null;
 
 	private void Awake()
 	{
 		Cursor.visible = false;
-		wandController.SpellTypeChanged += SwapPointer;
+		SpellcastingController.SpellTypeChanged += SwapPointer;
 	}
 
 	private void OnApplicationFocus(bool focus)
@@ -25,6 +25,6 @@ public class Pointer : MonoBehaviour
 
 	private void SwapPointer(SpellType spellType)
 	{
-		animator?.SetBool("usingHarmony", spellType == SpellType.Harmony);
+		animator?.SetBool("usingHarmony", spellType == SpellType.Left);
 	}
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public enum SpellType
 {
-    Harmony,
-    Chaos,
-    Any
+    Left,
+    Right,
+    Any,
 }

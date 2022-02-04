@@ -6,7 +6,7 @@ public class CombatAI : MonoBehaviour
 {
     public Transform activeTarget;
 
-    private WandController wand;
+    private SpellcastingController wand;
     private CharacterRotator rotator;
     private CharacterStats stats;
 
@@ -16,7 +16,7 @@ public class CombatAI : MonoBehaviour
 
     private void Awake()
     {
-        wand = GetComponent<WandController>();
+        wand = GetComponent<SpellcastingController>();
         rotator = GetComponentInChildren<CharacterRotator>();
         stats = GetComponent<CharacterStats>();
     }
@@ -36,43 +36,43 @@ public class CombatAI : MonoBehaviour
 
         rotator.LookAt(activeTarget.position);
 
-        if (aiType == SpenderType.CONSERVER)
-        {
-            //define stronger spell
-            if(isPrimaryStronger)
-            {
-                if (stats.HaveEnoughResource(wand.GetSpellCost(true, false), SpellType.Harmony))
-                    wand.ProcessSpell(true, false);
-                else
-                    wand.ProcessSpell(false, true);
-            }
-            else
-            {
-                if (stats.HaveEnoughResource(wand.GetSpellCost(false, true), SpellType.Chaos))
-                    wand.ProcessSpell(false, true);
-                else
-                    wand.ProcessSpell(true, false);
-            }
-        }
-        else if(aiType == SpenderType.SPAMMER)
-        {
-            if(Random.value > 0.5f)
-            {
-                //cast left
-                if(stats.HaveEnoughResource(wand.GetSpellCost(true, false), SpellType.Harmony))
-                    wand.ProcessSpell(true, false);
-                else
-                    wand.ProcessSpell(false, true);
-            }
-            else
-            {
-                //cast right
-                if (stats.HaveEnoughResource(wand.GetSpellCost(false, true), SpellType.Chaos))
-                    wand.ProcessSpell(false, true);
-                else
-                    wand.ProcessSpell(true, false);
-            }
-        }        
+        //if (aiType == SpenderType.CONSERVER)
+        //{
+        //    //define stronger spell
+        //    if(isPrimaryStronger)
+        //    {
+        //        if (stats.HaveEnoughResource(wand.GetSpellCost(true, false), SpellType.Left))
+        //            wand.ProcessSpell(true, false);
+        //        else
+        //            wand.ProcessSpell(false, true);
+        //    }
+        //    else
+        //    {
+        //        if (stats.HaveEnoughResource(wand.GetSpellCost(false, true), SpellType.Right))
+        //            wand.ProcessSpell(false, true);
+        //        else
+        //            wand.ProcessSpell(true, false);
+        //    }
+        //}
+        //else if(aiType == SpenderType.SPAMMER)
+        //{
+        //    if(Random.value > 0.5f)
+        //    {
+        //        //cast left
+        //        if(stats.HaveEnoughResource(wand.GetSpellCost(true, false), SpellType.Left))
+        //            wand.ProcessSpell(true, false);
+        //        else
+        //            wand.ProcessSpell(false, true);
+        //    }
+        //    else
+        //    {
+        //        //cast right
+        //        if (stats.HaveEnoughResource(wand.GetSpellCost(false, true), SpellType.Right))
+        //            wand.ProcessSpell(false, true);
+        //        else
+        //            wand.ProcessSpell(true, false);
+        //    }
+        //}        
     }
 }
 

@@ -89,10 +89,10 @@ public class LevelUp : MonoBehaviour
         perkBought = true;
         if (upgradeSource != null)
             upgradeSource.Play();
-        if (chosenResource == SpellType.Harmony)
-            preparedBoosts[monumentNumber].ProcessSpellBoost(playerReference.GetComponent<WandController>().HarmonySpell);
+        if (chosenResource == SpellType.Left)
+            preparedBoosts[monumentNumber].ProcessSpellBoost(playerReference.GetComponent<SpellcastingController>().LeftSpell);
         else
-            preparedBoosts[monumentNumber].ProcessSpellBoost(playerReference.GetComponent<WandController>().ChaosSpell);
+            preparedBoosts[monumentNumber].ProcessSpellBoost(playerReference.GetComponent<SpellcastingController>().RightSpell);
 
         HudController.Instance.UpdateStatsInfo();
 
@@ -137,7 +137,7 @@ public class LevelUp : MonoBehaviour
     {
         foreach (GameObject monument in monumentsObjects)
         {
-            if (spellType == SpellType.Harmony)
+            if (spellType == SpellType.Left)
                 monument.GetComponentInChildren<MeshRenderer>().material = harmonyMaterial;
             else
                 monument.GetComponentInChildren<MeshRenderer>().material = chaosMaterial;
@@ -150,7 +150,7 @@ public class LevelUp : MonoBehaviour
         preparedBoostsBots.AddRange(PerksController.Instance.allSpellBoosts);
     }
 
-    public BotUpgradeInfo AddRandomLevelForBot(CharacterStats characterStats, WandController wandController)
+    public BotUpgradeInfo AddRandomLevelForBot(CharacterStats characterStats, SpellcastingController SpellcastingController)
     {
         Random.InitState(System.DateTime.Now.Millisecond);
 
@@ -158,18 +158,18 @@ public class LevelUp : MonoBehaviour
         SpellType spellTypeInfo;
 
         // Jezeli wylosowany pochodzi z harmonii
-        if (randomSpellBoost.spellType == SpellType.Harmony)
+        if (randomSpellBoost.spellType == SpellType.Left)
         {
-            randomSpellBoost.ProcessSpellBoost(wandController.HarmonySpell);
+            randomSpellBoost.ProcessSpellBoost(SpellcastingController.LeftSpell);
             characterStats.AddLevel(randomSpellBoost.spellType);
-            spellTypeInfo = SpellType.Harmony;
+            spellTypeInfo = SpellType.Left;
 
         } // Jezeli wylosowany pochodzi z harmonii
-        else if (randomSpellBoost.spellType == SpellType.Chaos)
+        else if (randomSpellBoost.spellType == SpellType.Right)
         {
-            randomSpellBoost.ProcessSpellBoost(wandController.ChaosSpell);
+            randomSpellBoost.ProcessSpellBoost(SpellcastingController.RightSpell);
             characterStats.AddLevel(randomSpellBoost.spellType);
-            spellTypeInfo = SpellType.Chaos;
+            spellTypeInfo = SpellType.Right;
 
 
         }// Jezeli wylosowany jest Commonem, wylosuj do tego kategorie 
@@ -179,19 +179,19 @@ public class LevelUp : MonoBehaviour
             int rand = Random.Range(0, 2);
             if (rand == 0)
             {
-                randomSpellBoost.ProcessSpellBoost(wandController.HarmonySpell);
-                characterStats.AddLevel(SpellType.Harmony);
-                spellTypeInfo = SpellType.Harmony;
+                randomSpellBoost.ProcessSpellBoost(SpellcastingController.LeftSpell);
+                characterStats.AddLevel(SpellType.Left);
+                spellTypeInfo = SpellType.Left;
 
             }
             else
             {
-                randomSpellBoost.ProcessSpellBoost(wandController.ChaosSpell);
-                characterStats.AddLevel(SpellType.Chaos);
-                spellTypeInfo = SpellType.Chaos;
+                randomSpellBoost.ProcessSpellBoost(SpellcastingController.RightSpell);
+                characterStats.AddLevel(SpellType.Right);
+                spellTypeInfo = SpellType.Right;
             }
         }
-        if (spellTypeInfo == SpellType.Harmony)
+        if (spellTypeInfo == SpellType.Left)
         {
             characterStats.AddUpgradeIcon(HudController.Instance.harmonyColor);
         }
@@ -214,13 +214,13 @@ public class LevelUp : MonoBehaviour
         { 
             if(i == randomIndexForSpecialSpell)
             {
-                if(spellType == SpellType.Harmony)
+                if(spellType == SpellType.Left)
                 {
-                    preparedBoosts.Add(PerksController.Instance.harmonySpellBoosts[Random.Range(0, PerksController.Instance.harmonySpellBoosts.Count)]);
+                    preparedBoosts.Add(PerksController.Instance.LeftSpellBoosts[Random.Range(0, PerksController.Instance.LeftSpellBoosts.Count)]);
                 }
                 else
                 {
-                    preparedBoosts.Add(PerksController.Instance.chaosSpellBoosts[Random.Range(0, PerksController.Instance.chaosSpellBoosts.Count)]);
+                    preparedBoosts.Add(PerksController.Instance.RightSpellBoosts[Random.Range(0, PerksController.Instance.RightSpellBoosts.Count)]);
 
                 }
              

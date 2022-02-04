@@ -134,7 +134,7 @@ public class CharacterStats : MonoBehaviour
     }
     public bool HaveEnoughResource(float value, SpellType spellType)
     {
-        if (spellType == SpellType.Harmony)
+        if (spellType == SpellType.Left)
         {
             if (primaryResource >= value)
                 return true;
@@ -153,7 +153,7 @@ public class CharacterStats : MonoBehaviour
     {
         if(!InfiniteResources)
         {
-            if (spellType == SpellType.Harmony)
+            if (spellType == SpellType.Left)
             {
                 primaryResource -= value;
             }
@@ -168,7 +168,7 @@ public class CharacterStats : MonoBehaviour
 
     public void AddLevel(SpellType spellType)
     {
-        if (spellType == SpellType.Harmony)
+        if (spellType == SpellType.Left)
             harmonyLevel++;
         else
             chaosLevel++;

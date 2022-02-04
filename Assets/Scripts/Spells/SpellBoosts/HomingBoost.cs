@@ -7,7 +7,7 @@ public class HomingBoost : SpellBoost
     public HomingBoost()
     {
         costModifier = 0.15f;
-        spellType = SpellType.Chaos;
+        spellType = SpellType.Right;
         spellName = "Mage-to-Mage missile";
         description = "Adds a 10% chance that the missile will be a homing missile.";
     }

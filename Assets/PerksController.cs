@@ -5,8 +5,8 @@ using UnityEngine;
 public class PerksController : MonoBehaviour
 {
     public List<SpellBoost> anySpellBoosts = new List<SpellBoost>();
-    public List<SpellBoost> harmonySpellBoosts = new List<SpellBoost>();
-    public List<SpellBoost> chaosSpellBoosts = new List<SpellBoost>();
+    public List<SpellBoost> LeftSpellBoosts = new List<SpellBoost>();
+    public List<SpellBoost> RightSpellBoosts = new List<SpellBoost>();
     public List<SpellBoost> allSpellBoosts = new List<SpellBoost>();
 
     SlowOnHitEnemyBoost slowOnHit;
@@ -45,10 +45,10 @@ public class PerksController : MonoBehaviour
         moveBoost = new MoveSpeedBoost();
         healthBoost = new HealthBoost();
 
-        harmonySpellBoosts.Add(healOnHitEnemyBoost);
-        harmonySpellBoosts.Add(slowOnHit);
-        chaosSpellBoosts.Add(toxicArea);
-        //chaosSpellBoosts.Add(bouncingBoost);
+        LeftSpellBoosts.Add(healOnHitEnemyBoost);
+        LeftSpellBoosts.Add(slowOnHit);
+        RightSpellBoosts.Add(toxicArea);
+        //RightSpellBoosts.Add(bouncingBoost);
 
         anySpellBoosts.Add(growingBoost);
         anySpellBoosts.Add(numberOfBulletsBoost);
@@ -81,27 +81,27 @@ public class PerksController : MonoBehaviour
     public void AddGrowingBoost(string spellType)
     {
         if(spellType == "harmony")
-            growingBoost.ProcessSpellBoost(playerRef.GetComponent<WandController>().HarmonySpell);
+            growingBoost.ProcessSpellBoost(playerRef.GetComponent<SpellcastingController>().LeftSpell);
         else
-            growingBoost.ProcessSpellBoost(playerRef.GetComponent<WandController>().ChaosSpell);
+            growingBoost.ProcessSpellBoost(playerRef.GetComponent<SpellcastingController>().RightSpell);
 
     }
 
     public void AddHomingBoost(string spellType)
     {
         if (spellType == "harmony")
-            homingBoost.ProcessSpellBoost(playerRef.GetComponent<WandController>().HarmonySpell);
+            homingBoost.ProcessSpellBoost(playerRef.GetComponent<SpellcastingController>().LeftSpell);
         else
-            homingBoost.ProcessSpellBoost(playerRef.GetComponent<WandController>().ChaosSpell);
+            homingBoost.ProcessSpellBoost(playerRef.GetComponent<SpellcastingController>().RightSpell);
 
     }
 
     public void AddMissile(string spellType)
     {
         if (spellType == "harmony")
-            numberOfBulletsBoost.ProcessSpellBoost(playerRef.GetComponent<WandController>().HarmonySpell);
+            numberOfBulletsBoost.ProcessSpellBoost(playerRef.GetComponent<SpellcastingController>().LeftSpell);
         else
-            numberOfBulletsBoost.ProcessSpellBoost(playerRef.GetComponent<WandController>().ChaosSpell);
+            numberOfBulletsBoost.ProcessSpellBoost(playerRef.GetComponent<SpellcastingController>().RightSpell);
 
     }
 }

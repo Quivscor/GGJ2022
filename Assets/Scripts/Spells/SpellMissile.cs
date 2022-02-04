@@ -29,9 +29,12 @@ public class SpellMissile : MonoBehaviour
 	private Vector3 maxScale;
 	private float lifeSteal;
 
-	public void Initialize(CharacterStats parent, float damageToApply, int bounces, Action<CharacterStats, CharacterStats, float> missileHitCharacter, Action<Transform, CharacterStats> missileHitAnything, bool isHoming = false, float homingForce = 0, bool isGrowing = false, float growingForce = 1, float maxScaleValue = 1, float lifeSteal = 1)
+	public void Initialize(Transform owner, Spell spell, Vector3 direction)
 	{
 		rb = GetComponent<Rigidbody>();
+		Vector3 recoil = GetSpellRecoil(spell);
+		rb.velocity = (direction + recoil) * spell.SpellSpeed;
+
 		this.parent = parent;
 		this.damageToApply = damageToApply;
 		HitCharacter = missileHitCharacter;
@@ -43,6 +46,17 @@ public class SpellMissile : MonoBehaviour
 		growVector = new Vector3(growingForce, growingForce, growingForce);
 		maxScale = new Vector3(maxScaleValue, maxScaleValue, maxScaleValue);
 		this.lifeSteal = lifeSteal;
+	}
+
+	public void SubscribeToEvents(Action<CharacterStats, CharacterStats, float> onHitCharacter, Action<Transform, CharacterStats> onHitAnything)
+    {
+		HitCharacter = onHitCharacter;
+		HitAnything = onHitAnything;
+	}
+
+	private Vector3 GetSpellRecoil(Spell spell)
+    {
+		return new Vector3(UnityEngine.Random.Range(-spell.currentRecoil, spell.currentRecoil), 0.0f, UnityEngine.Random.Range(-spell.currentRecoil, spell.currentRecoil));
 	}
 
 	public Transform GetParentTransform()
@@ -147,25 +161,5 @@ public class SpellMissile : MonoBehaviour
 			CreateHitImpact();
 			Destroy(this.gameObject);
 		}
-
-
-		//if (bouncesLeft > 0 && other.transform.CompareTag("Obstacles"))
-  //      {
-		//	RaycastHit hit;
-		//	if (Physics.Raycast(transform.position, transform.forward, out hit))
-		//	{
-		//		Debug.Log("Point of contact: " + hit.point);
-		//	}
-
-		//	bounced = true;
-  //          var direction = Vector3.Reflect(lastVelocity.normalized, hit.point.normalized);
-  //          GetComponent<Rigidbody>().velocity = direction * Mathf.Max(lastVelocity.magnitude, 1f);
-  //          bouncesLeft--;
-  //      }
-  //      else if(other.transform.CompareTag("Obstacles"))
-		//{
-  //          CreateHitImpact();
-  //          Destroy(this.gameObject);
-  //      }
     }
 }

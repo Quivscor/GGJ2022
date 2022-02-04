@@ -7,7 +7,7 @@ public class PlayerInputController : MonoBehaviour
 {
 	[SerializeField] private CharacterMovement characterMovement = null;
 	[SerializeField] private CharacterRotator characterRotator = null;
-	[SerializeField] private WandController wandController = null;
+	[SerializeField] private SpellcastingController SpellcastingController = null;
 
 	private void Update()
 	{
@@ -26,7 +26,7 @@ public class PlayerInputController : MonoBehaviour
 		bool fire1pressed = Input.GetButton("Fire1");
 		bool fire2pressed = Input.GetButton("Fire2");
 
-		wandController.ProcessSpell(fire1pressed, fire2pressed);
+		//SpellcastingController.ProcessSpell(fire1pressed, fire2pressed);
 	}
 
 	private void ProcessMovement()

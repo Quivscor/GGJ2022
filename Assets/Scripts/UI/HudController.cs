@@ -73,8 +73,8 @@ public class HudController : MonoBehaviour
 
     private bool perkInfoVisible = false;
     private GameObject playerRef;
-    private Spell harmonySpell;
-    private Spell chaosSpell;
+    private Spell LeftSpell;
+    private Spell RightSpell;
     public static HudController Instance;
     private bool statsOpen = false;
 
@@ -86,8 +86,8 @@ public class HudController : MonoBehaviour
     private void Start()
     {
         playerRef = GameObject.FindGameObjectWithTag("Player");
-        harmonySpell = playerRef.GetComponent<WandController>().HarmonySpell;
-        chaosSpell = playerRef.GetComponent<WandController>().ChaosSpell;
+        LeftSpell = playerRef.GetComponent<SpellcastingController>().LeftSpell;
+        RightSpell = playerRef.GetComponent<SpellcastingController>().RightSpell;
 
         UpdateStatsInfo();
     }
@@ -111,25 +111,25 @@ public class HudController : MonoBehaviour
     public void UpdateStatsInfo()
     {
 
-        manaCostHarmony.text = Math.Round(harmonySpell.FinalResourceCost, 2).ToString();
-        manaCostChaos.text = Math.Round(chaosSpell.FinalResourceCost, 2).ToString();
+        //manaCostHarmony.text = Math.Round(LeftSpell.FinalResourceCost, 2).ToString();
+        //manaCostChaos.text = Math.Round(RightSpell.FinalResourceCost, 2).ToString();
 
-        damageHarmony.text = Math.Round(harmonySpell.Damage, 2).ToString();
-        damageChaos.text = Math.Round(chaosSpell.Damage, 2).ToString();
+        //damageHarmony.text = Math.Round(LeftSpell.Damage, 2).ToString();
+        //damageChaos.text = Math.Round(RightSpell.Damage, 2).ToString();
 
-        numberOfBulletsHarmony.text = harmonySpell.NumberOfBullets.ToString();
-        numberOfBulletsChaos.text = chaosSpell.NumberOfBullets.ToString();  
+        //numberOfBulletsHarmony.text = LeftSpell.NumberOfBullets.ToString();
+        //numberOfBulletsChaos.text = RightSpell.NumberOfBullets.ToString();  
         
-        fireRateHarmony.text = harmonySpell.FireRate.ToString();
-        fireRateChaos.text = chaosSpell.FireRate.ToString();
+        //fireRateHarmony.text = LeftSpell.FireRate.ToString();
+        //fireRateChaos.text = RightSpell.FireRate.ToString();
 
-        bulletSpeedHarmony.text = harmonySpell.SpellSpeed.ToString();
-        bulletSpeedChaos.text = chaosSpell.SpellSpeed.ToString();
+        //bulletSpeedHarmony.text = LeftSpell.SpellSpeed.ToString();
+        //bulletSpeedChaos.text = RightSpell.SpellSpeed.ToString();
 
-        neutralStats.text = GenerateNeutralStats();
+        //neutralStats.text = GenerateNeutralStats();
 
-        additionallEffectsHarmony.text = GenerateAdditionalEffectsInfo(harmonySpell);
-        additionallEffectsChaos.text = GenerateAdditionalEffectsInfo(chaosSpell);
+        //additionallEffectsHarmony.text = GenerateAdditionalEffectsInfo(LeftSpell);
+        //additionallEffectsChaos.text = GenerateAdditionalEffectsInfo(RightSpell);
     }
 
     private string GenerateNeutralStats()
@@ -151,14 +151,14 @@ public class HudController : MonoBehaviour
     {
         string result = "";
 
-        if(spell.LifeSteal > 0)
-            result += "Attacks heal you by " + spell.LifeSteal * 100f + "% damage dealt\n";
-        if (spell.ChanceToHomingMissile > 0)
-            result += spell.ChanceToHomingMissile + "% chance for homing missile\n";
-        if (spell.ChanceToCreateForbiddenArea> 0)
-            result += spell.ChanceToCreateForbiddenArea + "% chance to create forbidden area\n";
-        if (spell.MaxScale > 1)
-            result += "Attacks grow in air up to " + 1 + spell.MaxScale * 10f + "% in scale\n";
+        //if(spell.LifeSteal > 0)
+        //    result += "Attacks heal you by " + spell.LifeSteal * 100f + "% damage dealt\n";
+        //if (spell.ChanceToHomingMissile > 0)
+        //    result += spell.ChanceToHomingMissile + "% chance for homing missile\n";
+        //if (spell.ChanceToCreateForbiddenArea> 0)
+        //    result += spell.ChanceToCreateForbiddenArea + "% chance to create forbidden area\n";
+        //if (spell.MaxScale > 1)
+        //    result += "Attacks grow in air up to " + 1 + spell.MaxScale * 10f + "% in scale\n";
         
         return result;
     }
@@ -177,7 +177,7 @@ public class HudController : MonoBehaviour
 
         resourceUseTMP.text += resourceUse * 100f + "% ";
 
-        if (spellType == SpellType.Harmony)
+        if (spellType == SpellType.Left)
         {
             perkNameTMP.color = harmonyColor;
             perkFrame.color = harmonyColor;
@@ -207,13 +207,13 @@ public class HudController : MonoBehaviour
         perkAnimator.SetTrigger("Hide");
     }
 
-    public void TogglePressurePlateInfo(bool toggle, SpellType spellType = SpellType.Harmony)
+    public void TogglePressurePlateInfo(bool toggle, SpellType spellType = SpellType.Left)
     {
         if(toggle)
         {
             resourceUseTMP.text = "";
             perkAnimator.SetTrigger("Show");
-            if (spellType == SpellType.Harmony)
+            if (spellType == SpellType.Left)
             {
                 perkNameTMP.text = "Harmony";
                 perkNameTMP.color = harmonyColor;
@@ -243,7 +243,7 @@ public class HudController : MonoBehaviour
         for (int i = 0; i < botUpgradeInfo.Count; i++)
         {
             botsUpgradesTMP.text += botUpgradeInfo[i].botname + " => ";
-            if(botUpgradeInfo[i].spellType == SpellType.Harmony)
+            if(botUpgradeInfo[i].spellType == SpellType.Left)
             {
                 botsUpgradesTMP.text += DeveloperConsole.AddColorToText(botUpgradeInfo[i].spellname, harmonyColor);
             }

@@ -7,7 +7,7 @@ public class BouncingBoosts : SpellBoost
     public BouncingBoosts()
     {
         costModifier = 0.1f;
-        spellType = SpellType.Chaos;
+        spellType = SpellType.Right;
         spellName = "Ping Pong";
         description = "Adds one bullet bounce. They deal additional +10% damage.";
     }

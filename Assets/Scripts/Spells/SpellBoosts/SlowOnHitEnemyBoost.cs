@@ -8,7 +8,7 @@ public class SlowOnHitEnemyBoost : SpellBoost
 
     public SlowOnHitEnemyBoost()
     {
-		spellType = SpellType.Harmony;
+		spellType = SpellType.Left;
 		costModifier = 0.15f;
 		spellName = "Slippery Snail";
 		description = "Adds a 15 % chance that the missile will slow target. Adds +5% damage";

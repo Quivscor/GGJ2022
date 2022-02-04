@@ -13,7 +13,7 @@ public class HealOnHitEnemyBoost : SpellBoost
     public HealOnHitEnemyBoost()
     {
 		costModifier = 0.1f;
-		spellType = SpellType.Harmony;
+		spellType = SpellType.Left;
 		spellName = "Hit & Heal";
 		description = "Every attack heals you by +25% of damage dealt.";
 
