@@ -577,8 +577,6 @@ GameObject:
   - component: {fileID: 8829382632178185632}
   - component: {fileID: 4794161559356311390}
   - component: {fileID: 2985061041446489412}
-  - component: {fileID: 4065779482777482607}
-  - component: {fileID: 973992933186562719}
   - component: {fileID: 3143153335421167259}
   - component: {fileID: 5804524340227060190}
   - component: {fileID: 4991313433281345095}
@@ -697,58 +695,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   healAudio: {fileID: 0}
---- !u!114 &4065779482777482607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7594468609969001206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a5746f8e81c5914381bd7e68a46544a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 1881288736024043230, guid: 7441c3af128305d4f9d18104e1dc5f83, type: 3}
-  spellType: 0
-  numberOfBullets: 1
-  recoil: 0.05
-  fireRate: 1.35
-  spellSpeed: 9
-  damage: 5
-  resourceCost: 2.5
-  costModifier: 1
-  numberOfBounces: 0
-  range: 10
-  bulletSize: 1
-  lifeSteal: 0
-  audioSourceSpell: {fileID: 0}
---- !u!114 &973992933186562719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7594468609969001206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a5746f8e81c5914381bd7e68a46544a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 1881288736024043230, guid: 10c6e3577033655449321bd7780723df, type: 3}
-  spellType: 1
-  numberOfBullets: 1
-  recoil: 0.05
-  fireRate: 1.25
-  spellSpeed: 12
-  damage: 10
-  resourceCost: 3.5
-  costModifier: 1
-  numberOfBounces: 1
-  range: 10
-  bulletSize: 1
-  lifeSteal: 0
-  audioSourceSpell: {fileID: 0}
 --- !u!114 &3143153335421167259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -761,12 +707,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff87283558411f94a98723b95e5956c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  harmonySpell: {fileID: 4065779482777482607}
-  chaosSpell: {fileID: 973992933186562719}
-  animator: {fileID: 8208030644305788871}
-  missilesSpawnPoint: {fileID: 1957351774983906835}
-  harmonyLastSpellTime: 0.5
-  chaosLastSpellTime: 0.5
+  bullet: {fileID: 1881288736024043230, guid: 25d2c1f798c6a2e4e8ae11c2cbc8302e, type: 3}
+  leftSpell:
+    spellType: 0
+    baseData: {fileID: 11400000, guid: a9faec82cb7d5814d83bc75bb788ff69, type: 2}
+    currentData: {fileID: 0}
+    spellBoosts: []
+  rightSpell:
+    spellType: 0
+    baseData: {fileID: 11400000, guid: bc9950a4823e531419a320fe0539b02f, type: 2}
+    currentData: {fileID: 0}
+    spellBoosts: []
+  bulletOrigin: {fileID: 1957351774983906835}
+  leftSpellLastTime: 0.5
+  rightSpellLastTime: 0.5
 --- !u!114 &5804524340227060190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -851,8 +805,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   componentsToDestroy:
   - {fileID: 4794161559356311390}
-  - {fileID: 4065779482777482607}
-  - {fileID: 973992933186562719}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 2068085276965448148}
   - {fileID: 8829382632178185632}
   - {fileID: 2985061041446489412}

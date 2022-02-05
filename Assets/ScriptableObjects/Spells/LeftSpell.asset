@@ -15,7 +15,7 @@ MonoBehaviour:
   numberOfBullets: 1
   recoil: 0
   fireRate: 1
-  spellSpeed: 5
+  spellSpeed: 15
   damage: 10
   resourceCost: 1
   costModifier: 1
@@ -29,6 +29,7 @@ MonoBehaviour:
   maxScale: 0
   chanceToCreateForbiddenArea: 0
   homingForce: 0
+  homingRange: 2
   chanceToHomingMissile: 0
   chanceToHomingMissileStep: 0
   angleBetweenShots: 0

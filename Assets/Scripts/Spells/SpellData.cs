@@ -4,35 +4,6 @@ using UnityEngine;
 [System.Serializable, CreateAssetMenu(fileName = "Spell", menuName = "ScriptableObjects/Spell")]
 public class SpellData : ScriptableObject
 {
-    //Copy constructor
-    public SpellData(SpellData spell)
-    {
-        numberOfBullets = spell.numberOfBullets;
-        recoil = spell.recoil;
-
-        fireRate = spell.fireRate;
-        spellSpeed = spell.spellSpeed;
-        damage = spell.damage;
-        resourceCost = spell.resourceCost;
-        costModifier = spell.costModifier;
-        numberOfBounces = spell.numberOfBounces;
-        range = spell.range;
-        bulletSize = spell.bulletSize;
-        lifeSteal = spell.lifeSteal;
-
-        isHoming = spell.isHoming;
-
-        isGrowing = spell.isGrowing;
-        growingForce = spell.growingForce;
-        maxScale = spell.maxScale;
-        chanceToCreateForbiddenArea = spell.chanceToCreateForbiddenArea;
-
-        homingForce = spell.homingForce;
-        chanceToHomingMissile = spell.chanceToHomingMissile;
-        chanceToHomingMissileStep = spell.chanceToHomingMissileStep;
-        angleBetweenShots = spell.angleBetweenShots;
-    }
-
     public int numberOfBullets = 1;
     public float recoil = 0.05f;
 
@@ -54,6 +25,7 @@ public class SpellData : ScriptableObject
     public float chanceToCreateForbiddenArea = 0f;
 
     public float homingForce = 0.35f;
+    public float homingRange = 2f;
     public float chanceToHomingMissile = 0f;
     public float chanceToHomingMissileStep = 0f;
     public float angleBetweenShots = 8f;

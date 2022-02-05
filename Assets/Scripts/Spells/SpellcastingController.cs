@@ -39,9 +39,9 @@ public class SpellcastingController : MonoBehaviour
     private Timer rightSpellCooldownTimer;
     private bool isRightSpellReady = true;
     private Timer leftSpellLastUseTimer;
-    private bool hasFiredLeftSpell = true;
+    private bool hasFiredLeftSpell = false;
     private Timer rightSpellLastUseTimer;
-    private bool hasFiredRightSpell = true;
+    private bool hasFiredRightSpell = false;
     #endregion
 
     [SerializeField] float leftSpellLastTime = .5f;
@@ -58,8 +58,8 @@ public class SpellcastingController : MonoBehaviour
 
     private void Start()
     {
-        leftSpellLastUseTimer = new Timer(leftSpellLastTime, () => hasFiredLeftSpell = true);
-        rightSpellLastUseTimer = new Timer(rightSpellLastTime, () => hasFiredRightSpell = true);
+        leftSpellLastUseTimer = new Timer(leftSpellLastTime, () => hasFiredLeftSpell = false);
+        rightSpellLastUseTimer = new Timer(rightSpellLastTime, () => hasFiredRightSpell = false);
 
         //if there's a boost that reduces time for these, they have to be recreated every time this value would be changed
         leftSpellCooldownTimer = new Timer(1 / leftSpell.currentData.fireRate, () => isLeftSpellReady = true);
@@ -82,11 +82,12 @@ public class SpellcastingController : MonoBehaviour
 
 	public void ProcessSpell(SpellType type)
 	{
-        if (type == SpellType.Left && hasFiredRightSpell)
+        if (type == SpellType.Left && !hasFiredRightSpell)
         {
             if (characterStats.HaveEnoughResource(leftSpell.currentData.resourceCost, SpellType.Left))
             {
                 leftSpellLastUseTimer.RestartTimer();
+                hasFiredLeftSpell = true;
             }
             
             if(isLeftSpellReady && characterStats.HaveEnoughResource(leftSpell.currentData.resourceCost, SpellType.Left))
@@ -96,11 +97,12 @@ public class SpellcastingController : MonoBehaviour
                 leftSpellCooldownTimer.RestartTimer();
             }
         }
-        else if (type == SpellType.Right && hasFiredLeftSpell)
+        else if (type == SpellType.Right && !hasFiredLeftSpell)
         {
             if (characterStats.HaveEnoughResource(rightSpell.currentData.resourceCost, SpellType.Right))
             {
                 rightSpellLastUseTimer.RestartTimer();
+                hasFiredRightSpell = true;
             }
 
             if (isRightSpellReady && characterStats.HaveEnoughResource(rightSpell.currentData.resourceCost, SpellType.Right))
@@ -131,7 +133,7 @@ public class SpellcastingController : MonoBehaviour
         for(int i = 0; i < spell.currentData.numberOfBullets; i++)
         {
             var firedProjectile = GameObject.Instantiate(bullet, bulletOrigin.transform.position, Quaternion.identity);
-            firedProjectile.Initialize(this.transform, spell, CalculateBulletDirection(spell, i));
+            firedProjectile.Initialize(characterStats, spell, CalculateBulletDirection(spell, i));
             firedProjectile.SubscribeToEvents(spell);
             ProjectileFired?.Invoke();
         }

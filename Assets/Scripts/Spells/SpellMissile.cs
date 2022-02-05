@@ -2,14 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DrunkenDwarves;
 
 public class SpellMissile : MonoBehaviour
 {
-	[SerializeField] private GameObject hitImpactParticles = null;
-	[SerializeField] private float hitImpactParticlesLifetime = 1.0f;
+	private bool _initialized = false;
+	private SpellMissileVisuals _visuals;
+	private Spell _spell;
+	private CharacterStats parent = null;
 
-	public CharacterStats parent = null;
-	private float damageToApply = 0.0f;
+	private Timer enemyCheckTimer;
+	[SerializeField] private float enemyCheckFrequency;
+	private bool isEnemyCheckReady = false;
+
 	private int bouncesLeft = 0;
 	private bool bounced = false;
 
@@ -18,22 +23,28 @@ public class SpellMissile : MonoBehaviour
 	private Rigidbody rb;
 	private Vector3 lastVelocity;
 
-	[Header("Homing")]
-	private bool isHoming;
-	private float homingForce;
-	[SerializeField] float enemyCheckFrequency;
-	[SerializeField] float homingRange;
-	private float enemyCheckCurrentTime;
-	private bool isGrowing;
-	private Vector3 growVector;
-	private Vector3 maxScale;
-	private float lifeSteal;
-
-	public void Initialize(Transform owner, Spell spell, Vector3 direction)
-	{
+    private void Awake()
+    {
+		_visuals = GetComponent<SpellMissileVisuals>();
 		rb = GetComponent<Rigidbody>();
+	}
+
+    private void Start()
+    {
+		enemyCheckTimer = new Timer(enemyCheckFrequency, () => isEnemyCheckReady = true);
+	}
+
+    public void Initialize(CharacterStats owner, Spell spell, Vector3 direction)
+	{
+		_visuals.Initialize(spell.spellType);
+
+		parent = owner;
+		_spell = spell;
+
 		Vector3 recoil = GetSpellRecoil(spell);
 		rb.velocity = (direction + recoil) * spell.currentData.spellSpeed;
+
+		_initialized = true;
 	}
 
 	public void SubscribeToEvents(Spell spell)
@@ -55,18 +66,21 @@ public class SpellMissile : MonoBehaviour
 
 	private void Update()
 	{
+		if (!_initialized)
+			return;
+
+		float time = Time.deltaTime;
+		enemyCheckTimer.Update(time);
+
 		lastVelocity = rb.velocity;
 
-		if(isHoming)
+		if(_spell.currentData.isHoming)
         {
 			Vector3 newVelocity = lastVelocity;
 			//detect any character in area
-			if (enemyCheckCurrentTime > 0)
-				enemyCheckCurrentTime -= Time.deltaTime;
-			else
+			if (isEnemyCheckReady)
             {
-				enemyCheckCurrentTime = enemyCheckFrequency;
-				Collider[] cols = Physics.OverlapSphere(this.transform.position, homingRange);
+				Collider[] cols = Physics.OverlapSphere(this.transform.position, _spell.currentData.homingRange);
 				
 				foreach(Collider col in cols)
                 {
@@ -80,7 +94,7 @@ public class SpellMissile : MonoBehaviour
 							continue;
 
 						float mag = lastVelocity.magnitude;
-						Vector3 dir = Vector3.Slerp(lastVelocity.normalized, (stats.transform.position - this.transform.position).normalized, homingForce);
+						Vector3 dir = Vector3.Slerp(lastVelocity.normalized, (stats.transform.position - this.transform.position).normalized, _spell.currentData.homingForce);
 
 						newVelocity = dir * mag;
                     }
@@ -90,22 +104,14 @@ public class SpellMissile : MonoBehaviour
 			rb.velocity = newVelocity;
         }
 
-		if(isGrowing)
+		if(_spell.currentData.isGrowing)
         {
-			if(this.transform.localScale.magnitude < maxScale.magnitude)
-				this.transform.localScale = this.transform.localScale + growVector;
+			if(this.transform.localScale.magnitude < _spell.currentData.maxScale)
+				this.transform.localScale = this.transform.localScale * _spell.currentData.growingForce;
 		}
 	}
 
-	private void CreateHitImpact()
-	{
-		if (hitImpactParticles != null)
-		{
-			GameObject createdImpact = Instantiate(hitImpactParticles, this.transform.position, Quaternion.identity);
-			createdImpact.transform.localScale = this.transform.localScale;
-			Destroy(createdImpact, hitImpactParticlesLifetime);
-		}
-	}
+	
 
     private void OnTriggerEnter(Collider other)
     {
@@ -121,14 +127,14 @@ public class SpellMissile : MonoBehaviour
 			if (targetCharacterStats == parent && !bounced)
 				return;
 
-			if (!other.transform.CompareTag("Player") && !parent.CompareTag("Player"))
-				damageToApply *= 0.5f;
+			//if (!other.transform.CompareTag("Player") && !parent.CompareTag("Player"))
+			//	_spell.currentData.damage *= 0.5f;
 
-			targetCharacterStats.DealDamge(damageToApply);
-			HitCharacter?.Invoke(parent, targetCharacterStats, damageToApply);
-			if (lifeSteal > 0 && !targetCharacterStats.isDead)
+			targetCharacterStats.DealDamge(_spell.currentData.damage);
+			HitCharacter?.Invoke(parent, targetCharacterStats, _spell.currentData.damage);
+			if (_spell.currentData.lifeSteal > 0 && !targetCharacterStats.isDead)
 			{
-				parent.Heal(damageToApply * lifeSteal);
+				parent.Heal(_spell.currentData.damage * _spell.currentData.lifeSteal);
 				parent.PlayHealSound();
 				GameObject spawnedParticles = null;
 
@@ -139,15 +145,15 @@ public class SpellMissile : MonoBehaviour
 
 			if (other.transform.root.TryGetComponent(out TargetingAI targeting))
 			{
-				targeting.UpdateThreat(targeting.GetTargetFromTransform(parent.transform), damageToApply);
+				targeting.UpdateThreat(targeting.GetTargetFromTransform(parent.transform), _spell.currentData.damage);
 			}
 
-			CreateHitImpact();
+			_visuals.CreateHitImpact();
 			Destroy(this.gameObject);
 		}
 		if (other.transform.CompareTag("Obstacles"))
 		{
-			CreateHitImpact();
+			_visuals.CreateHitImpact();
 			Destroy(this.gameObject);
 		}
     }

@@ -3365,9 +3365,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1418839337}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 1881288736024043230, guid: 25d2c1f798c6a2e4e8ae11c2cbc8302e, type: 3}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: leftSpellLastTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.baseData
       value: 
       objectReference: {fileID: 11400000, guid: a9faec82cb7d5814d83bc75bb788ff69, type: 2}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: rightSpellLastTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: rightSpell.baseData
       value: 

@@ -42,7 +42,7 @@ public class Spell
                 return -1;
         });
 
-        currentData = new SpellData(baseData);
+        currentData = baseData.Clone();
 
         foreach(SpellBoostScriptable boost in spellBoosts)
         {
