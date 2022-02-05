@@ -4915,7 +4915,7 @@ PrefabInstance:
       objectReference: {fileID: 1418839337}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.data[0]
@@ -6424,7 +6424,7 @@ GameObject:
   - component: {fileID: 1576852293}
   - component: {fileID: 1576852292}
   m_Layer: 0
-  m_Name: Perks Controller
+  m_Name: PerksController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6442,7 +6442,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c82bbbdf97950478e0728c3277c549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellBoostScriptables: []
+  allSpellBoosts:
+  - {fileID: 11400000, guid: 98e384a0b324fd34e8f9117aa9be8d41, type: 2}
+  - {fileID: 11400000, guid: 38a6e32055ff68a40bf9db6c9af69090, type: 2}
+  - {fileID: 11400000, guid: cd474d8e039d368418951a1c7f3b165d, type: 2}
+  - {fileID: 11400000, guid: 868f21246729fa8489ac1745a339b8c0, type: 2}
+  - {fileID: 11400000, guid: 4b813b006ae8a9f4091648a81286db0e, type: 2}
+  - {fileID: 11400000, guid: b456cdd43d9825845875a4183780ce55, type: 2}
+  - {fileID: 11400000, guid: d0f1dc44563b0bf4898fc06dc6cf141d, type: 2}
 --- !u!4 &1576852293
 Transform:
   m_ObjectHideFlags: 0
@@ -6487,7 +6494,7 @@ PrefabInstance:
       objectReference: {fileID: 762055007}
     - target: {fileID: 6709925738585922832, guid: 48086fbbeaf07854b9a9827084dfe1d8, type: 3}
       propertyPath: m_Name
-      value: LevelUpController
+      value: UpgradesController
       objectReference: {fileID: 0}
     - target: {fileID: 6709925738585922833, guid: 48086fbbeaf07854b9a9827084dfe1d8, type: 3}
       propertyPath: m_RootOrder

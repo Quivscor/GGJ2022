@@ -110,26 +110,25 @@ public class HudController : MonoBehaviour
 
     public void UpdateStatsInfo()
     {
+        manaCostHarmony.text = Math.Round(LeftSpell.currentData.resourceCost, 2).ToString();
+        manaCostChaos.text = Math.Round(RightSpell.currentData.resourceCost, 2).ToString();
 
-        //manaCostHarmony.text = Math.Round(LeftSpell.FinalResourceCost, 2).ToString();
-        //manaCostChaos.text = Math.Round(RightSpell.FinalResourceCost, 2).ToString();
+        damageHarmony.text = Math.Round(LeftSpell.currentData.damage, 2).ToString();
+        damageChaos.text = Math.Round(RightSpell.currentData.damage, 2).ToString();
 
-        //damageHarmony.text = Math.Round(LeftSpell.Damage, 2).ToString();
-        //damageChaos.text = Math.Round(RightSpell.Damage, 2).ToString();
+        numberOfBulletsHarmony.text = LeftSpell.currentData.numberOfBullets.ToString();
+        numberOfBulletsChaos.text = RightSpell.currentData.numberOfBullets.ToString();
 
-        //numberOfBulletsHarmony.text = LeftSpell.NumberOfBullets.ToString();
-        //numberOfBulletsChaos.text = RightSpell.NumberOfBullets.ToString();  
-        
-        //fireRateHarmony.text = LeftSpell.FireRate.ToString();
-        //fireRateChaos.text = RightSpell.FireRate.ToString();
+        fireRateHarmony.text = LeftSpell.currentData.fireRate.ToString();
+        fireRateChaos.text = RightSpell.currentData.fireRate.ToString();
 
-        //bulletSpeedHarmony.text = LeftSpell.SpellSpeed.ToString();
-        //bulletSpeedChaos.text = RightSpell.SpellSpeed.ToString();
+        bulletSpeedHarmony.text = LeftSpell.currentData.spellSpeed.ToString();
+        bulletSpeedChaos.text = RightSpell.currentData.spellSpeed.ToString();
 
-        //neutralStats.text = GenerateNeutralStats();
+        neutralStats.text = GenerateNeutralStats();
 
-        //additionallEffectsHarmony.text = GenerateAdditionalEffectsInfo(LeftSpell);
-        //additionallEffectsChaos.text = GenerateAdditionalEffectsInfo(RightSpell);
+        additionallEffectsHarmony.text = GenerateAdditionalEffectsInfo(LeftSpell);
+        additionallEffectsChaos.text = GenerateAdditionalEffectsInfo(RightSpell);
     }
 
     private string GenerateNeutralStats()

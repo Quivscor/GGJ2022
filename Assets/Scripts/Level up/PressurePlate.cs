@@ -21,7 +21,7 @@ public class PressurePlate : MonoBehaviour
         {
             activated = false;
             HudController.Instance.TogglePressEInfo(false, "Press E to choose");
-            LevelUp.Instance.TogglePressurePlateInfo(spellType, false);
+            UpgradesController.Instance.TogglePressurePlateInfo(spellType, false);
         }
     }
 
@@ -33,7 +33,7 @@ public class PressurePlate : MonoBehaviour
             {
                 activated = true;
                 HudController.Instance.TogglePressEInfo(true, "Press E to choose");
-                LevelUp.Instance.TogglePressurePlateInfo(spellType, true);
+                UpgradesController.Instance.TogglePressurePlateInfo(spellType, true);
             }
         }
     }
@@ -42,7 +42,7 @@ public class PressurePlate : MonoBehaviour
         
         if(Input.GetKeyDown(KeyCode.E) && activated)
         {
-            LevelUp.Instance.ResourceWasChosen(spellType);
+            UpgradesController.Instance.ResourceWasChosen(spellType);
         }
     }
 }

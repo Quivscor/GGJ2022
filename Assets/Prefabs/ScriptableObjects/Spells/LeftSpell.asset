@@ -16,8 +16,8 @@ MonoBehaviour:
   recoil: 0
   fireRate: 1
   spellSpeed: 15
-  damage: 10
-  resourceCost: 1
+  damage: 7
+  resourceCost: 4
   costModifier: 1
   numberOfBounces: 0
   range: 5

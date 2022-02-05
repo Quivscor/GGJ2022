@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PerksController : MonoBehaviour
 {
-    public List<SpellBoostScriptable> spellBoostScriptables;
-    public Dictionary<int, SpellBoostScriptable> spellBoostDictionary;
+    [SerializeField]
+    private List<SpellBoostScriptable> allSpellBoosts;
+    public List<SpellBoostScriptable> AllSpellBoosts => allSpellBoosts;
 
     public static PerksController Instance;
     private GameObject playerRef;
@@ -16,12 +17,5 @@ public class PerksController : MonoBehaviour
             Instance = this;
 
         playerRef = GameObject.FindGameObjectWithTag("Player");
-
-        spellBoostDictionary = new Dictionary<int, SpellBoostScriptable>();
-
-        foreach (SpellBoostScriptable spellBoost in spellBoostScriptables)
-        {
-            spellBoostDictionary.Add(spellBoost.id, spellBoost);
-        }
     }
 }

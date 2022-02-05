@@ -13,7 +13,7 @@ public class PerkMonument : MonoBehaviour
         if(other.gameObject.transform.root.CompareTag("Player"))
         {
             isPlayerInRange = true;
-            LevelUp.Instance.ShowMonumentInfo(monumentNumber);
+            UpgradesController.Instance.ShowMonumentInfo(monumentNumber);
             HudController.Instance.TogglePressEInfo(true, "Press E to upgrade");
         }
     }
@@ -22,7 +22,7 @@ public class PerkMonument : MonoBehaviour
         if (other.gameObject.transform.root.CompareTag("Player"))
         {
             isPlayerInRange = false;
-            LevelUp.Instance.HideMonumentInfo(monumentNumber);
+            UpgradesController.Instance.HideMonumentInfo(monumentNumber);
             HudController.Instance.TogglePressEInfo(false);
         }
     }
@@ -31,7 +31,7 @@ public class PerkMonument : MonoBehaviour
     {
         if(isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            LevelUp.Instance.BuyPerkFromMonument(monumentNumber);
+            UpgradesController.Instance.GetBoostFromMonument(monumentNumber);
         }
     }
 }

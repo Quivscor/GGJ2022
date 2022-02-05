@@ -102,13 +102,13 @@ public class CharacterHolder : MonoBehaviour
     public void LevelUpBots()
     {
         botUpgradeInfo.Clear();
-        LevelUp.Instance.PrepareBoostsForBots();
+        UpgradesController.Instance.PrepareBoostsForBots();
 
         foreach (CharacterStats t in Characters)
         {
             if (t != _player)
             {
-                //botUpgradeInfo.Add(LevelUp.Instance.AddRandomLevelForBot(t, t.GetComponent<SpellcastingController>()));
+                botUpgradeInfo.Add(UpgradesController.Instance.AddRandomBoostForBot(t.GetComponent<SpellcastingController>(), t));
             }
         }
 
