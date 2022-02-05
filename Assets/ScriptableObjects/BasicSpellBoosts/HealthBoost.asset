@@ -9,19 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a28d9e91fb177047b699a0a5566250c, type: 3}
-  m_Name: FireRateSpellBoost
+  m_Script: {fileID: 11500000, guid: 0420b82940753da45ac6d91cb08f5450, type: 3}
+  m_Name: HealthBoost
   m_EditorClassIdentifier: 
   id: 0
-  spellName: Ratatata
-  description: 
+  spellName: Pump the muscles
+  description: Increases health by 25 points and adds +10% damage.
   icon: {fileID: 0}
   resourceModifier: 0
   spellType: 2
   statsToChange:
   - statsType: 0
     value: 25
+    isMultiplicative: 0
   - statsType: 2
-    value: 5
-  fireRateBonus: 2
-  damageModifier: 0.1
+    value: 0.1
+    isMultiplicative: 1
