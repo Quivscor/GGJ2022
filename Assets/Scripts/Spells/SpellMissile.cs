@@ -111,8 +111,6 @@ public class SpellMissile : MonoBehaviour
 		}
 	}
 
-	
-
     private void OnTriggerEnter(Collider other)
     {
 		if (other.transform.root.CompareTag("Bullet"))

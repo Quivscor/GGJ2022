@@ -52,8 +52,8 @@ public class SpellcastingController : MonoBehaviour
         characterStats = GetComponent<CharacterStats>();
 
         //allows for setting boosts straight from inspector
-        leftSpell.RecalculateSpellBoosts();
-        rightSpell.RecalculateSpellBoosts();
+        leftSpell.RecalculateSpellBoosts(characterStats);
+        rightSpell.RecalculateSpellBoosts(characterStats);
     }
 
     private void Start()

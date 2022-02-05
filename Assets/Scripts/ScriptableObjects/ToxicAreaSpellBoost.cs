@@ -14,7 +14,7 @@ public class ToxicAreaSpellBoost : SpellBoostScriptable
 
 	public ToxicArea toxicAreaPrefab = null;
 
-	public override void ProcessSpellBoost(SpellData spell)
+	public override void ProcessSpellBoost(SpellData spell, CharacterStats stats)
 	{
 		spell.MissileHitAnything += CreateToxicAreaInRange;
 		spell.costModifier += resourceModifier;

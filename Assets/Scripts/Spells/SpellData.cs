@@ -7,7 +7,7 @@ public class SpellData : ScriptableObject
     public int numberOfBullets = 1;
     public float recoil = 0.05f;
 
-    public float fireRate = 1f; // How many attacks per 1 
+    public float fireRate = 1f; // How many attacks per 1
     public float spellSpeed = 10f; // Abstract number, to adjust
     public float damage = 10f; // Abstract
     public float resourceCost = 10f;

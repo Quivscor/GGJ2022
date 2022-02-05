@@ -4913,6 +4913,18 @@ PrefabInstance:
       propertyPath: resourceChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1418839337}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: leftSpell.spellBoosts.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: leftSpell.spellBoosts.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4b813b006ae8a9f4091648a81286db0e, type: 2}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: leftSpell.spellBoosts.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4b813b006ae8a9f4091648a81286db0e, type: 2}
     - target: {fileID: 1751774421265251431, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: m_Name
       value: Player

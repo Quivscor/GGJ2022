@@ -6,9 +6,8 @@ using UnityEngine;
 
 public class BasicSpellBoost : SpellBoostScriptable
 {
-    public override void ProcessSpellBoost(Spell spell)
+    public override void ProcessSpellBoost(SpellData spell, CharacterStats stats)
     {
-        ChangeStats(spell, spell.GetComponent<CharacterStats>());
+        ChangeStats(spell, stats);
     }
-
 }

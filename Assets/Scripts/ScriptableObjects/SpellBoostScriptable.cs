@@ -17,134 +17,75 @@ public abstract class SpellBoostScriptable : ScriptableObject
     public SpellType spellType = SpellType.Any;
     public List<StatToChange> statsToChange = new List<StatToChange>();
 
-    public void ChangeStats(Spell spell, CharacterStats characterStats)
+    public void ChangeStats(SpellData spell, CharacterStats characterStats)
     {
         // ladder of ifs
         for (int i = 0; i < statsToChange.Count; i++)
         {
-            if(statsToChange[i].statsType == StatsType.Health)
+            switch (statsToChange[i].statsType)
             {
-                if(statsToChange[i].isMultiplicative)
-                {
-                    characterStats.maxHealth += characterStats.maxHealth * statsToChange[i].value;
+                case StatsType.Health:
+                    if (statsToChange[i].isMultiplicative)
+                        characterStats.maxHealth += characterStats.maxHealth * statsToChange[i].value;
+                    else
+                        characterStats.maxHealth += statsToChange[i].value;
+                    break;
 
-                }
-                else
-                {
-                    characterStats.maxHealth += statsToChange[i].value;
-                }
+                case StatsType.Resource:
+                    if (statsToChange[i].isMultiplicative)
+                        spell.costModifier += spell.costModifier * statsToChange[i].value;
+                    else
+                        spell.costModifier += statsToChange[i].value;
+                    if (spell.costModifier < 0.2f)
+                        spell.costModifier = 0.2f;
+                    break;
 
-                continue;
+                case StatsType.Damage:
+                    if (statsToChange[i].isMultiplicative)
+                        spell.damage += spell.damage * statsToChange[i].value;
+                    else
+                        spell.damage += statsToChange[i].value;
+                    break;
+
+                case StatsType.Firerate:
+                    if (statsToChange[i].isMultiplicative)
+                        spell.fireRate += spell.fireRate * statsToChange[i].value;
+                    else
+                        spell.fireRate += statsToChange[i].value;
+                    break;
+
+                case StatsType.MovementSpeed:
+                    if(statsToChange[i].isMultiplicative)
+                        characterStats.GetComponent<CharacterMovement>().MovementSpeed += characterStats.GetComponent<CharacterMovement>().MovementSpeed * statsToChange[i].value;
+                    else
+                        characterStats.GetComponent<CharacterMovement>().MovementSpeed += statsToChange[i].value;
+                    break;
+
+                case StatsType.BulletSpeed:
+                    if (statsToChange[i].isMultiplicative)
+                        spell.spellSpeed += spell.spellSpeed * statsToChange[i].value;
+                    else
+                        spell.spellSpeed += statsToChange[i].value;
+                    break;
+
+                case StatsType.NumberOfBullets:
+                    if (statsToChange[i].isMultiplicative)
+                        spell.numberOfBullets += spell.numberOfBullets * (int)statsToChange[i].value;
+                    else 
+                        spell.numberOfBullets += (int)statsToChange[i].value;
+                    break;
+
+                case StatsType.NumberOfBounces:
+                    if (statsToChange[i].isMultiplicative)
+                        spell.numberOfBounces += spell.numberOfBounces * (int)statsToChange[i].value;
+                    else
+                        spell.numberOfBounces += (int)statsToChange[i].value;
+                    break;
             }
-
-            if (statsToChange[i].statsType == StatsType.Resource)
-            {
-                if (statsToChange[i].isMultiplicative)
-                {
-                    spell.CostModifier += spell.CostModifier * statsToChange[i].value;
-                }
-                else
-                {
-                    spell.CostModifier += statsToChange[i].value;
-                }
-
-                if (spell.CostModifier < 0.2f)
-                    spell.CostModifier = 0.2f;
-
-                spell.RecalculateResourceCost();
-                continue;
-            }
-
-            if (statsToChange[i].statsType == StatsType.Damage)
-            {
-                if (statsToChange[i].isMultiplicative)
-                {
-                    spell.Damage += spell.Damage * statsToChange[i].value;
-                }
-                else
-                {
-                    spell.Damage += statsToChange[i].value;
-                }
-
-                continue;
-            }
-
-            if (statsToChange[i].statsType == StatsType.Firerate)
-            {
-                if (statsToChange[i].isMultiplicative)
-                {
-                    spell.FireRate += spell.FireRate * statsToChange[i].value;
-                }
-                else
-                {
-                    spell.FireRate += statsToChange[i].value;
-                }
-
-                spell.RecalculateFireRate();
-                continue;
-            }
-
-            if (statsToChange[i].statsType == StatsType.MovementSpeed)
-            {
-                if (statsToChange[i].isMultiplicative)
-                {
-                    characterStats.GetComponent<CharacterMovement>().MovementSpeed += characterStats.GetComponent<CharacterMovement>().MovementSpeed * statsToChange[i].value;
-
-                }
-                else
-                {
-                    characterStats.GetComponent<CharacterMovement>().MovementSpeed += statsToChange[i].value;
-                }
-
-                continue;
-            }
-
-            if (statsToChange[i].statsType == StatsType.BulletSpeed)
-            {
-                if (statsToChange[i].isMultiplicative)
-                {
-                    spell.SpellSpeed += spell.SpellSpeed * statsToChange[i].value;
-                }
-                else
-                {
-                    spell.SpellSpeed += statsToChange[i].value;
-                }
-
-                continue;
-            }
-
-            if (statsToChange[i].statsType == StatsType.NumberOfBullets)
-            {
-                if (statsToChange[i].isMultiplicative)
-                {
-                    spell.NumberOfBullets += spell.NumberOfBullets * (int)statsToChange[i].value;
-                }
-                else
-                {
-                    spell.NumberOfBullets += (int)statsToChange[i].value;
-                }
-
-                continue;
-            }
-
-            if (statsToChange[i].statsType == StatsType.NumberOfBounces)
-            {
-                if (statsToChange[i].isMultiplicative)
-                {
-                    spell.NumberOfBounces += spell.NumberOfBounces * (int)statsToChange[i].value;
-                }
-                else
-                {
-                    spell.NumberOfBounces += (int)statsToChange[i].value;
-                }
-
-                continue;
-            }
-
         }
     }
 
-    public abstract void ProcessSpellBoost(Spell spell);
+    public abstract void ProcessSpellBoost(SpellData spell, CharacterStats stats);
 }
 
 [System.Serializable]

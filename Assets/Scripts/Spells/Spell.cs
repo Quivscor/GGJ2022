@@ -10,6 +10,8 @@ public class Spell
     public SpellType spellType;
     [SerializeField] private SpellData baseData;
     [HideInInspector] public SpellData currentData;
+
+    private CharacterStats characterStats;
     
     //public AudioSource audioSourceSpell;
 
@@ -21,17 +23,21 @@ public class Spell
     public void AddSpellBoost(SpellBoostScriptable boost)
     {
         SpellBoosts.Add(boost);
-        RecalculateSpellBoosts();
+        RecalculateSpellBoosts(characterStats);
     }
 
     public void RemoveSpellBoost(SpellBoostScriptable boost)
     {
         SpellBoosts.Remove(boost);
-        RecalculateSpellBoosts();
+        RecalculateSpellBoosts(characterStats);
     }
 
-    public void RecalculateSpellBoosts()
+    public void RecalculateSpellBoosts(CharacterStats stats)
     {
+        //assign stats through SpellcastingController.Awake call
+        if (characterStats == null)
+            characterStats = stats;
+
         spellBoosts.Sort((x, y) =>
         {
             if (x.sortingPriority > y.sortingPriority)
@@ -46,7 +52,7 @@ public class Spell
 
         foreach(SpellBoostScriptable boost in spellBoosts)
         {
-            boost.ProcessSpellBoost(currentData);
+            boost.ProcessSpellBoost(currentData, stats);
         }
 
         currentData.resourceCost *= currentData.costModifier;
