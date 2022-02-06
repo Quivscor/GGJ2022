@@ -18,8 +18,10 @@ public class CharacterAudioController : MonoBehaviour
     private void PlaySpellSound(SpellcastEventData data)
     {
         if (data.type == SpellType.Left)
-            leftSpellSource.Play();
+            if(leftSpellSource != null)
+                leftSpellSource.Play();
         else if (data.type == SpellType.Right)
-            rightSpellSource.Play();
+            if(rightSpellSource != null)
+                rightSpellSource.Play();
     }
 }
