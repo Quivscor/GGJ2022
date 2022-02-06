@@ -4915,12 +4915,12 @@ PrefabInstance:
       objectReference: {fileID: 1418839337}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 4b813b006ae8a9f4091648a81286db0e, type: 2}
+      objectReference: {fileID: 11400000, guid: 98e384a0b324fd34e8f9117aa9be8d41, type: 2}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.data[1]
       value: 

@@ -8,4 +8,5 @@ public enum SpellType
     Left,
     Right,
     Any,
+    Unknown
 }

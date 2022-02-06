@@ -26,11 +26,9 @@ public class SpellcastingController : MonoBehaviour
     private SpellType lastSpellType = SpellType.Left;
     #region Events
     public event Action<SpellType> SpellTypeChanged = null;
-    public event Action SpellProcessed = null;
-    public event Action SpellFired = null;
+    public event Action<SpellcastEventData> SpellProcessed = null;
+    public event Action<SpellcastEventData> SpellFired = null;
     public event Action ProjectileFired = null;
-    public event Action<CharacterStats, CharacterStats, float> ProjectileHitCharacter = null;
-    public event Action<Transform, CharacterStats> ProjectileHitAnything = null;
     #endregion
 
     #region Timers
@@ -119,16 +117,12 @@ public class SpellcastingController : MonoBehaviour
             SpellTypeChanged?.Invoke(lastSpellType);
         }
 
-        SpellProcessed?.Invoke();
-        //ProcessAnimator(type);
+        SpellProcessed?.Invoke(new SpellcastEventData(type));
     }
 
     private void Fire(Spell spell)
     {
         characterStats.SpendResource(spell.currentData.resourceCost, spell.spellType);
-
-        //audio
-        //leftSource.Play()
 
         for(int i = 0; i < spell.currentData.numberOfBullets; i++)
         {
@@ -138,7 +132,7 @@ public class SpellcastingController : MonoBehaviour
             ProjectileFired?.Invoke();
         }
 
-        SpellFired?.Invoke();
+        SpellFired?.Invoke(new SpellcastEventData(spell.spellType));
     }
 
     private Vector3 CalculateBulletDirection(Spell spell, int index)
@@ -160,18 +154,4 @@ public class SpellcastingController : MonoBehaviour
         if(spell == SpellType.Right)
             rightSpellCooldownTimer = new Timer(1 / value, () => isRightSpellReady = true);
     }
-
-    //   private void ProcessAnimator(SpellType type)
-    //{
-    //       bool isSpell = false;
-    //       if (type != SpellType.None)
-    //       {
-    //           animator.SetLayerWeight(1, 1);
-    //           isSpell = true;
-    //       }
-    //       else
-    //           animator.SetLayerWeight(1, 0);
-
-    //       animator?.SetBool("isAttacking", isSpell);
-    //   }
 }

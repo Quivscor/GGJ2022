@@ -17,6 +17,7 @@ public class CharacterMovement : MonoBehaviour
 	private int availableDashes = 2;
 	private int currentDashes = 0;
 	public event Action<int, float> DashValuesChanged = null;
+	public event Action<float, float> MovementProcessed = null;
 	[SerializeField] private ParticleSystem slowParticles = null;
 	
 	[Header("References:")]
@@ -86,7 +87,7 @@ public class CharacterMovement : MonoBehaviour
 
 		rigidbody.velocity = velocityToApply;
 
-		ProcessAnimator(vertical, horizontal);
+		MovementProcessed?.Invoke(vertical, horizontal);
 	}
 
 	public void ProcessDash(float vertical, float horizontal)
@@ -111,7 +112,7 @@ public class CharacterMovement : MonoBehaviour
 			dashCooldownCurrentTime = dashCooldown;
 
 		dashVisualEffects?.ProcessDash();
-		ProcessAnimator(vertical, horizontal);
+		MovementProcessed?.Invoke(vertical, horizontal);
 		currentDashes--;
 		DashValuesChanged?.Invoke(currentDashes, (dashCooldown - dashCooldownCurrentTime) / dashCooldown);
 	}
@@ -120,47 +121,6 @@ public class CharacterMovement : MonoBehaviour
     {
 		MovementSpeed += value;
     }
-	
-	private void ProcessAnimator(float vertical, float horizontal)
-	{
-		//	bool swap = false;
-
-		//	if (Mathf.Abs(this.transform.forward.x) > 0.5f)
-		//	{
-		//		float tmp = horizontal;
-		//		horizontal = vertical;
-		//		vertical = tmp;
-		//		swap = true;
-		//	}
-
-		//	if (this.transform.forward.z < 0)
-		//		if (!swap)
-		//			vertical *= -1;
-
-
-		//	animator.SetFloat("verticalMovement", vertical);
-		//	animator.SetFloat("horizontalMovement", horizontal);
-		//}
-		animator?.SetBool("isMoving", new Vector3(horizontal, 0.0f, vertical) != Vector3.zero);
-
-		int quarterIndex = (int)(character.localRotation.eulerAngles.y / 90);
-
-		if (quarterIndex * 90 + 45 < character.localRotation.eulerAngles.y)
-			quarterIndex++;
-
-		quarterIndex = quarterIndex % 4;
-
-		if (quarterIndex == 0 || quarterIndex == 2)
-		{
-			animator?.SetFloat("verticalMovement", vertical * (quarterIndex == 2 ? -1.0f : 1.0f));
-			animator?.SetFloat("horizontalMovement", horizontal * (quarterIndex == 2 ? -1.0f : 1.0f));
-		}
-		else
-		{
-			animator?.SetFloat("verticalMovement", horizontal * (quarterIndex == 3 ? -1.0f : 1.0f));
-			animator?.SetFloat("horizontalMovement", vertical * (quarterIndex == 3 ? 1.0f : -1.0f));
-		}
-	}
 
 	public void AddSlowEffect()
 	{

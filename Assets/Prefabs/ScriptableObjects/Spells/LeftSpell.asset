@@ -32,4 +32,4 @@ MonoBehaviour:
   homingRange: 2
   chanceToHomingMissile: 0
   chanceToHomingMissileStep: 0
-  angleBetweenShots: 0
+  angleBetweenShots: 20

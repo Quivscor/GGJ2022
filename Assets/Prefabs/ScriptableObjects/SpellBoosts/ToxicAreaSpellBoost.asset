@@ -9,14 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ec11ceffab8ed446b2b8807c8458926, type: 3}
-  m_Name: FasterBulletsSpellBoost
+  m_Script: {fileID: 11500000, guid: a8f97cce54a7d0448b717ef6ae63aef5, type: 3}
+  m_Name: ToxicAreaSpellBoost
   m_EditorClassIdentifier: 
   id: 0
+  sortingPriority: 0
+  tags: []
   spellName: 
   description: 
   icon: {fileID: 0}
   resourceModifier: 0
   spellType: 2
-  spellSpeedBonus: 3.5
-  damageModifier: 0.1
+  statsToChange: []
+  toxicAreaLifetime: 5
+  spawnEveryXShot: 5
+  currentShots: 0
+  chanceToCreateArea: 0
+  chanceToCreateAreaStep: 10
+  toxicAreaPrefab: {fileID: 4754349794432600950, guid: b74f0b326d269164780d40908ac00fd8, type: 3}

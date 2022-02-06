@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+[CreateAssetMenu(fileName = "ToxicAreaSpellBoost", menuName = "ScriptableObjects/ToxicAreaSpellBoost")]
 public class ToxicAreaSpellBoost : SpellBoostScriptable
 {
 	public float toxicAreaLifetime = 5f;

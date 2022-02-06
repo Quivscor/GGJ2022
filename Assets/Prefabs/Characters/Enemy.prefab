@@ -343,6 +343,52 @@ Transform:
   m_Father: {fileID: 1957351774983906835}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5085907253840219445
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4446881306056868540}
+  - component: {fileID: 1925266567875017644}
+  m_Layer: 0
+  m_Name: AudioComponent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4446881306056868540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5085907253840219445}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 59735033571689389}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1925266567875017644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5085907253840219445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c31e70877e1562f4d8833a59dae62a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftSpellSource: {fileID: 6589925750766990551}
+  rightSpellSource: {fileID: 1474125973416132343}
 --- !u!1 &5213987439266288178
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,6 +655,7 @@ Transform:
   - {fileID: 6042284394376027076}
   - {fileID: 7796482454717015980}
   - {fileID: 858551340823766111}
+  - {fileID: 4446881306056868540}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1823,6 +1870,18 @@ MonoBehaviour:
   animator: {fileID: 8208030644305788871}
   boneToRotationFix: {fileID: 3471699025247969874}
   spellSpawner: {fileID: 1957351774983906835}
+--- !u!114 &1509325350477525770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3189450247727251207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9efa6fb8d2f36054db850d60549bebcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3424808671105883228 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1082271958561512970, guid: 5ed4c57442665f042898c96447379237, type: 3}
