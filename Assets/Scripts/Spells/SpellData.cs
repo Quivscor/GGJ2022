@@ -30,6 +30,6 @@ public class SpellData : ScriptableObject
     public float chanceToHomingMissileStep = 0f;
     public float angleBetweenShots = 8f;
 
-    public Action<CharacterStats, CharacterStats, float> MissileHitCharacter = null;
-    public Action<Transform, CharacterStats> MissileHitAnything = null;
+    public Action<SpellMissileEventData> MissileHitCharacter = null;
+    public Action<SpellMissileEventData> MissileHitAnything = null;
 }

@@ -18,8 +18,9 @@ public class SpellMissile : MonoBehaviour
 	private int bouncesLeft = 0;
 	private bool bounced = false;
 
-	public event Action<CharacterStats, CharacterStats, float> HitCharacter = null;
-	public event Action<Transform, CharacterStats> HitAnything = null;
+	public event Action<SpellMissileEventData> HitCharacter = null;
+	public event Action<SpellMissileEventData> HitAnything = null;
+	public event Action<float, SpellMissileEventData> MissileMoved = null;
 	private Rigidbody rb;
 	private Vector3 lastVelocity;
 
@@ -118,7 +119,7 @@ public class SpellMissile : MonoBehaviour
 			return;
 		}
 
-		HitAnything?.Invoke(this.transform, parent);
+		HitAnything?.Invoke(new SpellMissileEventData(this.transform, parent));
 
 		if (other.transform.root.TryGetComponent(out CharacterStats targetCharacterStats))
 		{
@@ -129,17 +130,7 @@ public class SpellMissile : MonoBehaviour
 			//	_spell.currentData.damage *= 0.5f;
 
 			targetCharacterStats.DealDamge(_spell.currentData.damage);
-			HitCharacter?.Invoke(parent, targetCharacterStats, _spell.currentData.damage);
-			if (_spell.currentData.lifeSteal > 0 && !targetCharacterStats.isDead)
-			{
-				parent.Heal(_spell.currentData.damage * _spell.currentData.lifeSteal);
-				parent.PlayHealSound();
-				GameObject spawnedParticles = null;
-
-				spawnedParticles = MonoBehaviour.Instantiate(Resources.Load<GameObject>("HealingParticles"), parent.transform);
-
-				MonoBehaviour.Destroy(spawnedParticles, 1.5f);
-			}
+			HitCharacter?.Invoke(new SpellMissileEventData(parent.transform, parent, targetCharacterStats, _spell.currentData));
 
 			if (other.transform.root.TryGetComponent(out TargetingAI targeting))
 			{

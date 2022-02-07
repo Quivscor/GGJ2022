@@ -81,6 +81,12 @@ public abstract class SpellBoostScriptable : ScriptableObject
                     else
                         spell.numberOfBounces += (int)statsToChange[i].value;
                     break;
+                case StatsType.Lifesteal:
+                    if (statsToChange[i].isMultiplicative)
+                        spell.lifeSteal += spell.lifeSteal * (int)statsToChange[i].value;
+                    else
+                        spell.lifeSteal += (int)statsToChange[i].value;
+                    break;
             }
         }
     }
@@ -105,5 +111,6 @@ public enum StatsType
     MovementSpeed,
     BulletSpeed,
     NumberOfBullets,
-    NumberOfBounces
+    NumberOfBounces,
+    Lifesteal,
 }

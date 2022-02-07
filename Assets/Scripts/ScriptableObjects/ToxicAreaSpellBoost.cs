@@ -23,7 +23,7 @@ public class ToxicAreaSpellBoost : SpellBoostScriptable
 		spell.chanceToCreateForbiddenArea = chanceToCreateArea;
 	}
 
-	private void CreateToxicAreaInRange(Transform missilePosition, CharacterStats owner)
+	private void CreateToxicAreaInRange(SpellMissileEventData data)
 	{
 		if (Random.Range(0, 100) < chanceToCreateArea)
 		{
@@ -35,7 +35,7 @@ public class ToxicAreaSpellBoost : SpellBoostScriptable
 				return;
 			}
 
-			Vector3 spawnPosition = missilePosition.position;
+			Vector3 spawnPosition = data.ownerTransform.position;
 			spawnPosition.y = 0.0f;
 
 			var spawnedArea = MonoBehaviour.Instantiate(toxicAreaPrefab, spawnPosition, Quaternion.identity);
