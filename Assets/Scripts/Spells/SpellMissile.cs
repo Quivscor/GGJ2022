@@ -20,9 +20,11 @@ public class SpellMissile : MonoBehaviour
 
 	public event Action<SpellMissileEventData> HitCharacter = null;
 	public event Action<SpellMissileEventData> HitAnything = null;
-	public event Action<float, SpellMissileEventData> MissileMoved = null;
+	public event Action<SpellMissile, SpellMissileEventData> MissileUpdated = null;
 	private Rigidbody rb;
+	public Rigidbody Rigidbody => rb;
 	private Vector3 lastVelocity;
+	public Vector3 LastFrameVelocity => lastVelocity;
 
     private void Awake()
     {
@@ -52,6 +54,7 @@ public class SpellMissile : MonoBehaviour
     {
 		HitCharacter = spell.currentData.MissileHitCharacter;
 		HitAnything = spell.currentData.MissileHitAnything;
+		MissileUpdated = spell.currentData.MissileUpdated;
 	}
 
 	private Vector3 GetSpellRecoil(Spell spell)
@@ -75,35 +78,12 @@ public class SpellMissile : MonoBehaviour
 
 		lastVelocity = rb.velocity;
 
-		if(_spell.currentData.isHoming)
+		if(isEnemyCheckReady)
         {
-			Vector3 newVelocity = lastVelocity;
-			//detect any character in area
-			if (isEnemyCheckReady)
-            {
-				Collider[] cols = Physics.OverlapSphere(this.transform.position, _spell.currentData.homingRange);
-				
-				foreach(Collider col in cols)
-                {
-					if(col.TryGetComponent(out CharacterStats stats))
-                    {
-						//don't home on dead people
-						if (stats.isDead)
-							continue;
-						//don't home on yourself
-						if (stats == parent)
-							continue;
-
-						float mag = lastVelocity.magnitude;
-						Vector3 dir = Vector3.Slerp(lastVelocity.normalized, (stats.transform.position - this.transform.position).normalized, _spell.currentData.homingForce);
-
-						newVelocity = dir * mag;
-                    }
-                }
-            }
-			//curve a little in that direction
-			rb.velocity = newVelocity;
-        }
+			MissileUpdated?.Invoke(this, new SpellMissileEventData(parent, _spell.currentData));
+			enemyCheckTimer.RestartTimer();
+			isEnemyCheckReady = false;
+		}
 
 		if(_spell.currentData.isGrowing)
         {

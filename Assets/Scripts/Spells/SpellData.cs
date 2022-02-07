@@ -17,8 +17,6 @@ public class SpellData : ScriptableObject
     public float bulletSize = 1f;
     public float lifeSteal = 0f;
 
-    public bool isHoming = false;
-
     public bool isGrowing = false;
     public float growingForce = 0;
     public float maxScale = 1;
@@ -30,6 +28,9 @@ public class SpellData : ScriptableObject
     public float chanceToHomingMissileStep = 0f;
     public float angleBetweenShots = 8f;
 
+    //TODO - add list of applied bonuses IDs to check if boost already exists
+
     public Action<SpellMissileEventData> MissileHitCharacter = null;
     public Action<SpellMissileEventData> MissileHitAnything = null;
+    public Action<SpellMissile, SpellMissileEventData> MissileUpdated = null;
 }

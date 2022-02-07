@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 433b4b1fb84a5ee4887fa3dad99bcc9f, type: 3}
+  m_Name: HomingBoost
+  m_EditorClassIdentifier: 
+  id: 0
+  sortingPriority: 0
+  tags: []
+  spellName: Mage-To-Mage Missile
+  description: 
+  icon: {fileID: 0}
+  resourceModifier: 0.2
+  spellType: 2
+  statsToChange: []

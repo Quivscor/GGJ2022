@@ -9,6 +9,11 @@ public class SpellMissileEventData
         this.ownerTransform = ownerTransform;
         this.ownerStats = ownerStats;
     }
+    public SpellMissileEventData(CharacterStats ownerStats, SpellData spell)
+    {
+        this.ownerStats = ownerStats;
+        this.spell = spell;
+    }
     public SpellMissileEventData(Transform targetTransform, CharacterStats targetStats, SpellData spell)
     {
         this.targetTransform = targetTransform;

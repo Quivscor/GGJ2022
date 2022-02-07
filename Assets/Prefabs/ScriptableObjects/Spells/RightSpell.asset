@@ -23,12 +23,11 @@ MonoBehaviour:
   range: 5
   bulletSize: 1
   lifeSteal: 0
-  isHoming: 0
   isGrowing: 0
   growingForce: 0
   maxScale: 0
   chanceToCreateForbiddenArea: 0
-  homingForce: 0
+  homingForce: 0.2
   homingRange: 2
   chanceToHomingMissile: 0
   chanceToHomingMissileStep: 0
