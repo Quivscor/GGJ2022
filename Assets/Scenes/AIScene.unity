@@ -4915,7 +4915,7 @@ PrefabInstance:
       objectReference: {fileID: 1418839337}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.size
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: rightSpell.spellBoosts.Array.size
@@ -4924,15 +4924,27 @@ PrefabInstance:
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: d433d38069546f340981961df4ce22a3, type: 2}
+      objectReference: {fileID: 11400000, guid: f7b388d5909f8c2428b208de44f8005e, type: 2}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: d433d38069546f340981961df4ce22a3, type: 2}
+      objectReference: {fileID: 11400000, guid: f7b388d5909f8c2428b208de44f8005e, type: 2}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: d433d38069546f340981961df4ce22a3, type: 2}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: leftSpell.spellBoosts.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: d433d38069546f340981961df4ce22a3, type: 2}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: leftSpell.spellBoosts.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: b8872d3db21d33b4588b49b4c0111a33, type: 2}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: leftSpell.spellBoosts.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: b8872d3db21d33b4588b49b4c0111a33, type: 2}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: rightSpell.spellBoosts.Array.data[0]
       value: 

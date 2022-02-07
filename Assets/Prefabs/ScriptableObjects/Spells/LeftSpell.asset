@@ -27,8 +27,10 @@ MonoBehaviour:
   growingForce: 0.1
   maxScale: 3
   chanceToCreateForbiddenArea: 0
-  homingForce: 0.2
-  homingRange: 2
+  homingForce: 0.015
+  homingRange: 3
   chanceToHomingMissile: 0
   chanceToHomingMissileStep: 0
   angleBetweenShots: 20
+  sinusoidForce: 0.3
+  sinusoidPhase: 0.2

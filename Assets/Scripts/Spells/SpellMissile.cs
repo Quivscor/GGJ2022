@@ -13,7 +13,14 @@ public class SpellMissile : MonoBehaviour
 
 	private Timer enemyCheckTimer;
 	[SerializeField] private float enemyCheckFrequency;
-	private bool isEnemyCheckReady = false;
+	private bool isEnemyCheckReady = true;
+
+	private float _lifetime = 0;
+	public float LifeTime => _lifetime;
+	private Vector3 _forward;
+	public Vector3 Forward => _forward;
+	private Vector3 _right;
+	public Vector3 Right => _right;
 
 	private int bouncesLeft = 0;
 	private bool bounced = false;
@@ -46,6 +53,7 @@ public class SpellMissile : MonoBehaviour
 
 		Vector3 recoil = GetSpellRecoil(spell);
 		rb.velocity = (direction + recoil) * spell.currentData.spellSpeed;
+		RecalculateMissileVectors();
 
 		_initialized = true;
 	}
@@ -61,6 +69,12 @@ public class SpellMissile : MonoBehaviour
     {
 		return new Vector3(UnityEngine.Random.Range(-spell.currentData.recoil, spell.currentData.recoil), 0.0f, 
 			UnityEngine.Random.Range(-spell.currentData.recoil, spell.currentData.recoil));
+	}
+
+	public void RecalculateMissileVectors()
+    {
+		_forward = rb.velocity.normalized;
+		_right = -Vector3.Cross(_forward, Vector3.up);
 	}
 
 	public Transform GetParentTransform()
@@ -84,6 +98,9 @@ public class SpellMissile : MonoBehaviour
 			enemyCheckTimer.RestartTimer();
 			isEnemyCheckReady = false;
 		}
+
+		//update time at the end because of event
+		_lifetime += time;
 	}
 
     private void OnTriggerEnter(Collider other)
@@ -100,6 +117,7 @@ public class SpellMissile : MonoBehaviour
 			if (targetCharacterStats == parent && !bounced)
 				return;
 
+			// This should be handled by whatever is receiving damage, through a buff or resistance of sorts
 			//if (!other.transform.CompareTag("Player") && !parent.CompareTag("Player"))
 			//	_spell.currentData.damage *= 0.5f;
 

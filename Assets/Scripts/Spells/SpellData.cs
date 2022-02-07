@@ -28,6 +28,9 @@ public class SpellData : ScriptableObject
     public float chanceToHomingMissileStep = 0f;
     public float angleBetweenShots = 8f;
 
+    public float sinusoidForce = 1.2f;
+    public float sinusoidPhase = 1.2f;
+
     //TODO - add list of applied bonuses IDs to check if boost already exists
 
     public Action<SpellMissileEventData> MissileHitCharacter = null;

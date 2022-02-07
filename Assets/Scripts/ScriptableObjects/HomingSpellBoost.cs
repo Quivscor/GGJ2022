@@ -39,5 +39,6 @@ public class HomingSpellBoost : BasicSpellBoost
 		}
 		//curve a little in that direction
 		missile.Rigidbody.velocity = newVelocity;
+		missile.RecalculateMissileVectors();
 	}
 }
