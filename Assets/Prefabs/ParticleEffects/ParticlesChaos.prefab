@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3164998371665765436}
   - component: {fileID: 1414649900418405663}
   - component: {fileID: 1365748975425091859}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire_Add (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -4844,7 +4844,7 @@ GameObject:
   - component: {fileID: 2084192245123397480}
   - component: {fileID: 1008790516884735941}
   - component: {fileID: 9091890057406399051}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire_Add
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4941,7 +4941,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -9677,7 +9677,7 @@ GameObject:
   - component: {fileID: 6731721455514693331}
   - component: {fileID: 6275878087016440538}
   - component: {fileID: 2409346347162399667}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire_Add (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9774,7 +9774,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -14501,7 +14501,7 @@ GameObject:
   - component: {fileID: 3704019245347158838}
   - component: {fileID: 7108686386617747579}
   - component: {fileID: 4189484866685479796}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ParticlesChaos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14515,10 +14515,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4012999363031794288}
-  m_LocalRotation: {x: -0.70710677, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2084192245123397480}
   - {fileID: 1519070339086684632}
@@ -14603,7 +14603,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -19339,7 +19339,7 @@ GameObject:
   - component: {fileID: 1519070339086684632}
   - component: {fileID: 7773056513989677689}
   - component: {fileID: 2419558908503594878}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire_Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19436,7 +19436,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -24172,7 +24172,7 @@ GameObject:
   - component: {fileID: 5891686758069442050}
   - component: {fileID: 6748441237282299976}
   - component: {fileID: 8704690917334851871}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire_Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24269,7 +24269,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -28996,7 +28996,7 @@ GameObject:
   - component: {fileID: 4299761411163769143}
   - component: {fileID: 6370016307211101973}
   - component: {fileID: 116059669825167954}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29094,7 +29094,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3

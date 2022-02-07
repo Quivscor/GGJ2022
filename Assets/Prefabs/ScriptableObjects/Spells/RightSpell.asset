@@ -24,8 +24,8 @@ MonoBehaviour:
   bulletSize: 1
   lifeSteal: 0
   isGrowing: 0
-  growingForce: 0
-  maxScale: 0
+  growingForce: 0.1
+  maxScale: 3
   chanceToCreateForbiddenArea: 0
   homingForce: 0.2
   homingRange: 2

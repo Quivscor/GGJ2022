@@ -4919,7 +4919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: rightSpell.spellBoosts.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.data[0]
@@ -4937,6 +4937,14 @@ PrefabInstance:
       propertyPath: rightSpell.spellBoosts.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: d433d38069546f340981961df4ce22a3, type: 2}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: rightSpell.spellBoosts.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: b8872d3db21d33b4588b49b4c0111a33, type: 2}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: rightSpell.spellBoosts.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: b8872d3db21d33b4588b49b4c0111a33, type: 2}
     - target: {fileID: 1751774421265251431, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: m_Name
       value: Player

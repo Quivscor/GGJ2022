@@ -108,11 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9145cfd30275daf418808fc0dd561e3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitImpactParticles: {fileID: 1155741989583138616, guid: a085c5e75c8c16d4186f3a60bc07860f, type: 3}
-  hitImpactParticlesLifetime: 1
-  parent: {fileID: 0}
   enemyCheckFrequency: 0.1
-  homingRange: 5
 --- !u!1001 &8419918822526860346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -120,26 +116,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3855462858374811989}
     m_Modifications:
-    - target: {fileID: 937590147698609456, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1008790516884735941, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1195094932478787836, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1414649900418405663, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3308088641108200901, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 3704019245347158838, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -184,49 +160,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3704019245347158838, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4012999363031794288, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
       propertyPath: m_Name
       value: HarmonyParticlesChaos
-      objectReference: {fileID: 0}
-    - target: {fileID: 4012999363031794288, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4024498747737871775, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5475148470775104029, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6275878087016440538, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6370016307211101973, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6748441237282299976, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7108686386617747579, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: scalingMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7280843715934993712, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7773056513989677689, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}
-      propertyPath: scalingMode
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9965d0b68d8d024cbb599b90b455a1b, type: 3}

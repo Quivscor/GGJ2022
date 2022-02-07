@@ -84,12 +84,6 @@ public class SpellMissile : MonoBehaviour
 			enemyCheckTimer.RestartTimer();
 			isEnemyCheckReady = false;
 		}
-
-		if(_spell.currentData.isGrowing)
-        {
-			if(this.transform.localScale.magnitude < _spell.currentData.maxScale)
-				this.transform.localScale = this.transform.localScale * _spell.currentData.growingForce;
-		}
 	}
 
     private void OnTriggerEnter(Collider other)
