@@ -44,6 +44,7 @@ public class CharacterStats : MonoBehaviour
     private ResourceChanged resourceChanged;
     [SerializeField]
     private ResourceChanged healthChanged;
+    public event Action<Transform, float> damageReceived;
 
     public Action<CharacterStats> died;
     public bool isDead { get; private set; }
@@ -124,8 +125,8 @@ public class CharacterStats : MonoBehaviour
                 healthBarFill.fillAmount = health / maxHealth;
 
             healthChanged?.Invoke(health / maxHealth);
+            damageReceived?.Invoke(this.transform, value);
         }
-
     }
 
     public void CastTestSpell(int spellType)

@@ -12,6 +12,9 @@ public class MovementAI : MonoBehaviour
     public List<Transform> enemyTargets;
     public Transform activeTarget;
 
+    [SerializeField] private bool _isUseEnemyDistanceRule = true;
+    //This makes character ignore target if it's behind anything that raycast can collide with
+    [SerializeField] private bool _isUseWallCancelEnemyDistanceRule = true;
     [SerializeField, Range(0, 1f)] float enemyBias;
     [SerializeField] float enemyDistanceFactor;
     /// <summary>
@@ -20,14 +23,16 @@ public class MovementAI : MonoBehaviour
     [SerializeField] Vector2 prefEnemyDistance;
     [SerializeField, Range(0, 1f)] float targetBias;
 
+    //maybe implement later
+    [SerializeField] private bool _isUseAllyDistanceRule = false;
     public List<Transform> allyTargets;
-
     [SerializeField, Range(0, 1f)] float allyBias;
 
     public Vector3 MoveDir { get; private set; }
 
+    [SerializeField] private bool _isUseOldMoveRule = true;
     [SerializeField, Range(0,1f)] float oldMoveBias;
-    [SerializeField] bool randomMove;
+    [SerializeField] bool _isUseRandomMove;
     [SerializeField] float randomMoveBias;
 
     [SerializeField] Vector2 biasRange;
@@ -36,6 +41,7 @@ public class MovementAI : MonoBehaviour
     private CharacterMovement charMovement;
     private float colliderRadius;
 
+    [SerializeField] private bool _canDash;
     [SerializeField] float dashThreshold = 30;
     private bool willTryDash = false;
 
@@ -65,7 +71,7 @@ public class MovementAI : MonoBehaviour
         else
             updateTimer -= Time.deltaTime;
 
-        if (willTryDash)
+        if (_canDash && willTryDash)
         {
             charMovement.ProcessDash(MoveDir.z, MoveDir.x);
             willTryDash = false;
@@ -77,8 +83,7 @@ public class MovementAI : MonoBehaviour
     public Vector3 GetMoveDir()
     {
         Vector3 result = Vector3.zero;
-        //init with some randomness
-        //result = Random.insideUnitCircle;
+
         //serialize movement weights
         Vector3[] weightVectors = GetSteeringBehaviorWeights();
         float[] weights = new float[8];
@@ -98,7 +103,6 @@ public class MovementAI : MonoBehaviour
             {
                 result += weightVectors[i] * weights[i];
             }
-
             try
             {
                 Gizmos.color = Color.magenta;
@@ -107,7 +111,7 @@ public class MovementAI : MonoBehaviour
             //i only use this so i can use this function in OnDrawGizmos
             catch (Exception) {}
         }
-        if(randomMove)
+        if(_isUseRandomMove)
         {
             result += Random.insideUnitSphere * randomMoveBias;
         }
@@ -119,7 +123,10 @@ public class MovementAI : MonoBehaviour
 
     private void GetOpponentsRuleMovement(Vector3[] vectors, ref float[] weights)
     {
-        foreach(Transform t in enemyTargets)
+        if (!_isUseEnemyDistanceRule)
+            return;
+
+        foreach (Transform t in enemyTargets)
         {
             if (t == null)
                 continue;
@@ -129,10 +136,13 @@ public class MovementAI : MonoBehaviour
 
             //if something is between objects
             RaycastHit hitinfo;
-            if (Physics.Linecast(this.transform.position + Vector3.up, t.position + Vector3.up, out hitinfo))
+            if(_isUseWallCancelEnemyDistanceRule)
             {
-                if (hitinfo.transform != t)
-                    continue;
+                if (Physics.Linecast(this.transform.position + Vector3.up, t.position + Vector3.up, out hitinfo))
+                {
+                    if (hitinfo.transform != t)
+                        continue;
+                }
             }
 
             for (int i = 0; i < weights.Length; i++)
@@ -154,6 +164,7 @@ public class MovementAI : MonoBehaviour
         }
     }
 
+    [SerializeField] private bool _isUseWallDistanceRule = true;
     [SerializeField] float wallRaycastDistance;
     [SerializeField] LayerMask wallLayerMask;
     [SerializeField] float wallWeightBonus;
@@ -162,6 +173,9 @@ public class MovementAI : MonoBehaviour
 
     private void GetWallsRuleMovement(Vector3[] vectors, ref float[] weights)
     {
+        if (!_isUseWallDistanceRule)
+            return;
+
         List<RaycastHit> hits = new List<RaycastHit>();
         foreach(Vector3 dir in vectors)
         {
@@ -197,11 +211,15 @@ public class MovementAI : MonoBehaviour
         }
     }
 
+    [SerializeField] private bool _isUseBulletDodgeRule = true;
     [SerializeField] float bulletDetectionRange;
     [SerializeField] float bulletBias;
     [SerializeField] string bulletTag;
     private void GetDodgeBulletsRuleMovement(Vector3[] vectors, ref float[] weights)
     {
+        if (!_isUseBulletDodgeRule)
+            return;
+
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, bulletDetectionRange);
 
         foreach(Collider col in colliders)
@@ -230,7 +248,10 @@ public class MovementAI : MonoBehaviour
     float[] oldWeights = new float[8];
     private void GetOldMoveRuleMovement(Vector3[] vectors, ref float[] weights)
     {
-        for(int i = 0; i < weights.Length; i++)
+        if (!_isUseOldMoveRule)
+            return;
+
+        for (int i = 0; i < weights.Length; i++)
         {
             if(weights[i] != 0)
                 weights[i] += oldWeights[i] * oldMoveBias;

@@ -15,6 +15,8 @@ public class SpellMissile : MonoBehaviour
 	[SerializeField] private float enemyCheckFrequency;
 	private bool isEnemyCheckReady = true;
 
+	private Timer lifetimeTimer;
+
 	private float _lifetime = 0;
 	public float LifeTime => _lifetime;
 	private Vector3 _forward;
@@ -50,6 +52,9 @@ public class SpellMissile : MonoBehaviour
 
 		parent = owner;
 		_spell = spell;
+
+		if (spell.currentData.bulletLifetime != Mathf.Infinity)
+			lifetimeTimer = new Timer(spell.currentData.bulletLifetime, Dispose);
 
 		Vector3 recoil = GetSpellRecoil(spell);
 		rb.velocity = (direction + recoil) * spell.currentData.spellSpeed;
@@ -89,6 +94,7 @@ public class SpellMissile : MonoBehaviour
 
 		float time = Time.deltaTime;
 		enemyCheckTimer.Update(time);
+		lifetimeTimer?.Update(time); //if spell.bulletLifetime = Infinity -> ignore that
 
 		lastVelocity = rb.velocity;
 
@@ -124,18 +130,23 @@ public class SpellMissile : MonoBehaviour
 			targetCharacterStats.DealDamge(_spell.currentData.damage);
 			HitCharacter?.Invoke(new SpellMissileEventData(parent.transform, parent, targetCharacterStats, _spell.currentData));
 
-			if (other.transform.root.TryGetComponent(out TargetingAI targeting))
-			{
-				targeting.UpdateThreat(targeting.GetTargetFromTransform(parent.transform), _spell.currentData.damage);
-			}
+			//move to damage handling
+			//if (other.transform.root.TryGetComponent(out TargetingAI targeting))
+			//{
+			//	targeting.UpdateThreat(targeting.GetTargetFromTransform(parent.transform), _spell.currentData.damage);
+			//}
 
-			_visuals.CreateHitImpact();
-			Destroy(this.gameObject);
+			Dispose();
 		}
 		if (other.transform.CompareTag("Obstacles"))
 		{
-			_visuals.CreateHitImpact();
-			Destroy(this.gameObject);
+			Dispose();
 		}
     }
+
+	private void Dispose()
+    {
+		_visuals.CreateHitImpact();
+		Destroy(this.gameObject);
+	}
 }

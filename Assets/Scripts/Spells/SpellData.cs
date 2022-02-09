@@ -13,7 +13,7 @@ public class SpellData : ScriptableObject
     public float resourceCost = 10f;
     public float costModifier = 1f;
     public int numberOfBounces = 0;
-    public float range = 10f;
+    public float bulletLifetime = 10f;
     public float bulletSize = 1f;
     public float lifeSteal = 0f;
 

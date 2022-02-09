@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DrunkenDwarves;
 
 public class CombatAI : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class CombatAI : MonoBehaviour
     private bool isPrimaryStronger;
 
     [SerializeField] SpenderType aiType;
+    [SerializeField] private float attackRange = 5f;
+    [SerializeField] private float rangeCheckFrequency = 1f;
+    private Timer rangeCheckTimer;
+    private bool _canCheckRange = true;
+    private bool _canFire = false;
 
     private void Awake()
     {
@@ -24,6 +30,8 @@ public class CombatAI : MonoBehaviour
     private void Start()
     {
         isPrimaryStronger = stats.HarmonyLevel > stats.ChaosLevel ? true : false;
+
+        rangeCheckTimer = new Timer(rangeCheckFrequency, () => _canCheckRange = true);
     }
 
     private void Update()
@@ -34,7 +42,21 @@ public class CombatAI : MonoBehaviour
         if (activeTarget == null)
             return;
 
+        rangeCheckTimer.Update(Time.deltaTime);
+        if(_canCheckRange)
+        {
+            if (Vector3.Distance(this.activeTarget.position, this.transform.position) < attackRange)
+                _canFire = true;
+            else
+                _canFire = false;
+
+            rangeCheckTimer.RestartTimer();
+            _canCheckRange = false;
+        }
         rotator.LookAt(activeTarget.position);
+
+        if (!_canFire)
+            return;
 
         if (aiType == SpenderType.CONSERVER)
         {

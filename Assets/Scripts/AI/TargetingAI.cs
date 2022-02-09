@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DrunkenDwarves;
 
 public class TargetingAI : MonoBehaviour
 {
+    [SerializeField] private AITeam _team;
+    public AITeam Team => _team;
+
     List<Target> enemyTargets;
     List<Target> allyTargets;
 
@@ -14,9 +18,10 @@ public class TargetingAI : MonoBehaviour
     private CharacterStats stats;
 
     [SerializeField] float aiUpdateFrequency;
-    float aiCurrentTime;
+    private Timer aiUpdateTimer;
+
     [SerializeField] float areaScanFrequency;
-    float areaScanCurrentTime;
+    private Timer areaScanTimer;
 
     [SerializeField] float threatDecayOverTime;
     [SerializeField] float threatIncreasePerDmg;
@@ -27,12 +32,17 @@ public class TargetingAI : MonoBehaviour
     private void Awake()
     {
         enemyTargets = new List<Target>();
+        allyTargets = new List<Target>();
 
         movement = GetComponent<MovementAI>();
         combat = GetComponent<CombatAI>();
 
         characterHolder = FindObjectOfType<CharacterHolder>();
         stats = GetComponent<CharacterStats>();
+        stats.damageReceived += UpdateThreat;
+
+        aiUpdateTimer = new Timer(aiUpdateFrequency, SelectPrimaryTarget);
+        areaScanTimer = new Timer(areaScanFrequency, CheckCharactersInArea);
     }
 
     private void Update()
@@ -40,23 +50,12 @@ public class TargetingAI : MonoBehaviour
         if (MatchController.Instance.State != MatchState.ACTIVE || stats.isDead)
             return;
 
-        SanityTargetList();
+        SanityTargetLists();
 
-        if (aiCurrentTime <= 0)
-        {
-            SelectPrimaryTarget(EvaluateTargets());
-            aiCurrentTime = aiUpdateFrequency;
-        }
-        else
-            aiCurrentTime -= Time.deltaTime;
+        float time = Time.deltaTime;
 
-        if (areaScanCurrentTime <= 0)
-        {
-            CheckEnemiesInArea();
-            areaScanCurrentTime = areaScanFrequency;
-        }
-        else
-            areaScanCurrentTime -= Time.deltaTime;
+        aiUpdateTimer.Update(time);
+        areaScanTimer.Update(time);
 
         foreach(Target t in new List<Target>(enemyTargets))
         {
@@ -70,13 +69,20 @@ public class TargetingAI : MonoBehaviour
         }
     }
 
-    public void SanityTargetList()
+    private void SanityTargetLists()
     {
         List<Target> targetsCopy = new List<Target>(enemyTargets);
         foreach(Target t in targetsCopy)
         {
             if (t.stats == null)
                 enemyTargets.Remove(t);
+        }
+
+        targetsCopy = new List<Target>(allyTargets);
+        foreach(Target t in targetsCopy)
+        {
+            if (t.stats == null)
+                allyTargets.Remove(t);
         }
     }
 
@@ -85,7 +91,12 @@ public class TargetingAI : MonoBehaviour
         enemyTargets.Clear();
     }
 
-    public void CheckEnemiesInArea()
+    public void ClearAllyTargets()
+    {
+        allyTargets.Clear();
+    }
+
+    public void CheckCharactersInArea()
     {
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, areaScanRadius);
         foreach(Collider col in colliders)
@@ -99,6 +110,19 @@ public class TargetingAI : MonoBehaviour
                 if (col.transform.root == this.transform)
                     continue;
 
+                //allies are not enemies
+                if (allyTargets.Contains(GetAllyTargetFromTransform(col.transform)))
+                    continue;
+
+                if(col.TryGetComponent(out TargetingAI ai))
+                {
+                    if(ai.Team == this.Team)
+                    {
+                        CreateTargetFromTransform(col.transform, false);
+                        continue;
+                    }
+                }
+
                 //skip if not in line of sight
                 RaycastHit hitinfo;
                 if (Physics.Linecast(this.transform.position + Vector3.up, col.transform.position + Vector3.up, out hitinfo))
@@ -107,25 +131,55 @@ public class TargetingAI : MonoBehaviour
                         continue;
                 }
 
-                Target t = GetTargetFromTransform(col.transform);
-                t.threatGauge += areaScanRadius / Vector3.Distance(this.transform.position, t.transform.position) * threatDistanceMod;
+                Target t = GetEnemyTargetFromTransform(col.transform);
+                if (t != null)
+                    t.threatGauge += areaScanRadius / Vector3.Distance(this.transform.position, t.transform.position) * threatDistanceMod;
+                else
+                    CreateTargetFromTransform(col.transform, true);
             }
         }
+
+        areaScanTimer.RestartTimer();
     }
 
-    public Target GetTargetFromTransform(Transform t)
+    public Target GetEnemyTargetFromTransform(Transform t)
     {
-        Target target = enemyTargets.Find((x) => x.transform == t);
-        if (target == null)
-        {
-            target = new Target(t, initThreatValue);
+        if (t == this.transform)
+            return null;
+
+        Target target;
+        target = enemyTargets.Find((x) => x.transform == t);
+
+        return target;
+    }
+
+    public Target GetAllyTargetFromTransform(Transform t)
+    {
+        if (t == this.transform)
+            return null;
+
+        Target target;
+        target = allyTargets.Find((x) => x.transform == t);
+
+        return target;
+    }
+
+    public Target CreateTargetFromTransform(Transform t, bool isEnemy)
+    {
+        Target target = new Target(t, initThreatValue);
+        if (isEnemy)
             AddEnemy(target);
-        }
+        else
+            AddAlly(target);
+
         return target;
     }
 
     public void UpdateThreat(Target target, float dmg = 0)
     {
+        if (target == null)
+            return;
+
         if(dmg > 0)
         {
             target.threatGauge += dmg * threatIncreasePerDmg;
@@ -138,6 +192,11 @@ public class TargetingAI : MonoBehaviour
             enemyTargets.Remove(target);
             RemoveEnemy(target);
         }
+    }
+
+    public void UpdateThreat(Transform transform, float damage)
+    {
+        UpdateThreat(GetEnemyTargetFromTransform(transform), damage);
     }
 
     private Target EvaluateTargets()
@@ -159,9 +218,22 @@ public class TargetingAI : MonoBehaviour
         combat.activeTarget = target.transform;
     }
 
+    private void SelectPrimaryTarget()
+    {
+        Target t = EvaluateTargets();
+
+        SelectPrimaryTarget(t);
+        aiUpdateTimer.RestartTimer();
+    }
+
     private void RemoveEnemy(Target enemy)
     {
         movement.enemyTargets.Remove(enemy.transform);
+    }
+
+    private void RemoveAlly(Target ally)
+    {
+        movement.allyTargets.Remove(ally.transform);
     }
 
     private void AddEnemy(Target enemy)
@@ -171,6 +243,15 @@ public class TargetingAI : MonoBehaviour
 
         if(!movement.enemyTargets.Contains(enemy.transform))
             movement.enemyTargets.Add(enemy.transform);
+    }
+
+    private void AddAlly(Target ally)
+    {
+        if (!allyTargets.Contains(ally))
+            allyTargets.Add(ally);
+
+        if (!movement.allyTargets.Contains(ally.transform))
+            movement.allyTargets.Add(ally.transform);
     }
 }
 
