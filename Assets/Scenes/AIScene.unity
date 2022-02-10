@@ -846,6 +846,14 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.46827155
       objectReference: {fileID: 0}
+    - target: {fileID: 4991313433281345095, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: _team
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4991313433281345095, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: areaScanRadius
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5067989534092786863, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000000015232331
@@ -889,6 +897,10 @@ PrefabInstance:
     - target: {fileID: 5310962937370001904, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804524340227060190, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: attackRange
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5898914673890030102, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2915,6 +2927,14 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.46827155
       objectReference: {fileID: 0}
+    - target: {fileID: 4991313433281345095, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: _team
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4991313433281345095, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: areaScanRadius
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5067989534092786863, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000000015232331
@@ -2958,6 +2978,10 @@ PrefabInstance:
     - target: {fileID: 5310962937370001904, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804524340227060190, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: attackRange
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5898914673890030102, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4915,11 +4939,11 @@ PrefabInstance:
       objectReference: {fileID: 1418839337}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.size
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: rightSpell.spellBoosts.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.data[0]
@@ -4957,6 +4981,14 @@ PrefabInstance:
       propertyPath: rightSpell.spellBoosts.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: b8872d3db21d33b4588b49b4c0111a33, type: 2}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: spellMissileIgnoreTagList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: spellMissileIgnoreTagList.Array.data[0]
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251431, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: m_Name
       value: Player
@@ -6091,6 +6123,14 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.46827155
       objectReference: {fileID: 0}
+    - target: {fileID: 4991313433281345095, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: _team
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4991313433281345095, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: areaScanRadius
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5067989534092786863, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000000015232331
@@ -6134,6 +6174,10 @@ PrefabInstance:
     - target: {fileID: 5310962937370001904, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804524340227060190, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: attackRange
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5898914673890030102, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6482,6 +6526,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4b813b006ae8a9f4091648a81286db0e, type: 2}
   - {fileID: 11400000, guid: b456cdd43d9825845875a4183780ce55, type: 2}
   - {fileID: 11400000, guid: d0f1dc44563b0bf4898fc06dc6cf141d, type: 2}
+  - {fileID: 11400000, guid: b8872d3db21d33b4588b49b4c0111a33, type: 2}
+  - {fileID: 11400000, guid: 8bb87a90080932545b061aa75c28e9e3, type: 2}
+  - {fileID: 11400000, guid: d433d38069546f340981961df4ce22a3, type: 2}
+  - {fileID: 11400000, guid: 3b9368120baa92e4984273576c3bb616, type: 2}
+  - {fileID: 11400000, guid: f7b388d5909f8c2428b208de44f8005e, type: 2}
 --- !u!4 &1576852293
 Transform:
   m_ObjectHideFlags: 0
@@ -7836,6 +7885,14 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.46827155
       objectReference: {fileID: 0}
+    - target: {fileID: 4991313433281345095, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: _team
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4991313433281345095, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: areaScanRadius
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5067989534092786863, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000000015232331
@@ -7879,6 +7936,10 @@ PrefabInstance:
     - target: {fileID: 5310962937370001904, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5804524340227060190, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
+      propertyPath: attackRange
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5898914673890030102, guid: fe64b4b9d452b1b4ca12f604667dc5e5, type: 3}
       propertyPath: m_LocalPosition.x

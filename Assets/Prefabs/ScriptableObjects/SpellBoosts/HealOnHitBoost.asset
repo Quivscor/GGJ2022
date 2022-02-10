@@ -22,5 +22,5 @@ MonoBehaviour:
   spellType: 2
   statsToChange:
   - statsType: 8
-    value: 5
+    value: 0.2
     isMultiplicative: 0

@@ -116,7 +116,7 @@ public class TargetingAI : MonoBehaviour
 
                 if(col.TryGetComponent(out TargetingAI ai))
                 {
-                    if(ai.Team == this.Team)
+                    if(ai.Team == this.Team && ai.Team != AITeam.NOTEAM)
                     {
                         CreateTargetFromTransform(col.transform, false);
                         continue;

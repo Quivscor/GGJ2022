@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 9105429887996822059}
   m_Layer: 0
   m_Name: EnemyWalker
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614a92126eae5ef42b650a867f90c32f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 4
+  movementSpeed: 4.5
   dashSpeed: 30
   dashCooldown: 35
   dashDuration: 0.1
@@ -604,6 +604,8 @@ MonoBehaviour:
     baseData: {fileID: 11400000, guid: c889e6078c6a4d247b8b658266c86c00, type: 2}
     currentData: {fileID: 0}
     spellBoosts: []
+  spellMissileIgnoreTagList:
+  - Enemy
   bulletOrigin: {fileID: 5201733939742536638}
   leftSpellLastTime: 2
   rightSpellLastTime: 2
@@ -637,7 +639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _team: 2
   aiUpdateFrequency: 0.2
-  areaScanFrequency: 0
+  areaScanFrequency: 1
   threatDecayOverTime: 8
   threatIncreasePerDmg: 10
   initThreatValue: 100
@@ -666,7 +668,7 @@ MonoBehaviour:
   _isUseAllyDistanceRule: 0
   allyTargets: []
   allyBias: 0
-  _isUseOldMoveRule: 1
+  _isUseOldMoveRule: 0
   oldMoveBias: 0.8
   _isUseRandomMove: 0
   randomMoveBias: 2

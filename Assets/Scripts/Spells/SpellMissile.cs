@@ -7,6 +7,7 @@ using DrunkenDwarves;
 public class SpellMissile : MonoBehaviour
 {
 	private bool _initialized = false;
+	[SerializeField] private string[] bulletIgnoreTagList;
 	private SpellMissileVisuals _visuals;
 	private Spell _spell;
 	private CharacterStats parent = null;
@@ -70,6 +71,14 @@ public class SpellMissile : MonoBehaviour
 		MissileUpdated = spell.currentData.MissileUpdated;
 	}
 
+	public void SetIgnoreTagList(string[] ignoreTags)
+    {
+		string[] list = new string[ignoreTags.Length + bulletIgnoreTagList.Length];
+		bulletIgnoreTagList.CopyTo(list, 0);
+		ignoreTags.CopyTo(list, bulletIgnoreTagList.Length);
+		bulletIgnoreTagList = list;
+    }
+
 	private Vector3 GetSpellRecoil(Spell spell)
     {
 		return new Vector3(UnityEngine.Random.Range(-spell.currentData.recoil, spell.currentData.recoil), 0.0f, 
@@ -111,7 +120,7 @@ public class SpellMissile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-		if (other.transform.root.CompareTag("Bullet"))
+		if (CheckIgnoreTags(other.transform))
 		{
 			return;
 		}
@@ -142,6 +151,16 @@ public class SpellMissile : MonoBehaviour
 		{
 			Dispose();
 		}
+    }
+
+	private bool CheckIgnoreTags(Transform t)
+    {
+		foreach(string s in bulletIgnoreTagList)
+        {
+			if (t.CompareTag(s))
+				return true;
+        }
+		return false;
     }
 
 	private void Dispose()
