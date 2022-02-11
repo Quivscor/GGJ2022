@@ -27,6 +27,7 @@ public class MovementAI : MonoBehaviour
     [SerializeField] private bool _isUseAllyDistanceRule = false;
     public List<Transform> allyTargets;
     [SerializeField, Range(0, 1f)] float allyBias;
+    [SerializeField] Vector2 prefAllyDistance;
 
     public Vector3 MoveDir { get; private set; }
 
@@ -90,6 +91,8 @@ public class MovementAI : MonoBehaviour
 
         //stay away from opponents rule
         GetOpponentsRuleMovement(weightVectors, ref weights);
+        //consider allies rule
+        GetAlliesRuleMovement(weightVectors, ref weights);
         //stay away from arena walls rule
         GetWallsRuleMovement(weightVectors, ref weights);
         //dodge bullets rule
@@ -134,6 +137,11 @@ public class MovementAI : MonoBehaviour
             //vector towards target
             Vector3 unitDistance = t.position - this.transform.position;
 
+            //consider main opponent more than others
+            float opponentBias = enemyBias;
+            if (t == activeTarget)
+                opponentBias = targetBias;
+
             //if something is between objects
             RaycastHit hitinfo;
             if(_isUseWallCancelEnemyDistanceRule)
@@ -149,7 +157,7 @@ public class MovementAI : MonoBehaviour
             {
                 float weightDelta = Vector2.Dot(VectorCast.CastVector3ToVector2(vectors[i]),
                         VectorCast.CastVector3ToVector2(unitDistance.normalized)) * 
-                        (enemyBias + ((1/unitDistance.magnitude) * enemyDistanceFactor));
+                        (opponentBias + ((1/unitDistance.magnitude) * enemyDistanceFactor));
                 //if enemy too far from target, walk up to it
                 if (unitDistance.magnitude > prefEnemyDistance.y)
                 {
@@ -157,6 +165,38 @@ public class MovementAI : MonoBehaviour
                 }
                 //if not, move away from them
                 else if(unitDistance.magnitude < prefEnemyDistance.x)
+                {
+                    weights[i] -= weightDelta;
+                }
+            }
+        }
+    }
+
+    private void GetAlliesRuleMovement(Vector3[] vectors, ref float[] weights)
+    {
+        if (!_isUseAllyDistanceRule)
+            return;
+
+        foreach (Transform t in allyTargets)
+        {
+            if (t == null)
+                continue;
+
+            //vector towards target
+            Vector3 unitDistance = t.position - this.transform.position;
+
+            for (int i = 0; i < weights.Length; i++)
+            {
+                float weightDelta = Vector2.Dot(VectorCast.CastVector3ToVector2(vectors[i]),
+                        VectorCast.CastVector3ToVector2(unitDistance.normalized)) *
+                        allyBias;
+                //if enemy too far from target, walk up to it
+                if (unitDistance.magnitude > prefAllyDistance.y)
+                {
+                    weights[i] += weightDelta;
+                }
+                //if not, move away from them
+                else if (unitDistance.magnitude < prefAllyDistance.x)
                 {
                     weights[i] -= weightDelta;
                 }

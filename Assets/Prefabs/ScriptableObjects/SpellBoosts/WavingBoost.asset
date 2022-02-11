@@ -15,9 +15,12 @@ MonoBehaviour:
   id: 0
   sortingPriority: 0
   tags: []
-  spellName: 
-  description: 
+  spellName: Waves
+  description: Your projectile is drunk. Also deals 10% more dmg
   icon: {fileID: 0}
-  resourceModifier: 0
+  resourceModifier: 0.1
   spellType: 2
-  statsToChange: []
+  statsToChange:
+  - statsType: 2
+    value: 0.1
+    isMultiplicative: 1

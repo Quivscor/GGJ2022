@@ -15,15 +15,15 @@ MonoBehaviour:
   id: 0
   sortingPriority: 0
   tags: []
-  spellName: 
-  description: 
+  spellName: Forbidden circle
+  description: Your bullet has chance to spawn damaging field on impact.
   icon: {fileID: 0}
-  resourceModifier: 0
+  resourceModifier: 0.2
   spellType: 2
   statsToChange: []
   toxicAreaLifetime: 5
   spawnEveryXShot: 5
   currentShots: 0
-  chanceToCreateArea: 0
+  chanceToCreateArea: 30
   chanceToCreateAreaStep: 10
   toxicAreaPrefab: {fileID: 4754349794432600950, guid: b74f0b326d269164780d40908ac00fd8, type: 3}

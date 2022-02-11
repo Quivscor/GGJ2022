@@ -16,9 +16,9 @@ MonoBehaviour:
   sortingPriority: 0
   tags: []
   spellName: Big Chungus
-  description: 
+  description: Your bullets grow and deal 120% more dmg
   icon: {fileID: 0}
-  resourceModifier: 0
+  resourceModifier: 0.3
   spellType: 2
   statsToChange:
   - statsType: 2

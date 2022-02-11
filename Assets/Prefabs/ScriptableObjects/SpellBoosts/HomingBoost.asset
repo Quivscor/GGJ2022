@@ -16,7 +16,7 @@ MonoBehaviour:
   sortingPriority: 0
   tags: []
   spellName: Mage-To-Mage Missile
-  description: 
+  description: Homes on closest target.
   icon: {fileID: 0}
   resourceModifier: 0.2
   spellType: 2

@@ -20,7 +20,7 @@ MonoBehaviour:
   resourceCost: 4
   costModifier: 1
   numberOfBounces: 0
-  bulletLifetime: Infinity
+  bulletLifetime: 60
   bulletSize: 1
   lifeSteal: 0
   isGrowing: 0

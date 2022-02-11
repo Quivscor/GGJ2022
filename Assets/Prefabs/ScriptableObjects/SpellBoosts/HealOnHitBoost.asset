@@ -16,11 +16,11 @@ MonoBehaviour:
   sortingPriority: 0
   tags: []
   spellName: Healing Juice
-  description: 
+  description: Heals you for 25% damage dealt
   icon: {fileID: 0}
   resourceModifier: 0.2
   spellType: 2
   statsToChange:
   - statsType: 8
-    value: 0.2
+    value: 1
     isMultiplicative: 0

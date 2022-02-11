@@ -127,7 +127,12 @@ public class SpellMissile : MonoBehaviour
 
 		HitAnything?.Invoke(new SpellMissileEventData(this.transform, parent));
 
-		if (other.transform.root.TryGetComponent(out CharacterStats targetCharacterStats))
+		//temporary change, needs better way to check if enemy has some protection
+		if (other.transform.CompareTag("Obstacles") || other.transform.CompareTag("EnemyShield"))
+		{
+			Dispose();
+		}
+		else if (other.transform.root.TryGetComponent(out CharacterStats targetCharacterStats))
 		{
 			if (targetCharacterStats == parent && !bounced)
 				return;
@@ -145,10 +150,6 @@ public class SpellMissile : MonoBehaviour
 			//	targeting.UpdateThreat(targeting.GetTargetFromTransform(parent.transform), _spell.currentData.damage);
 			//}
 
-			Dispose();
-		}
-		if (other.transform.CompareTag("Obstacles"))
-		{
 			Dispose();
 		}
     }
