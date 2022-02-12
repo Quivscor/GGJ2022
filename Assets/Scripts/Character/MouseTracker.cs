@@ -20,17 +20,17 @@ public class MouseTracker : MonoBehaviour
 
 	private void Update()
 	{
-		Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+		//Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-		RaycastHit hit;
+		//RaycastHit hit;
 
-		if (Physics.Raycast(inputRay, out hit, Mathf.Infinity, layerMasks))
-		{
-			Vector3 newPosition = hit.point;
-			newPosition.y = 0.0f;
+		//if (Physics.Raycast(inputRay, out hit, Mathf.Infinity, layerMasks))
+		//{
+		//	Vector3 newPosition = hit.point;
+		//	newPosition.y = 0.0f;
 
-			WorldPosition = newPosition;
-			return;
-		}
+		//	WorldPosition = newPosition;
+		//	return;
+		//}
 	}
 }

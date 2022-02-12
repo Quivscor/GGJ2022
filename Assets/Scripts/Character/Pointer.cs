@@ -18,10 +18,10 @@ public class Pointer : MonoBehaviour
 		Cursor.visible = !focus;
 	}
 
-	private void LateUpdate()
-	{
-		this.transform.position = MouseTracker.Instance.WorldPosition;
-	}
+	//private void LateUpdate()
+	//{
+	//	this.transform.position = MouseTracker.Instance.WorldPosition;
+	//}
 
 	private void SwapPointer(SpellType spellType)
 	{
