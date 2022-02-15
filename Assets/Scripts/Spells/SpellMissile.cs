@@ -44,7 +44,7 @@ public class SpellMissile : MonoBehaviour
 
     private void Start()
     {
-		enemyCheckTimer = new Timer(enemyCheckFrequency, () => isEnemyCheckReady = true);
+		//enemyCheckTimer = new Timer(enemyCheckFrequency, () => isEnemyCheckReady = true);
 	}
 
     public void Initialize(CharacterStats owner, Spell spell, Vector3 direction)
@@ -102,20 +102,15 @@ public class SpellMissile : MonoBehaviour
 			return;
 
 		float time = Time.deltaTime;
-		enemyCheckTimer.Update(time);
 		lifetimeTimer?.Update(time); //if spell.bulletLifetime = Infinity -> ignore that
 
 		lastVelocity = rb.velocity;
 
-		if(isEnemyCheckReady)
-        {
-			MissileUpdated?.Invoke(this, new SpellMissileEventData(parent, _spell.currentData));
-			enemyCheckTimer.RestartTimer();
-			isEnemyCheckReady = false;
-		}
+        MissileUpdated?.Invoke(this, new SpellMissileEventData(parent, _spell.currentData));
+        isEnemyCheckReady = false;
 
-		//update time at the end because of event
-		_lifetime += time;
+        //update time at the end because of event
+        _lifetime += time;
 	}
 
     private void OnTriggerEnter(Collider other)

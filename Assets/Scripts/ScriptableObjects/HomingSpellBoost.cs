@@ -29,12 +29,11 @@ public class HomingSpellBoost : BasicSpellBoost
 				if (stats == data.ownerStats)
 					continue;
 
-				float mag = newVelocity.magnitude;
 				Vector3 dir = Vector3.Slerp(newVelocity.normalized, (stats.transform.position - missile.transform.position).normalized, data.spell.homingForce);
 				//don't touch Y value
 				dir.y = missile.Rigidbody.velocity.y;
 
-				newVelocity = dir * mag;
+				newVelocity = dir * data.spell.spellSpeed;
 			}
 		}
 		//curve a little in that direction
