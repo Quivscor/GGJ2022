@@ -31,6 +31,7 @@ public class SpellMissile : MonoBehaviour
 	public event Action<SpellMissileEventData> HitCharacter = null;
 	public event Action<SpellMissileEventData> HitAnything = null;
 	public event Action<SpellMissile, SpellMissileEventData> MissileUpdated = null;
+	public event Action<SpellMissile, SpellMissileEventData> MissileInitialized = null;
 	private Rigidbody rb;
 	public Rigidbody Rigidbody => rb;
 	private Vector3 lastVelocity;
@@ -58,7 +59,10 @@ public class SpellMissile : MonoBehaviour
 			lifetimeTimer = new Timer(spell.currentData.bulletLifetime, Dispose);
 
 		Vector3 recoil = GetSpellRecoil(spell);
-		rb.velocity = (direction + recoil) * spell.currentData.spellSpeed;
+		rb.velocity = (direction + recoil).normalized;
+		//make sure to return with normalized vector from this event
+		MissileInitialized?.Invoke(this, new SpellMissileEventData(parent, _spell.currentData));
+		rb.velocity *= spell.currentData.spellSpeed;
 		RecalculateMissileVectors();
 
 		_initialized = true;
@@ -69,6 +73,7 @@ public class SpellMissile : MonoBehaviour
 		HitCharacter = spell.currentData.MissileHitCharacter;
 		HitAnything = spell.currentData.MissileHitAnything;
 		MissileUpdated = spell.currentData.MissileUpdated;
+		MissileInitialized = spell.currentData.MissileInitialized;
 	}
 
 	public void SetIgnoreTagList(string[] ignoreTags)

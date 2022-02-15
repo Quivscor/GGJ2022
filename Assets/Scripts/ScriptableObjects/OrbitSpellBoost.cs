@@ -16,6 +16,19 @@ public class OrbitSpellBoost : BasicSpellBoost
 		base.ProcessSpellBoost(spell, stats);
 
 		spell.MissileUpdated += OnMissileUpdated;
+		spell.MissileInitialized += OnMissileStart;
+	}
+
+	//Send missile to the side, either left or right
+	private void OnMissileStart(SpellMissile missile, SpellMissileEventData data)
+    {
+		Vector3 direction = missile.Rigidbody.velocity.normalized;
+		Vector3 right = -Vector3.Cross(direction, Vector3.up);
+
+		if (Random.Range(0, 1) > .5f)
+			right *= -1;
+
+		missile.Rigidbody.velocity = (direction + right).normalized;
 	}
 
 	private void OnMissileUpdated(SpellMissile missile, SpellMissileEventData data)

@@ -4,6 +4,7 @@ using UnityEngine;
 [System.Serializable, CreateAssetMenu(fileName = "Spell", menuName = "ScriptableObjects/Spell")]
 public class SpellData : ScriptableObject
 {
+    public SpellcastMode castMode = SpellcastMode.UNDEFINED;
     public int numberOfBullets = 1;
     public float recoil = 0.05f;
 
@@ -36,4 +37,5 @@ public class SpellData : ScriptableObject
     public Action<SpellMissileEventData> MissileHitCharacter = null;
     public Action<SpellMissileEventData> MissileHitAnything = null;
     public Action<SpellMissile, SpellMissileEventData> MissileUpdated = null;
+    public Action<SpellMissile, SpellMissileEventData> MissileInitialized = null;
 }
