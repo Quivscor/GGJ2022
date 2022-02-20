@@ -7,7 +7,7 @@ using DrunkenDwarves;
 public class SideEmitterBoost : BasicSpellBoost
 {
 	public float timeBetweenFiring = .5f;
-	public float projectileCount = 0;
+	public int projectileCount = 0;
 
 	public override void ProcessSpellBoost(SpellData spell, CharacterStats stats)
 	{
