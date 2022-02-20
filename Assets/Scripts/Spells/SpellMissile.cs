@@ -8,9 +8,12 @@ public class SpellMissile : MonoBehaviour
 {
 	private bool _initialized = false;
 	[SerializeField] private string[] bulletIgnoreTagList;
+	public string[] BulletIgnoreTagList => bulletIgnoreTagList;
 	private SpellMissileVisuals _visuals;
 	private Spell _spell;
+	public Spell Spell => _spell;
 	private CharacterStats parent = null;
+	public CharacterStats Parent => parent;
 
 	private Timer enemyCheckTimer;
 	[SerializeField] private float enemyCheckFrequency;
@@ -74,6 +77,14 @@ public class SpellMissile : MonoBehaviour
 		HitAnything = spell.currentData.MissileHitAnything;
 		MissileUpdated = spell.currentData.MissileUpdated;
 		MissileInitialized = spell.currentData.MissileInitialized;
+	}
+
+	public void ResetEvents()
+	{
+		HitCharacter = null;
+		HitAnything = null;
+		MissileUpdated = null;
+		MissileInitialized = null;
 	}
 
 	public void SetIgnoreTagList(string[] ignoreTags)

@@ -17,15 +17,10 @@ public class Countdown : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void Start()
+    public void StartCountdown()
     {
         currentTime = countFrom;
         StartCountdown();
-    }
-
-    public void StartCountdown()
-    {
-        
         StartCoroutine(Counting());
     }
 

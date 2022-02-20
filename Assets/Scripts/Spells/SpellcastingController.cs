@@ -128,8 +128,10 @@ public class SpellcastingController : MonoBehaviour
         for(int i = 0; i < spell.currentData.numberOfBullets; i++)
         {
             var firedProjectile = GameObject.Instantiate(bullet, bulletOrigin.transform.position, Quaternion.identity);
-            firedProjectile.Initialize(characterStats, spell, CalculateBulletDirection(spell, i));
+            //first subscribe
             firedProjectile.SubscribeToEvents(spell);
+            //then call initialize (event MissileInitialized)
+            firedProjectile.Initialize(characterStats, spell, CalculateBulletDirection(spell, i));
             firedProjectile.SetIgnoreTagList(spellMissileIgnoreTagList);
             ProjectileFired?.Invoke();
         }
