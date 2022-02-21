@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efeb255792b4f1b4c9ab8ce77b0407a2, type: 3}
   m_Name: RightSpell
   m_EditorClassIdentifier: 
+  castMode: 0
   numberOfBullets: 1
   recoil: 0
   fireRate: 1
@@ -19,7 +20,7 @@ MonoBehaviour:
   damage: 15
   resourceCost: 5
   costModifier: 1
-  numberOfBounces: 0
+  numberOfBounces: 1
   bulletLifetime: 60
   bulletSize: 1
   lifeSteal: 0

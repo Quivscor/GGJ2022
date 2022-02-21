@@ -28,8 +28,8 @@ public class SpellMissile : MonoBehaviour
 	private Vector3 _right;
 	public Vector3 Right => _right;
 
-	private int bouncesLeft = 0;
-	private bool bounced = false;
+	private int _bouncesLeft = 0;
+	private bool _bounced = false;
 
 	public event Action<SpellMissileEventData> HitCharacter = null;
 	public event Action<SpellMissileEventData> HitAnything = null;
@@ -57,6 +57,7 @@ public class SpellMissile : MonoBehaviour
 
 		parent = owner;
 		_spell = spell;
+		_bouncesLeft = spell.currentData.numberOfBounces;
 
 		if (spell.currentData.bulletLifetime != Mathf.Infinity)
 			lifetimeTimer = new Timer(spell.currentData.bulletLifetime, Dispose);
@@ -139,14 +140,19 @@ public class SpellMissile : MonoBehaviour
 		HitAnything?.Invoke(new SpellMissileEventData(this.transform, parent));
 
 		//temporary change, needs better way to check if enemy has some protection
-		if (other.transform.CompareTag("Obstacles") || other.transform.CompareTag("EnemyShield"))
+		if (other.transform.CompareTag("EnemyShield"))
 		{
 			Dispose();
 		}
 		else if (other.transform.root.TryGetComponent(out CharacterStats targetCharacterStats))
 		{
-			if (targetCharacterStats == parent && !bounced)
+			Debug.Log(_bounced);
+			if (targetCharacterStats == parent && !_bounced)
+			{
+				Debug.Log(_bounced);
 				return;
+
+			}
 
 			// This should be handled by whatever is receiving damage, through a buff or resistance of sorts
 			//if (!other.transform.CompareTag("Player") && !parent.CompareTag("Player"))
@@ -165,7 +171,25 @@ public class SpellMissile : MonoBehaviour
 		}
     }
 
-	private bool CheckIgnoreTags(Transform t)
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!collision.transform.CompareTag("Obstacles"))
+            return;
+
+        if (_bouncesLeft > 0)
+        {
+            _bounced = true;
+            var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
+            GetComponent<Rigidbody>().velocity = direction * Mathf.Max(lastVelocity.magnitude, 1f);
+            _bouncesLeft--;
+        }
+        else
+        {
+            Dispose();
+        }
+
+    }
+    private bool CheckIgnoreTags(Transform t)
     {
 		foreach(string s in bulletIgnoreTagList)
         {
