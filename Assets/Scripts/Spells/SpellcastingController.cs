@@ -18,6 +18,7 @@ public class SpellcastingController : MonoBehaviour
     private Spell rightSpell;
     public Spell RightSpell => rightSpell;
     [SerializeField] private string[] spellMissileIgnoreTagList;
+    [SerializeField] private string[] spellMissileBounceTagList;
     
     //[SerializeField] private Animator animator = null;
     [Space(10)]
@@ -133,6 +134,7 @@ public class SpellcastingController : MonoBehaviour
             //then call initialize (event MissileInitialized)
             firedProjectile.Initialize(characterStats, spell, CalculateBulletDirection(spell, i));
             firedProjectile.SetIgnoreTagList(spellMissileIgnoreTagList);
+            firedProjectile.SetBounceTagList(spellMissileBounceTagList);
             ProjectileFired?.Invoke();
         }
 

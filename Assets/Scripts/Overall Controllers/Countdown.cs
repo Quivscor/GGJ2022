@@ -20,7 +20,6 @@ public class Countdown : MonoBehaviour
     public void StartCountdown()
     {
         currentTime = countFrom;
-        StartCountdown();
         StartCoroutine(Counting());
     }
 

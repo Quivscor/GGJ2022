@@ -9,6 +9,8 @@ public class SpellMissile : MonoBehaviour
 	private bool _initialized = false;
 	[SerializeField] private string[] bulletIgnoreTagList;
 	public string[] BulletIgnoreTagList => bulletIgnoreTagList;
+	[SerializeField] private string[] bulletBounceTagList;
+	public string[] BulletBounceTagList => bulletBounceTagList;
 	private SpellMissileVisuals _visuals;
 	private Spell _spell;
 	public Spell Spell => _spell;
@@ -39,16 +41,26 @@ public class SpellMissile : MonoBehaviour
 	public Rigidbody Rigidbody => rb;
 	private Vector3 lastVelocity;
 	public Vector3 LastFrameVelocity => lastVelocity;
+	private List<Collider> _ignoredColliders;
+	private Collider _collider;
 
     private void Awake()
     {
 		_visuals = GetComponent<SpellMissileVisuals>();
 		rb = GetComponent<Rigidbody>();
+
+		//if bullet has more than non trigger collider this will break
+		Collider[] colliders = GetComponentsInChildren<Collider>();
+		foreach(Collider col in colliders)
+        {
+			if (!col.isTrigger)
+				_collider = col;
+        }
 	}
 
     private void Start()
     {
-		//enemyCheckTimer = new Timer(enemyCheckFrequency, () => isEnemyCheckReady = true);
+		_ignoredColliders = new List<Collider>();
 	}
 
     public void Initialize(CharacterStats owner, Spell spell, Vector3 direction)
@@ -90,11 +102,21 @@ public class SpellMissile : MonoBehaviour
 
 	public void SetIgnoreTagList(string[] ignoreTags)
     {
-		string[] list = new string[ignoreTags.Length + bulletIgnoreTagList.Length];
-		bulletIgnoreTagList.CopyTo(list, 0);
-		ignoreTags.CopyTo(list, bulletIgnoreTagList.Length);
-		bulletIgnoreTagList = list;
+		SetTagList(ref bulletIgnoreTagList, ignoreTags);
     }
+
+	public void SetBounceTagList(string[] ignoreTags)
+    {
+		SetTagList(ref bulletBounceTagList, ignoreTags);
+    }
+
+	private void SetTagList(ref string[] listToSet, string[] ignoreTags)
+    {
+		string[] list = new string[ignoreTags.Length + listToSet.Length];
+		listToSet.CopyTo(list, 0);
+		ignoreTags.CopyTo(list, listToSet.Length);
+		listToSet = list;
+	}
 
 	private Vector3 GetSpellRecoil(Spell spell)
     {
@@ -132,18 +154,15 @@ public class SpellMissile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-		if (CheckIgnoreTags(other.transform))
+		if (CheckBulletTags(bulletIgnoreTagList, other.transform))
 		{
 			return;
 		}
 
 		HitAnything?.Invoke(new SpellMissileEventData(this.transform, parent));
 
-		//temporary change, needs better way to check if enemy has some protection
-		if (other.transform.CompareTag("EnemyShield"))
-		{
-			Dispose();
-		}
+		if (CheckBulletTags(bulletBounceTagList, other.transform))
+			return;
 		else if (other.transform.root.TryGetComponent(out CharacterStats targetCharacterStats))
 		{
 			Debug.Log(_bounced);
@@ -173,8 +192,15 @@ public class SpellMissile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!collision.transform.CompareTag("Obstacles"))
-            return;
+        if (!CheckBulletTags(bulletBounceTagList, collision.collider.transform))
+        {
+			if (!_ignoredColliders.Contains(collision.collider))
+            {
+				_ignoredColliders.Add(collision.collider);
+				Physics.IgnoreCollision(_collider, collision.collider, true);
+			}
+			return;
+		}
 
         if (_bouncesLeft > 0)
         {
@@ -189,9 +215,9 @@ public class SpellMissile : MonoBehaviour
         }
 
     }
-    private bool CheckIgnoreTags(Transform t)
+    private bool CheckBulletTags(string[] tagList, Transform t)
     {
-		foreach(string s in bulletIgnoreTagList)
+		foreach(string s in tagList)
         {
 			if (t.CompareTag(s))
 				return true;

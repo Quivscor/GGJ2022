@@ -2082,6 +2082,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db07d94b1795e049ae61b67c8e628c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &756985196 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1111608328, guid: 2242a9fac35b1654d9dae86bf159fcc1, type: 3}
+  m_PrefabInstance: {fileID: 940924787}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 587af4df30436714f8daca9d5ebcb025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &762666388
 GameObject:
   m_ObjectHideFlags: 0
@@ -2868,7 +2879,7 @@ MonoBehaviour:
   onMatchPrestarted:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2095188134}
+      - m_Target: {fileID: 756985196}
         m_TargetAssemblyTypeName: Countdown, Assembly-CSharp
         m_MethodName: StartCountdown
         m_Mode: 1
@@ -4145,9 +4156,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1418839337}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: leftSpell.spellBoosts.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: rightSpell.spellBoosts.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: f7b388d5909f8c2428b208de44f8005e, type: 2}
+      objectReference: {fileID: 11400000, guid: b46b2229beedbd44ca0397dfe13dc2c8, type: 2}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.data[2]
       value: 
@@ -4155,19 +4174,27 @@ PrefabInstance:
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: d433d38069546f340981961df4ce22a3, type: 2}
+      objectReference: {fileID: 11400000, guid: f7b388d5909f8c2428b208de44f8005e, type: 2}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.data[4]
       value: 
-      objectReference: {fileID: 11400000, guid: b8872d3db21d33b4588b49b4c0111a33, type: 2}
+      objectReference: {fileID: 11400000, guid: f7b388d5909f8c2428b208de44f8005e, type: 2}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.data[5]
       value: 
       objectReference: {fileID: 11400000, guid: b8872d3db21d33b4588b49b4c0111a33, type: 2}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: rightSpell.spellBoosts.Array.data[0]
+      propertyPath: leftSpell.spellBoosts.Array.data[6]
       value: 
       objectReference: {fileID: 11400000, guid: d433d38069546f340981961df4ce22a3, type: 2}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: leftSpell.spellBoosts.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: d433d38069546f340981961df4ce22a3, type: 2}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: rightSpell.spellBoosts.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 25547b1f4491aeb48ba1e4e6f7eb6b9b, type: 2}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: rightSpell.spellBoosts.Array.data[1]
       value: 
@@ -4176,6 +4203,18 @@ PrefabInstance:
       propertyPath: rightSpell.spellBoosts.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: b8872d3db21d33b4588b49b4c0111a33, type: 2}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: spellMissileBounceTagList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: spellMissileBounceTagList.Array.data[0]
+      value: EnemyShield
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: spellMissileBounceTagList.Array.data[1]
+      value: EnemyShield
+      objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251431, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: m_Name
       value: Player
@@ -6162,17 +6201,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2097090013581725314, guid: c98d12b42b6de9f41859b15c954f0bd7, type: 3}
   m_PrefabInstance: {fileID: 2088938831}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2095188134 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1111608328, guid: 2242a9fac35b1654d9dae86bf159fcc1, type: 3}
-  m_PrefabInstance: {fileID: 940924787}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 587af4df30436714f8daca9d5ebcb025, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2109293517
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -113,6 +113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletIgnoreTagList:
   - Bullet
+  bulletBounceTagList:
+  - Obstacles
   enemyCheckFrequency: 0
 --- !u!114 &3333381492872974811
 MonoBehaviour:

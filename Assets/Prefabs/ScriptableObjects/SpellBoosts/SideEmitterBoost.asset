@@ -21,4 +21,5 @@ MonoBehaviour:
   resourceModifier: 0
   spellType: 2
   statsToChange: []
-  timeBetweenFiring: 0.1
+  timeBetweenFiring: 0.5
+  projectileCount: 1

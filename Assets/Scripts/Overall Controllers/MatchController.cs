@@ -30,7 +30,7 @@ public class MatchController : MonoBehaviour
         else
             Destroy(this.gameObject);
 
-        State = initialStartState;
+        ChangeMatchState(initialStartState);
     }
 
     public void ChangeMatchState(MatchState state)
