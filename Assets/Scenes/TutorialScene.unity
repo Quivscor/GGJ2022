@@ -3156,31 +3156,29 @@ MonoBehaviour:
   dialogueSequences:
   - Welcome apprentice, approach me using <b>WASD or Arrow Keys</b> and press E to
     continue.
-  - You are an adept of <color=#64D6FF>Harmony</color> and <color=#C33CB5>Chaos</color>.
-    Today is a big day! Out of the group of adepts, only one will be ascended.
-  - First, you should remind yourself how to cast spells. But if you feel ready,
-    feel free to leave through the door behind me.
-  - With <b>spacebar/left shift/right ctrl</b>, you can quickly avoid danger with
-    Dash.
+  - Today is a big day! Out of the group of adepts of <color=#64D6FF>Harmony</color>
+    and <color=#C33CB5>Chaos</color>, only one will be ascended.
+  - First, you should remind yourself how to cast spells.
   - With your left click, you wield the powers of <color=#64D6FF>Harmony</color>.
-    Using it grants you special effects, such as recovering lost health on enemy
-    hit.
+    This power is about buffing yourself and debuffing your enemies.
   - With your right click, you wield the powers of <color=#C33CB5>Chaos</color>.
     Using it brings unpredictable effects to the battlefield and packs quite a punch.
   - Both of them require energy to be used. Spending <color=#64D6FF>Harmony energy</color> 
     increases <color=#C33CB5>Chaos energy</color>  and vice versa. Make sure to use
     them both!
-  - If you happen to win a round, you can make progress in wielding one of the powers.
-    Try combining different effects to make your power unique and strong.
-  - 'Your opponents will grow in power in the same manner, be mindful of that!
+  - With <b>spacebar/left shift</b>, you can quickly avoid danger with Dash.
+  - 'If you win a round, you can upgrade one of your <b> <color=#64D6FF>pow</color><color=#C33CB5>ers</color></b>.
+    Try combining different effects to make your power unique and strong. '
+  - 'Your opponents will grow in power too! Be mindful of that!
 
-    If
-    you  will stay on your feet for 5 rounds, the council will choose you.'
-  - You can try using your powers here. When you are done, proceed through the passage
-    behind me. Good luck!
+    If you  will
+    stay on your feet for <b>5 rounds</b>, the council will choose you.'
+  - You can try using your powers here. When you are done, proceed <b>through the
+    passage behind me</b>. <b>Good luck!<b>
   currentSequence: 0
   hud: {fileID: 487407281}
   text: {fileID: 487407280}
+  numberOfHints: {fileID: 1526666892}
 --- !u!114 &1464016495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3397,7 +3395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251436, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251436, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3550,6 +3548,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a3951b1eb909a8d40a035850caaa5e71, type: 3}
   m_PrefabInstance: {fileID: 1526287220}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1526666892 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5606751564392062463, guid: 5458298f1fb73b24d968be3d3ba8d8f2, type: 3}
+  m_PrefabInstance: {fileID: 487407278}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1595641134
 PrefabInstance:
   m_ObjectHideFlags: 0

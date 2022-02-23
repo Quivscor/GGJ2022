@@ -121,6 +121,7 @@ public class CharacterHolder : MonoBehaviour
         {
             if(t != _player)
             {
+                t.Immortality = false;
                 t.Resurect();
                 t.GetComponent<Collider>().isTrigger = false;
                 t.GetComponent<TargetingAI>().ClearEnemyTargets();

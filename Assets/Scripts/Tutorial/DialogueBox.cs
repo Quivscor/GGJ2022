@@ -10,25 +10,40 @@ public class DialogueBox : MonoBehaviour
 
     [SerializeField] GameObject hud;
     [SerializeField] TMProText text;
+    [SerializeField] TMProText numberOfHints;
 
     private void Start()
     {
-        ShowSequence(0);
+        currentSequence = -1;
+        NextSequence(); 
     }
 
-    public void ShowSequence(int sequence)
+    public void NextSequence()
     {
-        if (currentSequence > dialogueSequences.Length - 1)
+        if (currentSequence + 1 > dialogueSequences.Length - 1)
         {
             HideHud();
             return;
         }
 
-        text.text = dialogueSequences[sequence];
-
         currentSequence++;
+        text.text = dialogueSequences[currentSequence];
+        numberOfHints.text = currentSequence + " / " + dialogueSequences.Length;
+        
     }
 
+    public void PreviousSequence()
+    {
+        if (currentSequence - 1 < 0)
+        {
+            return;
+        }
+
+        currentSequence--;
+        text.text = dialogueSequences[currentSequence];
+        numberOfHints.text = currentSequence + " / " + dialogueSequences.Length;
+
+    }
     public void HideHud()
     {
         hud.SetActive(false);

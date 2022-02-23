@@ -108,6 +108,17 @@ public class HudController : MonoBehaviour
         UpdateStatsInfo();
     }
 
+    public void ToggleStatsInfo(bool toggle)
+    {
+        statsOpen = toggle;
+        if (statsOpen)
+            statsInfoAnimator.SetTrigger("Show");
+        else
+            statsInfoAnimator.SetTrigger("Hide");
+
+        UpdateStatsInfo();
+    }
+
     public void UpdateStatsInfo()
     {
 

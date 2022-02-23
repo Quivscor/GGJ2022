@@ -13,7 +13,7 @@ public class DialogueDetector : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             isInRange = true;
-            continuePopup.SetActive(true);
+            //continuePopup.SetActive(true);
         }
     }
 
@@ -22,7 +22,7 @@ public class DialogueDetector : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             isInRange = false;
-            continuePopup.SetActive(false);
+            //continuePopup.SetActive(false);
         } 
     }
 
@@ -30,7 +30,12 @@ public class DialogueDetector : MonoBehaviour
     {
         if(isInRange && Input.GetKeyDown(KeyCode.E))
         {
-            dialogueBox.ShowSequence(dialogueBox.currentSequence);
+            dialogueBox.NextSequence();
+        }
+
+        if (isInRange && Input.GetKeyDown(KeyCode.Q))
+        {
+            dialogueBox.PreviousSequence();
         }
     }
 }

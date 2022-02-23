@@ -118,12 +118,15 @@ public class SpellMissile : MonoBehaviour
 			if (targetCharacterStats == parent && !bounced)
 				return;
 
+			if (targetCharacterStats.isDead)
+				return;
+
 			if (!other.transform.CompareTag("Player") && !parent.CompareTag("Player"))
 				damageToApply *= 0.5f;
 
 			targetCharacterStats.DealDamge(damageToApply);
 			HitCharacter?.Invoke(parent, targetCharacterStats, damageToApply);
-			if (lifeSteal > 0 && !targetCharacterStats.isDead)
+			if (lifeSteal > 0)
 			{
 				parent.Heal(damageToApply * lifeSteal);
 				parent.PlayHealSound();
@@ -142,11 +145,7 @@ public class SpellMissile : MonoBehaviour
 			CreateHitImpact();
 			Destroy(this.gameObject);
 		}
-		if (other.transform.CompareTag("Obstacles"))
-		{
-			CreateHitImpact();
-			Destroy(this.gameObject);
-		}
+
 
 
 		//if (bouncesLeft > 0 && other.transform.CompareTag("Obstacles"))
@@ -168,4 +167,24 @@ public class SpellMissile : MonoBehaviour
   //          Destroy(this.gameObject);
   //      }
     }
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		if (!collision.transform.CompareTag("Obstacles"))
+			return;
+
+		if (bouncesLeft > 0)
+		{
+			bounced = true;
+			var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
+			GetComponent<Rigidbody>().velocity = direction * Mathf.Max(lastVelocity.magnitude, 1f);
+			bouncesLeft--;
+		}
+		else
+		{
+			CreateHitImpact();
+			Destroy(this.gameObject);
+		}
+
+	}
 }

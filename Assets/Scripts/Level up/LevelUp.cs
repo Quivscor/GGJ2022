@@ -53,6 +53,11 @@ public class LevelUp : MonoBehaviour
     {
         choosingPhaze = toggle;
         choosingPlace?.SetActive(toggle);
+        if(toggle)
+        {
+            playerReference.GetComponent<CharacterStats>().Resurect();
+            HudController.Instance.ToggleStatsInfo(true);
+        }
     }
 
     public void ResourceWasChosen(SpellType spellType)
@@ -104,6 +109,7 @@ public class LevelUp : MonoBehaviour
 
         HudController.Instance.TurnOffBotsUpgradeInfo();
         HudController.Instance.ToggleRoundEnded(false);
+        HudController.Instance.ToggleStatsInfo(false);
     }
 
     public void ShowMonumentInfo(int monumentNumber)
