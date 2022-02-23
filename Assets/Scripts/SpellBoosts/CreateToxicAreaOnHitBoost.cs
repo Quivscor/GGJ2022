@@ -7,10 +7,7 @@ using Random = UnityEngine.Random;
 public class CreateToxicAreaOnHitBoost : SpellBoost
 {
 	private float toxicAreaLifetime = 5f;
-	private int spawnEveryXShot = 5;
-	private int currentShots = 0;
 	private float chanceToCreateArea = 0f;
-	private float chanceToCreateAreaStep = 10f;
 
 
 	private ToxicArea toxicAreaPrefab = null;
@@ -28,16 +25,14 @@ public class CreateToxicAreaOnHitBoost : SpellBoost
 	{
 		spell.MissileHitAnything += CreateToxicAreaInRange;
 		spell.ChangeCostModifier(costModifier);
-		chanceToCreateArea += chanceToCreateAreaStep;
-		spell.ChanceToCreateForbiddenArea = chanceToCreateArea;
+		chanceToCreateArea += 10f;
+		spell.ChanceToCreateForbiddenArea += 10f;
 	}
 
 	private void CreateToxicAreaInRange(Transform missilePosition, CharacterStats owner)
 	{
 		if (Random.Range(0,100) < chanceToCreateArea)
 		{
-			currentShots = 0;
-
 			if (toxicAreaPrefab == null)
 			{
 				Debug.LogError("Toxic area prefab reference is null!");

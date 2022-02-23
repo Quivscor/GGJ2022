@@ -90,7 +90,6 @@ public class LevelUp : MonoBehaviour
     {
         if (perkBought)
             return;
-
         perkBought = true;
         if (upgradeSource != null)
             upgradeSource.Play();

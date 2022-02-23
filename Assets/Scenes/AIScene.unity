@@ -3341,6 +3341,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 306833284, guid: 2242a9fac35b1654d9dae86bf159fcc1, type: 3}
+      propertyPath: m_Name
+      value: Buttonleave
+      objectReference: {fileID: 0}
+    - target: {fileID: 306833286, guid: 2242a9fac35b1654d9dae86bf159fcc1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 961678139}
+    - target: {fileID: 306833286, guid: 2242a9fac35b1654d9dae86bf159fcc1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Quit
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092133212, guid: 2242a9fac35b1654d9dae86bf159fcc1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 961678139}
+    - target: {fileID: 1092133212, guid: 2242a9fac35b1654d9dae86bf159fcc1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Continue
+      objectReference: {fileID: 0}
     - target: {fileID: 1365310722922685239, guid: 2242a9fac35b1654d9dae86bf159fcc1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

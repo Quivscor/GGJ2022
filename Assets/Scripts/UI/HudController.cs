@@ -166,10 +166,10 @@ public class HudController : MonoBehaviour
             result += "Attacks heal you by " + spell.LifeSteal * 100f + "% damage dealt\n";
         if (spell.ChanceToHomingMissile > 0)
             result += spell.ChanceToHomingMissile + "% chance for homing missile\n";
-        if (spell.ChanceToCreateForbiddenArea> 0)
+        if (spell.ChanceToCreateForbiddenArea > 0)
             result += spell.ChanceToCreateForbiddenArea + "% chance to create forbidden area\n";
         if (spell.MaxScale > 1)
-            result += "Attacks grow in air up to " + 1 + spell.MaxScale * 10f + "% in scale\n";
+            result += "Attacks grow in air up to " + spell.MaxScale * 100f + "% in scale\n";
         
         return result;
     }

@@ -16,7 +16,7 @@ public class GrowingBoost : SpellBoost
     {
         spell.IsGrowing = true;
         spell.GrowingForce += .0125f;
-        spell.MaxScale += 1f;
+        spell.MaxScale += 0.35f;
         spell.ChangeCostModifier(costModifier);
         spell.Damage += spell.Damage * 0.2f;
     }
