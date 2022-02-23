@@ -18,6 +18,7 @@ public class CharacterMovement : MonoBehaviour
 	private int currentDashes = 0;
 	public event Action<int, float> DashValuesChanged = null;
 	public event Action<float, float> MovementProcessed = null;
+	public event Action<SpellcastEventData> DashProcessed = null;
 	[SerializeField] private ParticleSystem slowParticles = null;
 	
 	[Header("References:")]
@@ -113,6 +114,7 @@ public class CharacterMovement : MonoBehaviour
 
 		dashVisualEffects?.ProcessDash();
 		MovementProcessed?.Invoke(vertical, horizontal);
+		DashProcessed?.Invoke(new SpellcastEventData());
 		currentDashes--;
 		DashValuesChanged?.Invoke(currentDashes, (dashCooldown - dashCooldownCurrentTime) / dashCooldown);
 	}

@@ -16,12 +16,13 @@ public class HealOnHitSpellBoost : BasicSpellBoost
     {
 		if (data.spell.lifeSteal > 0 && !data.targetStats.isDead)
 		{
-			data.ownerStats.Heal(data.spell.damage * data.spell.lifeSteal);
+			data.ownerStats?.Heal(data.spell.damage * data.spell.lifeSteal);
 			//weird but ok
-			data.ownerStats.PlayHealSound();
+			data.ownerStats?.PlayHealSound();
 			GameObject spawnedParticles = null;
 
-			spawnedParticles = MonoBehaviour.Instantiate(Resources.Load<GameObject>("HealingParticles"), data.ownerTransform);
+			if(data.ownerStats != null)
+				spawnedParticles = MonoBehaviour.Instantiate(Resources.Load<GameObject>("HealingParticles"), data.ownerTransform);
 
 			MonoBehaviour.Destroy(spawnedParticles, 1.5f);
 		}

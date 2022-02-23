@@ -18,12 +18,15 @@ public class SpellcastingController : MonoBehaviour
     private Spell rightSpell;
     public Spell RightSpell => rightSpell;
     [SerializeField] private string[] spellMissileIgnoreTagList;
+    public string[] SpellIgnoreTagList => spellMissileIgnoreTagList;
     [SerializeField] private string[] spellMissileBounceTagList;
-    
+    public string[] SpellBounceTagList => spellMissileBounceTagList;
+
     //[SerializeField] private Animator animator = null;
     [Space(10)]
     [SerializeField] private Transform bulletOrigin = null;
     private CharacterStats characterStats;
+    private CharacterMovement characterMovement;
 
     private SpellType lastSpellType = SpellType.Left;
     #region Events
@@ -50,10 +53,16 @@ public class SpellcastingController : MonoBehaviour
     private void Awake()
 	{
         characterStats = GetComponent<CharacterStats>();
+        characterMovement = GetComponent<CharacterMovement>();
 
         //allows for setting boosts straight from inspector
-        leftSpell.RecalculateSpellBoosts(characterStats);
-        rightSpell.RecalculateSpellBoosts(characterStats);
+        if(leftSpell.IsHasBaseData())
+            leftSpell.RecalculateSpellBoosts(characterStats);
+        if(rightSpell.IsHasBaseData())
+            rightSpell.RecalculateSpellBoosts(characterStats);
+
+        if(characterMovement != null)
+            characterMovement.DashProcessed += ProcessDashSpellEffect;
     }
 
     private void Start()
@@ -78,6 +87,12 @@ public class SpellcastingController : MonoBehaviour
         //timers for cooldowns on left and right spell
         leftSpellCooldownTimer.Update(time);
         rightSpellCooldownTimer.Update(time);
+    }
+
+    public void OverrideSpellTagLists(string[] ignoreList, string[] bounceList)
+    {
+        spellMissileIgnoreTagList = ignoreList;
+        spellMissileBounceTagList = bounceList;
     }
 
 	public void ProcessSpell(SpellType type)
@@ -139,6 +154,12 @@ public class SpellcastingController : MonoBehaviour
         }
 
         SpellFired?.Invoke(new SpellcastEventData(spell.spellType));
+    }
+
+    private void ProcessDashSpellEffect(SpellcastEventData data)
+    {
+        leftSpell.currentData.DashProcessed?.Invoke(new SpellMissileEventData(this.transform));
+        rightSpell.currentData.DashProcessed?.Invoke(new SpellMissileEventData(this.transform));
     }
 
     private Vector3 CalculateBulletDirection(Spell spell, int index)

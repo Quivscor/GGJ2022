@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9efb5189ef5aea4a81abd6e78516b7b, type: 3}
+  m_Name: DashTurretBoost
+  m_EditorClassIdentifier: 
+  id: 0
+  sortingPriority: 0
+  tags: []
+  spellName: Clone-no-jutsu
+  description: Leave a stationary turret behind. It shoots the same missiles as you
+    do.
+  icon: {fileID: 0}
+  resourceModifier: 0
+  spellType: 2
+  statsToChange: []
+  dashObject: {fileID: 6452544353917654614, guid: a326a4e785c83d44bb9e1e09dc59bae9, type: 3}

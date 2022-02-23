@@ -38,4 +38,5 @@ public class SpellData : ScriptableObject
     public Action<SpellMissileEventData> MissileHitAnything = null;
     public Action<SpellMissile, SpellMissileEventData> MissileUpdated = null;
     public Action<SpellMissile, SpellMissileEventData> MissileInitialized = null;
+    public Action<SpellMissileEventData> DashProcessed = null;
 }

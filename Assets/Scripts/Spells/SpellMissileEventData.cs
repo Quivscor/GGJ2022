@@ -3,7 +3,10 @@
 public class SpellMissileEventData
 {
     public SpellMissileEventData() { }
-
+    public SpellMissileEventData(Transform ownerTransform)
+    {
+        this.ownerTransform = ownerTransform;
+    }
     public SpellMissileEventData(Transform ownerTransform, CharacterStats ownerStats)
     {
         this.ownerTransform = ownerTransform;

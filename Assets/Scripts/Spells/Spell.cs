@@ -20,6 +20,31 @@ public class Spell
 
     public Action<SpellType, float> FireRateChanged;
 
+    //Should be reserved only for cases when spelldata cannot be added in prefab, 
+    //such as creating a turret that clones users spell data
+    public void OverrideBaseData(SpellData newData)
+    {
+        baseData = newData.Clone();
+    }
+
+    public SpellData GetBaseData()
+    {
+        return baseData.Clone();
+    }
+
+    public bool IsHasBaseData()
+    {
+        return baseData != null;
+    }
+
+    //Should be reserved only for cases when spelldata cannot be added in prefab, 
+    //such as creating a turret that clones users spell data
+    public void OverrideSpellBoostList(List<SpellBoostScriptable> newBoosts)
+    {
+        spellBoosts = new List<SpellBoostScriptable>(newBoosts);
+        RecalculateSpellBoosts(characterStats);
+    }
+
     public void AddSpellBoost(SpellBoostScriptable boost)
     {
         SpellBoosts.Add(boost);

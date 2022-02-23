@@ -42,6 +42,7 @@ public class PlayerInputController : MonoBehaviour
 		Vector3 position = this.transform.position;
 		pointer.transform.position = new Vector3(position.x, 0, position.z);
 		reticleRelativePosition = Vector3.zero;
+		PlayerInputConstants.reticleTransform = pointer.transform;
     }
 
     private void Update()
@@ -102,4 +103,9 @@ public class PlayerInputController : MonoBehaviour
 
 		pointer.transform.position = Vector3.SmoothDamp(pointer.transform.position, this.transform.position + reticleRelativePosition, ref reticleVelocityRef, 0.1f);
 	}
+}
+
+public static class PlayerInputConstants
+{
+	public static Transform reticleTransform;
 }

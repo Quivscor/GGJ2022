@@ -132,6 +132,10 @@ public class SpellMissile : MonoBehaviour
 
 	public Transform GetParentTransform()
     {
+		//prevents from ruining orbit spell boost together with DashTurret
+		if (parent == null)
+			return this.transform;
+
 		return parent.transform;
     }
 
@@ -178,7 +182,10 @@ public class SpellMissile : MonoBehaviour
 			//	_spell.currentData.damage *= 0.5f;
 
 			targetCharacterStats.DealDamge(_spell.currentData.damage);
-			HitCharacter?.Invoke(new SpellMissileEventData(parent.transform, parent, targetCharacterStats, _spell.currentData));
+			if (parent != null)
+				HitCharacter?.Invoke(new SpellMissileEventData(parent.transform, parent, targetCharacterStats, _spell.currentData));
+			else
+				HitCharacter?.Invoke(new SpellMissileEventData((CharacterStats)null, targetCharacterStats, _spell.currentData));
 
 			//move to damage handling
 			//if (other.transform.root.TryGetComponent(out TargetingAI targeting))
