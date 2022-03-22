@@ -27,7 +27,7 @@ public class ProjectileEmitter : MonoBehaviour
 		_fireTimer = new Timer(timeBetweenFiring, () => _canFire = true);
 
 		if (subProjectileCount <= 0)
-			_projectileCount = _missile.Spell.currentData.numberOfBullets;
+			_projectileCount = _missile.Spell.Data.GetStat(SpellStatType.BulletCount).Max;
 		else
 			_projectileCount = subProjectileCount;
 	}
@@ -49,7 +49,7 @@ public class ProjectileEmitter : MonoBehaviour
 		for (int i = 0; i < _projectileCount; i++)
 		{
 			var firedProjectile = GameObject.Instantiate(missile, missile.transform.position, Quaternion.identity);
-			firedProjectile.Initialize(missile.Parent, missile.Spell, CalculateBulletDirection(missile.Spell.currentData, i, direction));
+			firedProjectile.Initialize(missile.Parent, missile.Spell, CalculateBulletDirection(missile.Spell.Data, i, direction));
 			firedProjectile.ResetEvents();
 			firedProjectile.SetIgnoreTagList(missile.BulletIgnoreTagList);
 
@@ -66,8 +66,9 @@ public class ProjectileEmitter : MonoBehaviour
 		if (index == 0)
 			return direction;
 
+		float shotangle = data.GetStat(SpellStatType.ShotAngle).Max;
 		Vector3 right = -Vector3.Cross(direction, Vector3.up);
-		float angle = data.angleBetweenShots + ((index - 1) / 2 * data.angleBetweenShots);
+		float angle = shotangle + ((index - 1) / 2 * shotangle);
 		if (index % 2 != 0)
 			return Vector3.RotateTowards(direction, right, Mathf.Deg2Rad * angle, 0f).normalized;
 		else

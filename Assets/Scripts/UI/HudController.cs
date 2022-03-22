@@ -86,8 +86,8 @@ public class HudController : MonoBehaviour
     private void Start()
     {
         playerRef = GameObject.FindGameObjectWithTag("Player");
-        LeftSpell = playerRef.GetComponent<SpellcastingController>().LeftSpell;
-        RightSpell = playerRef.GetComponent<SpellcastingController>().RightSpell;
+        LeftSpell = playerRef.GetComponent<CharacterStats>().LeftSpell;
+        RightSpell = playerRef.GetComponent<CharacterStats>().RightSpell;
 
         UpdateStatsInfo();
     }
@@ -110,20 +110,20 @@ public class HudController : MonoBehaviour
 
     public void UpdateStatsInfo()
     {
-        manaCostHarmony.text = Math.Round(LeftSpell.currentData.resourceCost, 2).ToString();
-        manaCostChaos.text = Math.Round(RightSpell.currentData.resourceCost, 2).ToString();
+        manaCostHarmony.text = Math.Round(LeftSpell.Data.GetStat(SpellStatType.Cost).Max, 2).ToString();
+        manaCostChaos.text = Math.Round(RightSpell.Data.GetStat(SpellStatType.Cost).Max, 2).ToString();
 
-        damageHarmony.text = Math.Round(LeftSpell.currentData.damage, 2).ToString();
-        damageChaos.text = Math.Round(RightSpell.currentData.damage, 2).ToString();
+        damageHarmony.text = Math.Round(LeftSpell.Data.GetStat(SpellStatType.Damage).Max, 2).ToString();
+        damageChaos.text = Math.Round(RightSpell.Data.GetStat(SpellStatType.Damage).Max, 2).ToString();
 
-        numberOfBulletsHarmony.text = LeftSpell.currentData.numberOfBullets.ToString();
-        numberOfBulletsChaos.text = RightSpell.currentData.numberOfBullets.ToString();
+        numberOfBulletsHarmony.text = LeftSpell.Data.GetStat(SpellStatType.BulletCount).Max.ToString();
+        numberOfBulletsChaos.text = RightSpell.Data.GetStat(SpellStatType.BulletCount).Max.ToString();
 
-        fireRateHarmony.text = LeftSpell.currentData.fireRate.ToString();
-        fireRateChaos.text = RightSpell.currentData.fireRate.ToString();
+        fireRateHarmony.text = LeftSpell.Data.GetStat(SpellStatType.Firerate).Max.ToString();
+        fireRateChaos.text = RightSpell.Data.GetStat(SpellStatType.Firerate).Max.ToString();
 
-        bulletSpeedHarmony.text = LeftSpell.currentData.spellSpeed.ToString();
-        bulletSpeedChaos.text = RightSpell.currentData.spellSpeed.ToString();
+        bulletSpeedHarmony.text = LeftSpell.Data.GetStat(SpellStatType.Speed).Max.ToString();
+        bulletSpeedChaos.text = RightSpell.Data.GetStat(SpellStatType.Speed).Max.ToString();
 
         neutralStats.text = GenerateNeutralStats();
 
@@ -135,12 +135,15 @@ public class HudController : MonoBehaviour
     {
         string result = "";
 
-        var basicMoveSpeed = playerRef.GetComponent<CharacterMovement>().BasicMovementSpeed;
-        var currentMoveSpeed = playerRef.GetComponent<CharacterMovement>().MovementSpeed;
+        CharacterStats playerStats = playerRef.GetComponent<CharacterStats>();
+        GameStat moveSpeed = playerStats.GetStat(CharacterStatType.MovementSpeed);
+
+        var basicMoveSpeed = moveSpeed.InitValue;
+        var currentMoveSpeed = moveSpeed.Max;
 
         result += Math.Round(((currentMoveSpeed - basicMoveSpeed) / currentMoveSpeed) * 100f, 2) + "% faster walking\n";
 
-        result += playerRef.GetComponent<CharacterStats>().MaxHealth + " point of max health\n";
+        result += playerStats.GetStat(CharacterStatType.Health).Max + " point of max health\n";
         
 
         return result;

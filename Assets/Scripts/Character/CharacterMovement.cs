@@ -6,15 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class CharacterMovement : MonoBehaviour
 {
-	[SerializeField] private float movementSpeed = 2.0f;
-	[SerializeField] private float dashSpeed = 10f;
 	[SerializeField] private float dashCooldown = 2f;
 	[SerializeField] private float dashDuration = .5f;
 
 	private float dashCooldownCurrentTime = 0;
 	private float dashDurationCurrentTime = 0;
 	private bool isDashing = false;
-	private int availableDashes = 2;
 	private int currentDashes = 0;
 	public event Action<int, float> DashValuesChanged = null;
 	public event Action<float, float> MovementProcessed = null;
@@ -25,22 +22,11 @@ public class CharacterMovement : MonoBehaviour
 	[SerializeField] private Animator animator = null;
 	[SerializeField] private Transform character = null;
 	[SerializeField] private DashVisualEffect dashVisualEffects = null;
+	[SerializeField] private CharacterStats stats;
 	private float basicMovementSpeed;
-
-	#region Slow Effect
-	[Header("Slow Effect Options:")]
-	[SerializeField] private float slowEffectTime = 2.0f;
-	[SerializeField] private float slowedMovementSpeedFactor = 0.5f;
-	
-	private bool isSlowed = false;
-	private Coroutine slowedEffectCoroutine = null;
-	#endregion
 
 	private new Rigidbody rigidbody = null;
 	public AudioSource dashSound;
-
-    public float BasicMovementSpeed { get => basicMovementSpeed; set => basicMovementSpeed = value; }
-    public float MovementSpeed { get => movementSpeed; set => movementSpeed = value; }
 
     private void Awake()
 	{
@@ -48,14 +34,17 @@ public class CharacterMovement : MonoBehaviour
 			animator = GetComponentInChildren<Animator>();
 
 		rigidbody = GetComponent<Rigidbody>();
+		stats = GetComponent<CharacterStats>();
+	}
 
-		currentDashes = availableDashes;
-		BasicMovementSpeed = MovementSpeed;
+    private void Start()
+    {
+		currentDashes = (int)stats.GetStat(CharacterStatType.DashCount).Max;
 	}
 
     private void Update()
     {
-		if(currentDashes != availableDashes)
+		if(currentDashes != (int)stats.GetStat(CharacterStatType.DashCount).Max)
 		{
 			dashCooldownCurrentTime -= Time.deltaTime;
 
@@ -63,7 +52,7 @@ public class CharacterMovement : MonoBehaviour
 			{
 				currentDashes++;
 
-				if (currentDashes != availableDashes)
+				if (currentDashes != (int)stats.GetStat(CharacterStatType.DashCount).Max)
 					dashCooldownCurrentTime = dashCooldown;
 			}
 
@@ -81,10 +70,10 @@ public class CharacterMovement : MonoBehaviour
 		if (isDashing)
 			return;
 
-		Vector3 velocityToApply = new Vector3(horizontal, 0, vertical).normalized * MovementSpeed;
+		Vector3 velocityToApply = new Vector3(horizontal, 0, vertical).normalized * stats.GetStat(CharacterStatType.MovementSpeed).Max;
 
-		if (isSlowed)
-			velocityToApply *= slowedMovementSpeedFactor;
+		//if (isSlowed)
+		//	velocityToApply *= slowedMovementSpeedFactor;
 
 		rigidbody.velocity = velocityToApply;
 
@@ -102,10 +91,7 @@ public class CharacterMovement : MonoBehaviour
 			dashSound.Play();
 		dashDurationCurrentTime = dashDuration;
 
-		Vector3 velocityToApply = new Vector3(horizontal, 0, vertical).normalized * dashSpeed;
-
-		if (isSlowed)
-			velocityToApply *= slowedMovementSpeedFactor;
+		Vector3 velocityToApply = new Vector3(horizontal, 0, vertical).normalized * stats.GetStat(CharacterStatType.DashSpeed).Max;
 
 		rigidbody.velocity = velocityToApply;
 
@@ -119,27 +105,27 @@ public class CharacterMovement : MonoBehaviour
 		DashValuesChanged?.Invoke(currentDashes, (dashCooldown - dashCooldownCurrentTime) / dashCooldown);
 	}
 
-	public void IncreaseMovementSpeed(float value)
-    {
-		MovementSpeed += value;
-    }
+	//public void IncreaseMovementSpeed(float value)
+ //   {
+	//	MovementSpeed += value;
+ //   }
 
-	public void AddSlowEffect()
-	{
-		if (slowedEffectCoroutine != null)
-		{
-			StopCoroutine(slowedEffectCoroutine);
-			slowParticles?.Stop();
-		}
+	//public void AddSlowEffect()
+	//{
+	//	if (slowedEffectCoroutine != null)
+	//	{
+	//		StopCoroutine(slowedEffectCoroutine);
+	//		slowParticles?.Stop();
+	//	}
 
-		slowedEffectCoroutine = StartCoroutine(SlowEffectTimer());
-		slowParticles?.Play();
-	}
+	//	slowedEffectCoroutine = StartCoroutine(SlowEffectTimer());
+	//	slowParticles?.Play();
+	//}
 
-	private IEnumerator SlowEffectTimer()
-	{
-		isSlowed = true;
-		yield return new WaitForSeconds(slowEffectTime);
-		isSlowed = false;
-	}
+	//private IEnumerator SlowEffectTimer()
+	//{
+	//	isSlowed = true;
+	//	yield return new WaitForSeconds(slowEffectTime);
+	//	isSlowed = false;
+	//}
 }

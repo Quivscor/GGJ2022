@@ -42,7 +42,7 @@ public class OrbitSpellBoost : BasicSpellBoost
 		//don't touch Y
 		dir.y = missile.Rigidbody.velocity.y;
 
-		newVelocity = dir.normalized * data.spell.spellSpeed;
+		newVelocity = dir.normalized * data.spell.GetStat(SpellStatType.Speed).Max;
 
 		//smooth a bit
 		Vector3.SmoothDamp(missile.Rigidbody.velocity, newVelocity, ref velocityRef, smoothDampTime);

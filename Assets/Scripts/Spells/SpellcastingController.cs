@@ -11,12 +11,12 @@ public class SpellcastingController : MonoBehaviour
     private SpellMissile bullet;
 
     [Header("Data")]
-    [SerializeField]
-    private Spell leftSpell;
-    public Spell LeftSpell => leftSpell;
-    [SerializeField]
-    private Spell rightSpell;
-    public Spell RightSpell => rightSpell;
+    //[SerializeField]
+    //private Spell leftSpell;
+    //public Spell LeftSpell => leftSpell;
+    //[SerializeField]
+    //private Spell rightSpell;
+    //public Spell RightSpell => rightSpell;
     [SerializeField] private string[] spellMissileIgnoreTagList;
     public string[] SpellIgnoreTagList => spellMissileIgnoreTagList;
     [SerializeField] private string[] spellMissileBounceTagList;
@@ -56,12 +56,12 @@ public class SpellcastingController : MonoBehaviour
         characterMovement = GetComponent<CharacterMovement>();
 
         //allows for setting boosts straight from inspector
-        if(leftSpell.IsHasBaseData())
-            leftSpell.RecalculateSpellBoosts(characterStats);
-        if(rightSpell.IsHasBaseData())
-            rightSpell.RecalculateSpellBoosts(characterStats);
+        if(characterStats.LeftSpell.IsHasBaseData())
+            characterStats.LeftSpell.RecalculateSpellBoosts(characterStats);
+        if(characterStats.RightSpell.IsHasBaseData())
+            characterStats.RightSpell.RecalculateSpellBoosts(characterStats);
 
-        if(characterMovement != null)
+        if (characterMovement != null)
             characterMovement.DashProcessed += ProcessDashSpellEffect;
     }
 
@@ -71,10 +71,16 @@ public class SpellcastingController : MonoBehaviour
         rightSpellLastUseTimer = new Timer(rightSpellLastTime, () => hasFiredRightSpell = false);
 
         //if there's a boost that reduces time for these, they have to be recreated every time this value would be changed
-        leftSpellCooldownTimer = new Timer(1 / leftSpell.currentData.fireRate, () => isLeftSpellReady = true);
-        rightSpellCooldownTimer = new Timer(1 / rightSpell.currentData.fireRate, () => isRightSpellReady = true);
-        leftSpell.FireRateChanged += UpdateSpellCooldown;
-        rightSpell.FireRateChanged += UpdateSpellCooldown;
+        leftSpellCooldownTimer = new Timer(1 / characterStats.LeftSpell.Data.GetStat(SpellStatType.Firerate).Max, () => isLeftSpellReady = true);
+        rightSpellCooldownTimer = new Timer(1 / characterStats.RightSpell.Data.GetStat(SpellStatType.Firerate).Max, () => isRightSpellReady = true);
+
+        //subscribe to events that remake those timers when firerate gets a boost or a buff
+        characterStats.LeftSpell.Data.GetStat(SpellStatType.Firerate).AnyValueChanged += 
+            () => leftSpellCooldownTimer = new Timer(1 / characterStats.LeftSpell.Data.GetStat(SpellStatType.Firerate).Max
+            , () => isLeftSpellReady = true);
+        characterStats.RightSpell.Data.GetStat(SpellStatType.Firerate).AnyValueChanged +=
+            () => rightSpellCooldownTimer = new Timer(1 / characterStats.RightSpell.Data.GetStat(SpellStatType.Firerate).Max
+            , () => isLeftSpellReady = true);
     }
 
     private void Update()
@@ -99,30 +105,32 @@ public class SpellcastingController : MonoBehaviour
 	{
         if (type == SpellType.Left && !hasFiredRightSpell)
         {
-            if (characterStats.HaveEnoughResource(leftSpell.currentData.resourceCost, SpellType.Left))
+            float leftSpellCost = characterStats.LeftSpell.Data.GetStat(SpellStatType.Cost).Max;
+            if (characterStats.HaveEnoughResource(leftSpellCost, SpellType.Left))
             {
                 leftSpellLastUseTimer.RestartTimer();
                 hasFiredLeftSpell = true;
             }
             
-            if(isLeftSpellReady && characterStats.HaveEnoughResource(leftSpell.currentData.resourceCost, SpellType.Left))
+            if(isLeftSpellReady && characterStats.HaveEnoughResource(leftSpellCost, SpellType.Left))
             {
-                Fire(leftSpell);
+                Fire(characterStats.LeftSpell);
                 isLeftSpellReady = false;
                 leftSpellCooldownTimer.RestartTimer();
             }
         }
         else if (type == SpellType.Right && !hasFiredLeftSpell)
         {
-            if (characterStats.HaveEnoughResource(rightSpell.currentData.resourceCost, SpellType.Right))
+            float rightSpellCost = characterStats.RightSpell.Data.GetStat(SpellStatType.Cost).Max;
+            if (characterStats.HaveEnoughResource(rightSpellCost, SpellType.Right))
             {
                 rightSpellLastUseTimer.RestartTimer();
                 hasFiredRightSpell = true;
             }
 
-            if (isRightSpellReady && characterStats.HaveEnoughResource(rightSpell.currentData.resourceCost, SpellType.Right))
+            if (isRightSpellReady && characterStats.HaveEnoughResource(rightSpellCost, SpellType.Right))
             {
-                Fire(rightSpell);
+                Fire(characterStats.RightSpell);
                 isRightSpellReady = false;
                 rightSpellCooldownTimer.RestartTimer();
             }
@@ -139,9 +147,10 @@ public class SpellcastingController : MonoBehaviour
 
     private void Fire(Spell spell)
     {
-        characterStats.SpendResource(spell.currentData.resourceCost, spell.spellType);
+        characterStats.SpendResource(spell.Data.GetStat(SpellStatType.Cost).Max, spell.spellType);
 
-        for(int i = 0; i < spell.currentData.numberOfBullets; i++)
+        int bulletCount = (int)spell.Data.GetStat(SpellStatType.BulletCount).Max;
+        for (int i = 0; i < bulletCount; i++)
         {
             var firedProjectile = GameObject.Instantiate(bullet, bulletOrigin.transform.position, Quaternion.identity);
             //first subscribe
@@ -158,8 +167,8 @@ public class SpellcastingController : MonoBehaviour
 
     private void ProcessDashSpellEffect(SpellcastEventData data)
     {
-        leftSpell.currentData.DashProcessed?.Invoke(new SpellMissileEventData(this.transform));
-        rightSpell.currentData.DashProcessed?.Invoke(new SpellMissileEventData(this.transform));
+        characterStats.LeftSpell.Data.DashProcessed?.Invoke(new SpellMissileEventData(this.transform));
+        characterStats.RightSpell.Data.DashProcessed?.Invoke(new SpellMissileEventData(this.transform));
     }
 
     private Vector3 CalculateBulletDirection(Spell spell, int index)
@@ -167,18 +176,11 @@ public class SpellcastingController : MonoBehaviour
         if (index == 0)
             return bulletOrigin.transform.forward;
 
-        float angle = spell.currentData.angleBetweenShots + ((index - 1) / 2 * spell.currentData.angleBetweenShots);
+        GameStat shotAngle = spell.Data.GetStat(SpellStatType.ShotAngle);
+        float angle = shotAngle.Max + ((index - 1) / 2 * shotAngle.Max);
         if (index % 2 != 0)
             return Vector3.RotateTowards(bulletOrigin.transform.forward, bulletOrigin.transform.right, Mathf.Deg2Rad * angle, 0f).normalized;
         else
             return Vector3.RotateTowards(bulletOrigin.transform.forward, -bulletOrigin.transform.right, Mathf.Deg2Rad * angle, 0f).normalized;
-    }
-
-    private void UpdateSpellCooldown(SpellType spell, float value)
-    {
-        if (spell == SpellType.Left)
-            leftSpellCooldownTimer = new Timer(1 / value, () => isLeftSpellReady = true);
-        if(spell == SpellType.Right)
-            rightSpellCooldownTimer = new Timer(1 / value, () => isRightSpellReady = true);
     }
 }

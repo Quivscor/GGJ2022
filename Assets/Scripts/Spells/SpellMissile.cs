@@ -69,16 +69,17 @@ public class SpellMissile : MonoBehaviour
 
 		parent = owner;
 		_spell = spell;
-		_bouncesLeft = spell.currentData.numberOfBounces;
+		_bouncesLeft = (int)spell.Data.GetStat(SpellStatType.BounceCount).Max;
 
-		if (spell.currentData.bulletLifetime != Mathf.Infinity)
-			lifetimeTimer = new Timer(spell.currentData.bulletLifetime, Dispose);
+		float lifetime = spell.Data.GetStat(SpellStatType.BulletLifetime).Max;
+		if (lifetime != Mathf.Infinity)
+			lifetimeTimer = new Timer(lifetime, Dispose);
 
 		Vector3 recoil = GetSpellRecoil(spell);
 		rb.velocity = (direction + recoil).normalized;
 		//make sure to return with normalized vector from this event
-		MissileInitialized?.Invoke(this, new SpellMissileEventData(parent, _spell.currentData));
-		rb.velocity *= spell.currentData.spellSpeed;
+		MissileInitialized?.Invoke(this, new SpellMissileEventData(parent, _spell.Data));
+		rb.velocity *= spell.Data.GetStat(SpellStatType.Speed).Max;
 		RecalculateMissileVectors();
 
 		_initialized = true;
@@ -86,10 +87,10 @@ public class SpellMissile : MonoBehaviour
 
 	public void SubscribeToEvents(Spell spell)
     {
-		HitCharacter = spell.currentData.MissileHitCharacter;
-		HitAnything = spell.currentData.MissileHitAnything;
-		MissileUpdated = spell.currentData.MissileUpdated;
-		MissileInitialized = spell.currentData.MissileInitialized;
+		HitCharacter = spell.Data.MissileHitCharacter;
+		HitAnything = spell.Data.MissileHitAnything;
+		MissileUpdated = spell.Data.MissileUpdated;
+		MissileInitialized = spell.Data.MissileInitialized;
 	}
 
 	public void ResetEvents()
@@ -120,8 +121,8 @@ public class SpellMissile : MonoBehaviour
 
 	private Vector3 GetSpellRecoil(Spell spell)
     {
-		return new Vector3(UnityEngine.Random.Range(-spell.currentData.recoil, spell.currentData.recoil), 0.0f, 
-			UnityEngine.Random.Range(-spell.currentData.recoil, spell.currentData.recoil));
+		float recoil = spell.Data.GetStat(SpellStatType.Recoil).Max;
+		return new Vector3(UnityEngine.Random.Range(-recoil, recoil), 0.0f, UnityEngine.Random.Range(-recoil, recoil));
 	}
 
 	public void RecalculateMissileVectors()
@@ -149,7 +150,7 @@ public class SpellMissile : MonoBehaviour
 
 		lastVelocity = rb.velocity;
 
-        MissileUpdated?.Invoke(this, new SpellMissileEventData(parent, _spell.currentData));
+        MissileUpdated?.Invoke(this, new SpellMissileEventData(parent, _spell.Data));
         isEnemyCheckReady = false;
 
         //update time at the end because of event
@@ -177,15 +178,11 @@ public class SpellMissile : MonoBehaviour
 
 			}
 
-			// This should be handled by whatever is receiving damage, through a buff or resistance of sorts
-			//if (!other.transform.CompareTag("Player") && !parent.CompareTag("Player"))
-			//	_spell.currentData.damage *= 0.5f;
-
-			targetCharacterStats.DealDamge(_spell.currentData.damage);
+			targetCharacterStats.DealDamage(_spell.Data.GetStat(SpellStatType.Damage).Max);
 			if (parent != null)
-				HitCharacter?.Invoke(new SpellMissileEventData(parent.transform, parent, targetCharacterStats, _spell.currentData));
+				HitCharacter?.Invoke(new SpellMissileEventData(parent.transform, parent, targetCharacterStats, _spell.Data));
 			else
-				HitCharacter?.Invoke(new SpellMissileEventData((CharacterStats)null, targetCharacterStats, _spell.currentData));
+				HitCharacter?.Invoke(new SpellMissileEventData((CharacterStats)null, targetCharacterStats, _spell.Data));
 
 			//move to damage handling
 			//if (other.transform.root.TryGetComponent(out TargetingAI targeting))

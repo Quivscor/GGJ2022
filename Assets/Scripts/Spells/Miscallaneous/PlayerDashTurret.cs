@@ -9,6 +9,7 @@ public class PlayerDashTurret : DashObject
     [SerializeField] private float lifeDuration;
     private SpellcastingController controller;
     private CharacterRotator rotator;
+    private CharacterStats stats;
     private PlayerInput input;
     private InputAction fireLeftAction;
     private InputAction fireRightAction;
@@ -17,6 +18,7 @@ public class PlayerDashTurret : DashObject
     private void Awake()
     {
         controller = GetComponent<SpellcastingController>();
+        stats = GetComponent<CharacterStats>();
         rotator = GetComponent<CharacterRotator>();
     }
 
@@ -29,13 +31,14 @@ public class PlayerDashTurret : DashObject
     {
         base.Initialize(owner);
 
+        CharacterStats ownerStats = owner.GetComponent<CharacterStats>();
         SpellcastingController ownerController = owner.GetComponent<SpellcastingController>();
 
-        controller.LeftSpell.OverrideBaseData(ownerController.LeftSpell.GetBaseData());
-        controller.LeftSpell.OverrideSpellBoostList(ownerController.LeftSpell.SpellBoosts);
+        stats.LeftSpell.OverrideBaseData(ownerStats.LeftSpell.GetBaseData());
+        stats.LeftSpell.OverrideSpellBoostList(ownerStats.LeftSpell.SpellBoosts);
 
-        controller.RightSpell.OverrideBaseData(ownerController.RightSpell.GetBaseData());
-        controller.RightSpell.OverrideSpellBoostList(ownerController.RightSpell.SpellBoosts);
+        stats.RightSpell.OverrideBaseData(ownerStats.RightSpell.GetBaseData());
+        stats.RightSpell.OverrideSpellBoostList(ownerStats.RightSpell.SpellBoosts);
 
         controller.OverrideSpellTagLists(ownerController.SpellIgnoreTagList, ownerController.SpellBounceTagList);
 

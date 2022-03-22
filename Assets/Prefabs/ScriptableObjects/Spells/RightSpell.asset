@@ -13,25 +13,48 @@ MonoBehaviour:
   m_Name: RightSpell
   m_EditorClassIdentifier: 
   castMode: 0
-  numberOfBullets: 1
-  recoil: 0
-  fireRate: 1
-  spellSpeed: 18
-  damage: 15
-  resourceCost: 5
-  costModifier: 1
-  numberOfBounces: 1
-  bulletLifetime: 60
-  bulletSize: 1
-  lifeSteal: 0
-  isGrowing: 0
-  growingForce: 0.1
-  maxScale: 3
-  chanceToCreateForbiddenArea: 0
-  homingForce: 0.015
-  homingRange: 3
-  chanceToHomingMissile: 0
-  chanceToHomingMissileStep: 0
-  angleBetweenShots: 20
-  sinusoidForce: 0.3
-  sinusoidPhase: 0.2
+  initialStatValues:
+  - CharacterStatType: 5
+    SpellStatType: 0
+    value: 16
+    isMultiplicative: 0
+  - CharacterStatType: 5
+    SpellStatType: 1
+    value: 0.5
+    isMultiplicative: 0
+  - CharacterStatType: 5
+    SpellStatType: 2
+    value: 10
+    isMultiplicative: 0
+  - CharacterStatType: 5
+    SpellStatType: 4
+    value: 20
+    isMultiplicative: 0
+  - CharacterStatType: 5
+    SpellStatType: 5
+    value: 0.1
+    isMultiplicative: 0
+  - CharacterStatType: 5
+    SpellStatType: 6
+    value: 1
+    isMultiplicative: 0
+  - CharacterStatType: 5
+    SpellStatType: 7
+    value: 1
+    isMultiplicative: 0
+  - CharacterStatType: 5
+    SpellStatType: 8
+    value: 30
+    isMultiplicative: 0
+  - CharacterStatType: 5
+    SpellStatType: 9
+    value: 0
+    isMultiplicative: 0
+  - CharacterStatType: 5
+    SpellStatType: 10
+    value: 8
+    isMultiplicative: 0
+  - CharacterStatType: 5
+    SpellStatType: 11
+    value: 0
+    isMultiplicative: 0

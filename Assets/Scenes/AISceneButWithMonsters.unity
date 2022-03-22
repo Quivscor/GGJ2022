@@ -4148,6 +4148,70 @@ PrefabInstance:
       value: 0.0628189
       objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: _rightSpell.spellType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.data[0].value
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.data[1].value
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.data[2].value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.data[3].value
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.data[4].value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.data[0].SpellStatType
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.data[1].SpellStatType
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.data[2].SpellStatType
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.data[3].SpellStatType
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.data[4].SpellStatType
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.data[1].CharacterStatType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.data[2].CharacterStatType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.data[3].CharacterStatType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
+      propertyPath: initialStatValues.Array.data[4].CharacterStatType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751774421265251426, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: resourceChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1841793465}
@@ -4161,7 +4225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: rightSpell.spellBoosts.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: leftSpell.spellBoosts.Array.data[1]
@@ -4194,23 +4258,15 @@ PrefabInstance:
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: rightSpell.spellBoosts.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 25547b1f4491aeb48ba1e4e6f7eb6b9b, type: 2}
+      objectReference: {fileID: 11400000, guid: b5d72238a900ae84a9889123444f3d02, type: 2}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: rightSpell.spellBoosts.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: b8872d3db21d33b4588b49b4c0111a33, type: 2}
+      objectReference: {fileID: 11400000, guid: cc045854eec914344bd835de1a276418, type: 2}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: rightSpell.spellBoosts.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: b8872d3db21d33b4588b49b4c0111a33, type: 2}
-    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: spellMissileBounceTagList.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
-      propertyPath: spellMissileBounceTagList.Array.data[0]
-      value: EnemyShield
-      objectReference: {fileID: 0}
     - target: {fileID: 1751774421265251427, guid: cd62aa50b76cfe74abb5fd4ac0c30de7, type: 3}
       propertyPath: spellMissileBounceTagList.Array.data[1]
       value: EnemyShield

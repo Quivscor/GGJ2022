@@ -38,7 +38,7 @@ public class DashBomb : DashObject
                 continue;
             if(col.TryGetComponent(out CharacterStats character))
             {
-                character.DealDamge(explosionDamage);
+                character.DealDamage(explosionDamage);
             }
         }
         explosionEffect.SetActive(true);

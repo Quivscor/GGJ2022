@@ -44,7 +44,7 @@ public class CharacterHolder : MonoBehaviour
         {
             if (t != _player)
             {
-                t.DealDamge(10000);
+                t.DealDamage(10000);
             }
         }
     }
@@ -108,7 +108,7 @@ public class CharacterHolder : MonoBehaviour
         {
             if (t != _player)
             {
-                botUpgradeInfo.Add(UpgradesController.Instance.AddRandomBoostForBot(t.GetComponent<SpellcastingController>(), t));
+                botUpgradeInfo.Add(UpgradesController.Instance.AddRandomBoostForBot(t));
             }
         }
 

@@ -14,9 +14,10 @@ public class HealOnHitSpellBoost : BasicSpellBoost
 
 	public void HealOnHit(SpellMissileEventData data)
     {
-		if (data.spell.lifeSteal > 0 && !data.targetStats.isDead)
+		float lifesteal = data.spell.GetStat(SpellStatType.Lifesteal).Max;
+		if (lifesteal > 0 && !data.targetStats.isDead)
 		{
-			data.ownerStats?.Heal(data.spell.damage * data.spell.lifeSteal);
+			data.ownerStats?.Heal(data.spell.GetStat(SpellStatType.Damage).Max * lifesteal);
 			//weird but ok
 			data.ownerStats?.PlayHealSound();
 			GameObject spawnedParticles = null;

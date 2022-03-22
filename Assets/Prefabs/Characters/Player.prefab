@@ -406,16 +406,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614a92126eae5ef42b650a867f90c32f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  dashSpeed: 30
   dashCooldown: 2
   dashDuration: 0.1
   slowParticles: {fileID: 3624583648975990439}
   animator: {fileID: 2740552193469428068}
   character: {fileID: 8135833436416142110}
   dashVisualEffects: {fileID: 5569091954329980727}
-  slowEffectTime: 2
-  slowedMovementSpeedFactor: 0.5
+  stats: {fileID: 0}
   dashSound: {fileID: 7036635049158622953}
 --- !u!114 &1751774421265251427
 MonoBehaviour:
@@ -430,18 +427,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1881288736024043230, guid: 25d2c1f798c6a2e4e8ae11c2cbc8302e, type: 3}
-  leftSpell:
-    spellType: 0
-    baseData: {fileID: 11400000, guid: a9faec82cb7d5814d83bc75bb788ff69, type: 2}
-    currentData: {fileID: 0}
-    spellBoosts:
-    - {fileID: 11400000, guid: 8bb87a90080932545b061aa75c28e9e3, type: 2}
-  rightSpell:
-    spellType: 1
-    baseData: {fileID: 11400000, guid: bc9950a4823e531419a320fe0539b02f, type: 2}
-    currentData: {fileID: 0}
-    spellBoosts: []
   spellMissileIgnoreTagList: []
+  spellMissileBounceTagList:
+  - EnemyShield
   bulletOrigin: {fileID: 1863671589824990291}
   leftSpellLastTime: 0.5
   rightSpellLastTime: 0.5
@@ -463,9 +451,16 @@ MonoBehaviour:
   wizardNameTMP: {fileID: 0}
   upgradeIconsHolder: {fileID: 0}
   wizardName: 
-  health: 0
-  maxHealth: 100
-  maxResource: 100
+  _leftSpell:
+    spellType: 0
+    baseData: {fileID: 11400000, guid: a9faec82cb7d5814d83bc75bb788ff69, type: 2}
+    currentData: {fileID: 0}
+    spellBoosts: []
+  _rightSpell:
+    spellType: 0
+    baseData: {fileID: 11400000, guid: bc9950a4823e531419a320fe0539b02f, type: 2}
+    currentData: {fileID: 0}
+    spellBoosts: []
   harmonyLevel: 0
   chaosLevel: 0
   resourceChanged:

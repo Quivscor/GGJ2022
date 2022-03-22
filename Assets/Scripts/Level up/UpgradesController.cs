@@ -86,9 +86,9 @@ public class UpgradesController : MonoBehaviour
             upgradeSource.Play();
 
         if (chosenResource == SpellType.Left)
-            playerReference.GetComponent<SpellcastingController>().LeftSpell.AddSpellBoost(preparedBoosts[monumentNumber]);
+            playerReference.GetComponent<CharacterStats>().LeftSpell.AddSpellBoost(preparedBoosts[monumentNumber]);
         else
-            playerReference.GetComponent<SpellcastingController>().RightSpell.AddSpellBoost(preparedBoosts[monumentNumber]);
+            playerReference.GetComponent<CharacterStats>().RightSpell.AddSpellBoost(preparedBoosts[monumentNumber]);
 
         monumentsRise.Invoke(1.5f);
         monumentsAnimator.SetTrigger("Hide");
@@ -147,7 +147,7 @@ public class UpgradesController : MonoBehaviour
         preparedBoosts.AddRange(PerksController.Instance.AllSpellBoosts);
     }
 
-    public BotUpgradeInfo AddRandomBoostForBot(SpellcastingController spellcastingController, CharacterStats characterStats)
+    public BotUpgradeInfo AddRandomBoostForBot(CharacterStats characterStats)
     {
         Random.InitState(System.DateTime.Now.Millisecond);
 
@@ -157,14 +157,14 @@ public class UpgradesController : MonoBehaviour
         Random.InitState(System.DateTime.Now.Millisecond);
         if (Random.Range(0,2) == 0)
         {
-            spellcastingController.LeftSpell.AddSpellBoost(randomSpellBoost);
+            characterStats.LeftSpell.AddSpellBoost(randomSpellBoost);
             characterStats.AddLevel(SpellType.Left);
             spellTypeInfo = SpellType.Left;
             characterStats.AddUpgradeIcon(HudController.Instance.harmonyColor);
         }
         else
         {
-            spellcastingController.RightSpell.AddSpellBoost(randomSpellBoost);
+            characterStats.RightSpell.AddSpellBoost(randomSpellBoost);
             characterStats.AddLevel(SpellType.Right);
             spellTypeInfo = SpellType.Right;
             characterStats.AddUpgradeIcon(HudController.Instance.chaosColor);

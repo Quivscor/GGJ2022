@@ -19,74 +19,16 @@ public abstract class SpellBoostScriptable : ScriptableObject
 
     public void ChangeStats(SpellData spell, CharacterStats characterStats)
     {
-        // ladder of ifs
         for (int i = 0; i < statsToChange.Count; i++)
         {
-            switch (statsToChange[i].statsType)
+            if(statsToChange[i].CharacterStatType != CharacterStatType.UNDEFINED)
             {
-                case StatsType.Health:
-                    if (statsToChange[i].isMultiplicative)
-                        characterStats.maxHealth += characterStats.maxHealth * statsToChange[i].value;
-                    else
-                        characterStats.maxHealth += statsToChange[i].value;
-                    break;
-
-                case StatsType.Resource:
-                    if (statsToChange[i].isMultiplicative)
-                        spell.costModifier += spell.costModifier * statsToChange[i].value;
-                    else
-                        spell.costModifier += statsToChange[i].value;
-                    if (spell.costModifier < 0.2f)
-                        spell.costModifier = 0.2f;
-                    break;
-
-                case StatsType.Damage:
-                    if (statsToChange[i].isMultiplicative)
-                        spell.damage += spell.damage * statsToChange[i].value;
-                    else
-                        spell.damage += statsToChange[i].value;
-                    break;
-
-                case StatsType.Firerate:
-                    if (statsToChange[i].isMultiplicative)
-                        spell.fireRate += spell.fireRate * statsToChange[i].value;
-                    else
-                        spell.fireRate += statsToChange[i].value;
-                    break;
-
-                case StatsType.MovementSpeed:
-                    if(statsToChange[i].isMultiplicative)
-                        characterStats.GetComponent<CharacterMovement>().MovementSpeed += characterStats.GetComponent<CharacterMovement>().MovementSpeed * statsToChange[i].value;
-                    else
-                        characterStats.GetComponent<CharacterMovement>().MovementSpeed += statsToChange[i].value;
-                    break;
-
-                case StatsType.BulletSpeed:
-                    if (statsToChange[i].isMultiplicative)
-                        spell.spellSpeed += spell.spellSpeed * statsToChange[i].value;
-                    else
-                        spell.spellSpeed += statsToChange[i].value;
-                    break;
-
-                case StatsType.NumberOfBullets:
-                    if (statsToChange[i].isMultiplicative)
-                        spell.numberOfBullets += spell.numberOfBullets * (int)statsToChange[i].value;
-                    else 
-                        spell.numberOfBullets += (int)statsToChange[i].value;
-                    break;
-
-                case StatsType.NumberOfBounces:
-                    if (statsToChange[i].isMultiplicative)
-                        spell.numberOfBounces += spell.numberOfBounces * (int)statsToChange[i].value;
-                    else
-                        spell.numberOfBounces += (int)statsToChange[i].value;
-                    break;
-                case StatsType.Lifesteal:
-                    if (statsToChange[i].isMultiplicative)
-                        spell.lifeSteal += spell.lifeSteal * (int)statsToChange[i].value;
-                    else
-                        spell.lifeSteal += (int)statsToChange[i].value;
-                    break;
+                characterStats.UpdateBaseStat(statsToChange[i].CharacterStatType, statsToChange[i].value, statsToChange[i].isMultiplicative);
+            }
+            //not sure if anyone would want to use same value to affect different stats in one go, but this prevents it
+            else if(statsToChange[i].SpellStatType != SpellStatType.UNDEFINED)
+            {
+                spell.UpdateBaseStat(statsToChange[i].SpellStatType, statsToChange[i].value, statsToChange[i].isMultiplicative);
             }
         }
     }
@@ -97,20 +39,8 @@ public abstract class SpellBoostScriptable : ScriptableObject
 [System.Serializable]
 public struct StatToChange
 {
-    public StatsType statsType;
+    public CharacterStatType CharacterStatType;
+    public SpellStatType SpellStatType;
     public float value;
     public bool isMultiplicative;
-}
-
-public enum StatsType
-{
-    Health,
-    Resource,
-    Damage,
-    Firerate,
-    MovementSpeed,
-    BulletSpeed,
-    NumberOfBullets,
-    NumberOfBounces,
-    Lifesteal,
 }

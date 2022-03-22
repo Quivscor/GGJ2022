@@ -1069,16 +1069,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614a92126eae5ef42b650a867f90c32f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2.5
-  dashSpeed: 30
   dashCooldown: 35
   dashDuration: 0.1
   slowParticles: {fileID: 3563251300534639392}
   animator: {fileID: 3218197090231649092}
   character: {fileID: 8811708180733745470}
   dashVisualEffects: {fileID: 9051747660583253722}
-  slowEffectTime: 2
-  slowedMovementSpeedFactor: 0.5
+  stats: {fileID: 0}
   dashSound: {fileID: 9107947564738014699}
 --- !u!114 &8371220161108079047
 MonoBehaviour:
@@ -1098,9 +1095,27 @@ MonoBehaviour:
   wizardNameTMP: {fileID: 8851195546091985890}
   upgradeIconsHolder: {fileID: 218130284200036412}
   wizardName: 
-  health: 0
-  maxHealth: 50
-  maxResource: 100
+  initialStatValues:
+  - CharacterStatType: 0
+    SpellStatType: 12
+    value: 30
+    isMultiplicative: 0
+  - CharacterStatType: 1
+    SpellStatType: 12
+    value: 100
+    isMultiplicative: 0
+  - CharacterStatType: 2
+    SpellStatType: 12
+    value: 4
+    isMultiplicative: 0
+  _leftSpell:
+    spellType: 0
+    baseData: {fileID: 11400000, guid: 124823a634566984f8d68ed45cd012c4, type: 2}
+    spellBoosts: []
+  _rightSpell:
+    spellType: 1
+    baseData: {fileID: 11400000, guid: 124823a634566984f8d68ed45cd012c4, type: 2}
+    spellBoosts: []
   harmonyLevel: 0
   chaosLevel: 0
   resourceChanged:
@@ -1123,16 +1138,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1881288736024043230, guid: dc68e8b19d87b704d9840ea67eaa1e54, type: 3}
-  leftSpell:
-    spellType: 0
-    baseData: {fileID: 11400000, guid: 124823a634566984f8d68ed45cd012c4, type: 2}
-    currentData: {fileID: 0}
-    spellBoosts: []
-  rightSpell:
-    spellType: 1
-    baseData: {fileID: 11400000, guid: 124823a634566984f8d68ed45cd012c4, type: 2}
-    currentData: {fileID: 0}
-    spellBoosts: []
   spellMissileIgnoreTagList:
   - Enemy
   - EnemyShield

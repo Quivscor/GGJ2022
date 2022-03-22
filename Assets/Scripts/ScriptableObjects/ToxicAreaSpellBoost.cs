@@ -18,9 +18,6 @@ public class ToxicAreaSpellBoost : SpellBoostScriptable
 	public override void ProcessSpellBoost(SpellData spell, CharacterStats stats)
 	{
 		spell.MissileHitAnything += CreateToxicAreaInRange;
-		spell.costModifier += resourceModifier;
-		chanceToCreateArea += chanceToCreateAreaStep;
-		spell.chanceToCreateForbiddenArea = chanceToCreateArea;
 	}
 
 	private void CreateToxicAreaInRange(SpellMissileEventData data)

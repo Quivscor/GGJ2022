@@ -58,19 +58,21 @@ public class CombatAI : MonoBehaviour
         if (!_canFire)
             return;
 
+        float leftSpellCost = stats.LeftSpell.Data.GetStat(SpellStatType.Cost).Max;
+        float rightSpellCost = stats.RightSpell.Data.GetStat(SpellStatType.Cost).Max;
         if (aiType == SpenderType.CONSERVER)
         {
             //define stronger spell
             if (isPrimaryStronger)
             {
-                if (stats.HaveEnoughResource(wand.LeftSpell.currentData.resourceCost, SpellType.Left))
+                if (stats.HaveEnoughResource(leftSpellCost, SpellType.Left))
                     wand.ProcessSpell(SpellType.Left);
                 else
                     wand.ProcessSpell(SpellType.Right);
             }
             else
             {
-                if (stats.HaveEnoughResource(wand.RightSpell.currentData.resourceCost, SpellType.Left))
+                if (stats.HaveEnoughResource(rightSpellCost, SpellType.Left))
                     wand.ProcessSpell(SpellType.Left);
                 else
                     wand.ProcessSpell(SpellType.Right);
@@ -81,7 +83,7 @@ public class CombatAI : MonoBehaviour
             if (Random.value > 0.5f)
             {
                 //cast left
-                if (stats.HaveEnoughResource(wand.LeftSpell.currentData.resourceCost, SpellType.Left))
+                if (stats.HaveEnoughResource(leftSpellCost, SpellType.Left))
                     wand.ProcessSpell(SpellType.Left);
                 else
                     wand.ProcessSpell(SpellType.Right);
@@ -89,7 +91,7 @@ public class CombatAI : MonoBehaviour
             else
             {
                 //cast right
-                if (stats.HaveEnoughResource(wand.RightSpell.currentData.resourceCost, SpellType.Left))
+                if (stats.HaveEnoughResource(rightSpellCost, SpellType.Left))
                     wand.ProcessSpell(SpellType.Left);
                 else
                     wand.ProcessSpell(SpellType.Right);

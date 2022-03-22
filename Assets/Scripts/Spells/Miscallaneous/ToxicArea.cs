@@ -10,7 +10,7 @@ public class ToxicArea : MonoBehaviour
 	{
 		if (other.TryGetComponent(out CharacterStats characterStats))
 		{
-			characterStats.DealDamge(damagePerSecond * Time.fixedDeltaTime);
+			characterStats.DealDamage(damagePerSecond * Time.fixedDeltaTime);
 		}
 	}
 }

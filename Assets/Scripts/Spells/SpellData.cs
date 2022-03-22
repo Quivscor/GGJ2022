@@ -1,36 +1,46 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable, CreateAssetMenu(fileName = "Spell", menuName = "ScriptableObjects/Spell")]
 public class SpellData : ScriptableObject
 {
     public SpellcastMode castMode = SpellcastMode.UNDEFINED;
-    public int numberOfBullets = 1;
-    public float recoil = 0.05f;
+    [Header("Base stats")]
+    [SerializeField] private List<StatToChange> initialStatValues;
+    private Dictionary<SpellStatType, GameStat> _spellStatDictionary;
 
-    public float fireRate = 1f; // How many attacks per 1
-    public float spellSpeed = 10f; // Abstract number, to adjust
-    public float damage = 10f; // Abstract
-    public float resourceCost = 10f;
-    public float costModifier = 1f;
-    public int numberOfBounces = 0;
-    public float bulletLifetime = 10f;
-    public float bulletSize = 1f;
-    public float lifeSteal = 0f;
+    public void SetupStatDictionary()
+    {
+        _spellStatDictionary = new Dictionary<SpellStatType, GameStat>();
+        for(SpellStatType i = 0; i != SpellStatType.UNDEFINED; i++)
+        {
+            float inspectorStat = initialStatValues.Find((x) => x.SpellStatType == i).value;
+            _spellStatDictionary.Add(i, new GameStat(inspectorStat));
+        }
+    }
 
-    public bool isGrowing = false;
-    public float growingForce = 0;
-    public float maxScale = 1;
-    public float chanceToCreateForbiddenArea = 0f;
+    public GameStat GetStat(SpellStatType type)
+    {
+        return _spellStatDictionary[type];
+    }
 
-    public float homingForce = 0.35f;
-    public float homingRange = 2f;
-    public float chanceToHomingMissile = 0f;
-    public float chanceToHomingMissileStep = 0f;
-    public float angleBetweenShots = 8f;
+    public void UpdateBaseStat(SpellStatType type, float value, bool isMultiplicative = false)
+    {
+        if (isMultiplicative)
+            _spellStatDictionary[type].UpdateBaseValue(_spellStatDictionary[type].InitValue * value);
+        else
+            _spellStatDictionary[type].UpdateBaseValue(value);
+    }
 
-    public float sinusoidForce = 1.2f;
-    public float sinusoidPhase = 1.2f;
+    public void ClearEventSubscriptions()
+    {
+        MissileHitCharacter = null;
+        MissileHitAnything = null;
+        MissileUpdated = null;
+        MissileInitialized = null;
+        DashProcessed = null;
+    }
 
     //TODO - add list of applied bonuses IDs to check if boost already exists
 

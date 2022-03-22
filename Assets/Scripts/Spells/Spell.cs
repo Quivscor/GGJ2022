@@ -9,11 +9,9 @@ public class Spell
 {
     public SpellType spellType;
     [SerializeField] private SpellData baseData;
-    [HideInInspector] public SpellData currentData;
+    public SpellData Data => baseData;
 
     private CharacterStats characterStats;
-    
-    //public AudioSource audioSourceSpell;
 
     [SerializeField] private List<SpellBoostScriptable> spellBoosts;
     public List<SpellBoostScriptable> SpellBoosts => spellBoosts;
@@ -73,16 +71,18 @@ public class Spell
                 return -1;
         });
 
-        currentData = baseData.Clone();
+        baseData.SetupStatDictionary();
+        baseData.ClearEventSubscriptions();
 
         foreach(SpellBoostScriptable boost in spellBoosts)
         {
-            boost.ProcessSpellBoost(currentData, stats);
+            boost.ProcessSpellBoost(baseData, stats);
         }
 
-        currentData.resourceCost *= currentData.costModifier;
+        GameStat resourceCost = baseData.GetStat(SpellStatType.Cost);
+        resourceCost.UpdateBaseValue(resourceCost.InitValue * baseData.GetStat(SpellStatType.CostModifier).Max);
 
         //update timer in SpellcastingController
-        FireRateChanged?.Invoke(spellType, currentData.fireRate);
+        FireRateChanged?.Invoke(spellType, baseData.GetStat(SpellStatType.Firerate).Max);
     }
 }

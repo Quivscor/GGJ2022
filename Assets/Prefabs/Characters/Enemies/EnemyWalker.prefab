@@ -540,16 +540,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614a92126eae5ef42b650a867f90c32f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 4.5
-  dashSpeed: 30
   dashCooldown: 35
   dashDuration: 0.1
   slowParticles: {fileID: 4551739651352572430}
   animator: {fileID: 2517903647456291434}
   character: {fileID: 8363546051398283280}
   dashVisualEffects: {fileID: 8342484823095861236}
-  slowEffectTime: 2
-  slowedMovementSpeedFactor: 0.5
+  stats: {fileID: 0}
   dashSound: {fileID: 8087865940997899461}
 --- !u!114 &8823885752599419113
 MonoBehaviour:
@@ -569,9 +566,27 @@ MonoBehaviour:
   wizardNameTMP: {fileID: 8398635241428480716}
   upgradeIconsHolder: {fileID: 963424401196409106}
   wizardName: 
-  health: 0
-  maxHealth: 50
-  maxResource: 100
+  initialStatValues:
+  - CharacterStatType: 0
+    SpellStatType: 12
+    value: 20
+    isMultiplicative: 0
+  - CharacterStatType: 1
+    SpellStatType: 12
+    value: 100
+    isMultiplicative: 0
+  - CharacterStatType: 2
+    SpellStatType: 12
+    value: 7
+    isMultiplicative: 0
+  _leftSpell:
+    spellType: 0
+    baseData: {fileID: 11400000, guid: c889e6078c6a4d247b8b658266c86c00, type: 2}
+    spellBoosts: []
+  _rightSpell:
+    spellType: 1
+    baseData: {fileID: 11400000, guid: c889e6078c6a4d247b8b658266c86c00, type: 2}
+    spellBoosts: []
   harmonyLevel: 0
   chaosLevel: 0
   resourceChanged:
@@ -594,19 +609,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1881288736024043230, guid: dc68e8b19d87b704d9840ea67eaa1e54, type: 3}
-  leftSpell:
-    spellType: 0
-    baseData: {fileID: 11400000, guid: c889e6078c6a4d247b8b658266c86c00, type: 2}
-    currentData: {fileID: 0}
-    spellBoosts: []
-  rightSpell:
-    spellType: 1
-    baseData: {fileID: 11400000, guid: c889e6078c6a4d247b8b658266c86c00, type: 2}
-    currentData: {fileID: 0}
-    spellBoosts: []
   spellMissileIgnoreTagList:
   - Enemy
   - EnemyShield
+  spellMissileBounceTagList: []
   bulletOrigin: {fileID: 5201733939742536638}
   leftSpellLastTime: 2
   rightSpellLastTime: 2

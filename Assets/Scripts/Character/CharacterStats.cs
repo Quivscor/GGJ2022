@@ -28,16 +28,24 @@ public class CharacterStats : MonoBehaviour
 
     [Header("Stats")]
     public string wizardName;
-    [SerializeField]
-    private float health;
-    [SerializeField]
-    public float maxHealth = 100;
-    [SerializeField]
-    private float maxResource = 100;
+
+    //use this to initialize stats with values
+    [Header("Base stats")]
+    [SerializeField] private List<StatToChange> initialStatValues;
+    private Dictionary<CharacterStatType, GameStat> _statsDictionary;
+    [SerializeField] private Spell _leftSpell;
+    [SerializeField] private Spell _rightSpell;
+    public Spell LeftSpell => _leftSpell;
+    public Spell RightSpell => _rightSpell;
+
     [SerializeField]
     private int harmonyLevel = 0;
     [SerializeField]
     private int chaosLevel = 0;
+
+    #region Buffs
+    private List<Buff> _activeBuffs;
+    #endregion
 
     [Header("Event actions")]
     [SerializeField]
@@ -49,9 +57,7 @@ public class CharacterStats : MonoBehaviour
     public Action<CharacterStats> died;
     public bool isDead { get; private set; }
 
-    private float primaryResource;
-    public float Health { get => health;}
-    public float MaxHealth { get => maxHealth; }
+
     public int HarmonyLevel { get => harmonyLevel; }
     public int ChaosLevel { get => chaosLevel; }
     public bool Immortality { get => immortality; set => immortality = value; }
@@ -65,17 +71,82 @@ public class CharacterStats : MonoBehaviour
             healAudio.Play();
     }
 
+    private void Awake()
+    {
+        _statsDictionary = new Dictionary<CharacterStatType, GameStat>();
+        for (CharacterStatType i = 0; i != CharacterStatType.UNDEFINED; i++)
+        {
+            float inspectorStat = initialStatValues.Find((x) => x.CharacterStatType == i).value;
+            _statsDictionary.Add(i, new GameStat(inspectorStat));
+        }
+
+        _activeBuffs = new List<Buff>();
+    }
+
     void Start()
     {
         if(wizardNameTMP != null)
         wizardNameTMP.text = wizardName;
 
-        health = MaxHealth;
+        GameStat health = _statsDictionary[CharacterStatType.Health];
         if (healthBarFill != null)
-            healthBarFill.fillAmount = health / maxHealth;
-        primaryResource = maxResource / 2f;
-        resourceChanged?.Invoke(primaryResource / maxResource);
+            healthBarFill.fillAmount = health.Current / health.Max;
+        _statsDictionary[CharacterStatType.Resource].SetCurrentValue(_statsDictionary[CharacterStatType.Resource].Max / 2);
+        resourceChanged?.Invoke(_statsDictionary[CharacterStatType.Resource].Current / _statsDictionary[CharacterStatType.Resource].Max);
         isDead = false;
+    }
+
+    private void Update()
+    {
+        float time = Time.deltaTime;
+
+        foreach (Buff b in _activeBuffs)
+            b.UpdateTimer(time);
+    }
+
+    public GameStat GetStat(CharacterStatType type)
+    {
+        return _statsDictionary[type];
+    }
+
+    public void ApplyBuff(Buff buff)
+    {
+        if(_activeBuffs.Contains(buff))
+        {
+            Buff b = _activeBuffs.Find((x) => x == buff);
+            b.stackCount++;
+            if (b.IsRefreshDurationOnIncreaseStack)
+                b.RefreshDuration();
+        }
+        else
+            _activeBuffs.Add(buff);
+        buff.BuffExpired += RemoveBuff;
+
+        UpdateStats();
+    }
+
+    public void RemoveBuff(Buff buff)
+    {
+        _activeBuffs.Remove(buff);
+
+        UpdateStats();
+    }
+
+    //here's dynamic stats change from buffs and debuffs, as opposed to static update in UpdateBaseStats
+    private void UpdateStats()
+    {
+        foreach(Buff b in _activeBuffs)
+        {
+            _statsDictionary[b.BuffData.charBuffType].UpdateTemporaryValue(b.BuffData.buffValue);
+        }
+    }
+
+    public void UpdateBaseStat(CharacterStatType type, float value, bool isMultiplicative = false)
+    {
+        if (isMultiplicative)
+            _statsDictionary[type].UpdateBaseValue(_statsDictionary[type].InitValue * value);
+        else
+            _statsDictionary[type].UpdateBaseValue(value);
     }
 
     public void ReloadScene()
@@ -91,30 +162,33 @@ public class CharacterStats : MonoBehaviour
 
     public void Heal(float value)
     {
-        health += value;
-        if (health > MaxHealth)
-            health = MaxHealth;
+        GameStat health = _statsDictionary[CharacterStatType.Health];
+        health.UpdateCurrentValue(value);
 
-        healthChanged?.Invoke(health/maxHealth);
+        healthChanged?.Invoke(health.Current/health.Max);
         if(healthBarFill != null)
-            healthBarFill.fillAmount = health / maxHealth;
+            healthBarFill.fillAmount = health.Current/health.Max;
     }
 
     public void Resurect()
     {
-        health = maxHealth;
+        GameStat health = _statsDictionary[CharacterStatType.Health];
+        health.SetCurrentValue(health.Max);
         if (healthBarFill != null)
-            healthBarFill.fillAmount = health / maxHealth;
+            healthBarFill.fillAmount = health.Current / health.Max;
         isDead = false;
         GetComponent<CharacterMaterialReplacer>().RevertMat();
     }
 
-    public void DealDamge(float value)
+    public void DealDamage(float value)
     {
         if(!Immortality)
         {
-            health -= value;
-            if (health <= 0 && !isDead)
+            GameStat health = _statsDictionary[CharacterStatType.Health];
+            if (value > 0)
+                value *= -1;
+            health.UpdateCurrentValue(value);
+            if (health.Current <= 0 && !isDead)
             {
                 died?.Invoke(this);
                 GetComponent<CharacterMaterialReplacer>().UseNewMat();
@@ -122,9 +196,9 @@ public class CharacterStats : MonoBehaviour
             }
 
             if (healthBarFill != null)
-                healthBarFill.fillAmount = health / maxHealth;
+                healthBarFill.fillAmount = health.Current / health.Max;
 
-            healthChanged?.Invoke(health / maxHealth);
+            healthChanged?.Invoke(health.Current / health.Max);
             damageReceived?.Invoke(this.transform, value);
         }
     }
@@ -135,14 +209,15 @@ public class CharacterStats : MonoBehaviour
     }
     public bool HaveEnoughResource(float value, SpellType spellType)
     {
+        GameStat resource = _statsDictionary[CharacterStatType.Resource];
         if (spellType == SpellType.Left)
         {
-            if (primaryResource >= value)
+            if (resource.Current >= value)
                 return true;
             else
                 return false;
         }
-        else if (maxResource - primaryResource >= value)
+        else if (resource.Max - resource.Current >= value)
         {
              return true;
         }
@@ -152,19 +227,20 @@ public class CharacterStats : MonoBehaviour
 
     public void SpendResource(float value, SpellType spellType)
     {
-        if(!InfiniteResources)
+        GameStat resource = _statsDictionary[CharacterStatType.Resource];
+        if (!InfiniteResources)
         {
             if (spellType == SpellType.Left)
             {
-                primaryResource -= value;
+                resource.UpdateCurrentValue(-value);
             }
             else
             {
-                primaryResource += value;
+                resource.UpdateCurrentValue(value);
             }
         }
 
-        resourceChanged?.Invoke(primaryResource / maxResource);
+        resourceChanged?.Invoke(resource.Current / resource.Max);
     }
 
     public void AddLevel(SpellType spellType)
@@ -174,9 +250,9 @@ public class CharacterStats : MonoBehaviour
         else
             chaosLevel++;
 
-        if(transform.root.CompareTag("Player"))
-            maxHealth += 25;
-        else
-            maxHealth += 20;
+        //if(transform.root.CompareTag("Player"))
+        //    maxHealth += 25;
+        //else
+        //    maxHealth += 20;
     }
 }
