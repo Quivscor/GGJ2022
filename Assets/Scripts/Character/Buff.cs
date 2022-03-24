@@ -1,15 +1,16 @@
 ﻿using System;
 using DrunkenDwarves;
 
-public class Buff
+public class Buff : IEquatable<Buff>
 {
     public float timeDuration;
     private Timer _expirationTimer;
 
     public int stackCount = 1;
     protected bool _isCanStack = false;
-    protected bool _isRefreshDurationOnIncreaseStack = false;
-    public bool IsRefreshDurationOnIncreaseStack => _isRefreshDurationOnIncreaseStack;
+    public bool IsCanStack => _isCanStack;
+    protected bool _isRefreshDurationOnReapply = false;
+    public bool IsRefreshDurationOnReapply => _isRefreshDurationOnReapply;
 
     protected BuffData _data;
     public BuffData BuffData => _data;
@@ -23,7 +24,7 @@ public class Buff
 
         _data = buff.BuffData;
         _isCanStack = buff._isCanStack;
-        _isRefreshDurationOnIncreaseStack = buff._isRefreshDurationOnIncreaseStack;
+        _isRefreshDurationOnReapply = buff._isRefreshDurationOnReapply;
     }
 
     public Buff(float duration, BuffDataScriptable buffData, bool isCanStack = false, bool isRefreshDurationOnIncreaseStack = false)
@@ -33,7 +34,7 @@ public class Buff
 
         _data = buffData.data;
         _isCanStack = isCanStack;
-        _isRefreshDurationOnIncreaseStack = isRefreshDurationOnIncreaseStack;
+        _isRefreshDurationOnReapply = isRefreshDurationOnIncreaseStack;
     }
 
     public virtual void UpdateTimer(float deltaTime)
@@ -51,9 +52,24 @@ public class Buff
         Dispose();
     }
 
+    public virtual void ApplyEffect(CharacterStats stats, bool isAdditionalStack = false)
+    {
+        stats.GetStat(BuffData.charBuffType).UpdateTemporaryValue(BuffData.buffValue);
+    }
+
+    public virtual void RemoveEffect(CharacterStats stats)
+    {
+        stats.GetStat(BuffData.charBuffType).UpdateTemporaryValue(-BuffData.buffValue);
+    }
+
     protected void Dispose()
     {
         BuffExpired?.Invoke(this);
+    }
+
+    public bool Equals(Buff other)
+    {
+        return this.BuffData == other.BuffData;
     }
 }
 
@@ -63,4 +79,6 @@ public class BuffData
     public CharacterStatType charBuffType;
     public SpellStatType spellBuffType;
     public float buffValue;
+    //flag to see if stat temporary value should a percentage of max stat value
+    public bool isPercentageOfMaxValue;
 }

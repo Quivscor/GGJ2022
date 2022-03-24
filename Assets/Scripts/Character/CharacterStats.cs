@@ -100,7 +100,8 @@ public class CharacterStats : MonoBehaviour
     {
         float time = Time.deltaTime;
 
-        foreach (Buff b in _activeBuffs)
+        //has to be new list, because it is being updated in real time
+        foreach (Buff b in new List<Buff>(_activeBuffs))
             b.UpdateTimer(time);
     }
 
@@ -113,32 +114,28 @@ public class CharacterStats : MonoBehaviour
     {
         if(_activeBuffs.Contains(buff))
         {
-            Buff b = _activeBuffs.Find((x) => x == buff);
-            b.stackCount++;
-            if (b.IsRefreshDurationOnIncreaseStack)
+            Buff b = _activeBuffs.Find((x) => x.Equals(buff));
+            if(b.IsCanStack)
+            {
+                b.stackCount++;
+                b.ApplyEffect(this, true);
+            }
+            if (b.IsRefreshDurationOnReapply)
                 b.RefreshDuration();
         }
         else
+        {
             _activeBuffs.Add(buff);
-        buff.BuffExpired += RemoveBuff;
-
-        UpdateStats();
+            buff.ApplyEffect(this);
+            buff.BuffExpired += RemoveBuff;
+        }
     }
 
     public void RemoveBuff(Buff buff)
     {
         _activeBuffs.Remove(buff);
 
-        UpdateStats();
-    }
-
-    //here's dynamic stats change from buffs and debuffs, as opposed to static update in UpdateBaseStats
-    private void UpdateStats()
-    {
-        foreach(Buff b in _activeBuffs)
-        {
-            _statsDictionary[b.BuffData.charBuffType].UpdateTemporaryValue(b.BuffData.buffValue);
-        }
+        buff.RemoveEffect(this);
     }
 
     public void UpdateBaseStat(CharacterStatType type, float value, bool isMultiplicative = false)

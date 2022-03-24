@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 801a5423019281c42ae9c9cd4f504208, type: 3}
+  m_Name: SlowOnHitBoost
+  m_EditorClassIdentifier: 
+  id: 0
+  sortingPriority: 0
+  tags: []
+  spellName: Slippery Snail
+  description: Slows down hit opponents by **flat value of 5 right now**
+  icon: {fileID: 0}
+  resourceModifier: 0.1
+  spellType: 2
+  statsToChange: []
+  debuffDuration: 3
+  debuffData: {fileID: 11400000, guid: bf65b4f2ced13954bbb275bde7e9774d, type: 2}
